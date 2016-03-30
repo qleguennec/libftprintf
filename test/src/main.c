@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 19:52:26 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/03/30 20:42:45 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/03/30 23:30:51 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 int			main(void)
 {
-	ft_printf("%d", 10);
+	ft_printf("call1: %d\n", 10009);
+	ft_printf("call2: %d\n", 76);
+	ft_printf("call3: %d\n", 42);
 }

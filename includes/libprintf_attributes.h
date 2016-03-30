@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:29:31 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/03/30 20:56:38 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/03/30 23:01:12 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,22 @@
 
 typedef struct		s_attrs
 {
-	size_t			width;
-	size_t			length;
-	char			fill_char;
-	int				fill_right;
+	int				sharp;
+	int				zero;
+	int				minus;
+	int				space;
+	int				plus;
 }					t_attrs;
 
-void				sharp_attr(t_attrs *a);
-
-typedef void		(* t_attr_f)(t_attrs *);
 typedef struct		s_attr_spec
 {
 	char			name[3];
-	t_attr_f		attr_f;
+	size_t			offset;
 }					t_attr_spec;
 
-static t_attr_spec	attributes_arr[] =
+static t_attr_spec	attrs_arr[] =
 {
-	{ "#\000\000", &sharp_attr },
+	{ "#", offsetof(t_attrs, sharp) },
 };
-
-static t_bst_tree	*attributes = NULL;
-
 
 #endif

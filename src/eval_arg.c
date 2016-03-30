@@ -6,14 +6,21 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/03/30 20:44:33 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/03/30 23:30:14 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libprintf_intern.h>
 
-char				*eval_arg
-	(char **fmt, char *sep, void *arg)
+t_vect				*build_result
+	(t_vect *builder, t_attrs *attrs)
+{
+	(void)attrs;
+	return (ft_lstbuild(builder->content));
+}
+
+t_vect				*eval_arg
+	(t_printf_conf *conf, char **fmt, char *sep, void *arg)
 {
 	t_attr_spec		*as;
 	t_conv_spec		*cs;
@@ -24,14 +31,13 @@ char				*eval_arg
 	if (!(attrs = ft_memalloc(sizeof(*attrs))))
 		p_exit(PRINTF_ERR_MALLOC, " in function eval_arg");
 	while ((*letter = *sep)
-		&& (as = (t_attr_spec *)bst_search(attributes, letter, &cmp)))
+		&& (as = (t_attr_spec *)bst_search(conf->attrs, letter, &cmp)))
 	{
-		as->attr_f(attrs);
+		ft_memset(attrs + as->offset, 0xFF, sizeof(int));
 		sep++;
 	}
-	if (!(cs = (t_conv_spec *)bst_search(conversions, letter, &cmp)))
+	if (!(cs = (t_conv_spec *)bst_search(conf->convs, letter, &cmp)))
 		p_exit(PRINTF_ERR_CONV, letter);
-	cs->conv_f(arg);
-	*fmt = sep;
-	return (NULL);
+	*fmt = sep + 1;
+	return (build_result(cs->conv_f(arg), attrs));
 }

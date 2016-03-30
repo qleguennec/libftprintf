@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:00 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/03/30 18:42:34 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/03/30 23:30:06 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ int			ft_printf
 	va_list	l;
 	char	*sep;
 	char	*fmt;
-	char	*result;
+	t_vect	*result;
 	void	*arg;
 
-	init();
+	if (!conf)
+		conf = init_conf();
 	fmt = (char *)format;
 	va_start(l, format);
 	while (*fmt)
@@ -33,9 +34,9 @@ int			ft_printf
 		}
 		write(1, fmt, sep - format);
 		arg = va_arg(l, void*);
-		result = eval_arg(&fmt, sep + 1, arg);
-		ft_putstr(result);
-		ft_strdel(&result);
+		result = eval_arg(conf, &fmt, sep + 1, arg);
+		write(1, result->content, result->size);
+		ft_memdel((void **)&result);
 	}
 	va_end(l);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/03/30 20:57:12 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/03/30 23:00:49 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,9 @@ typedef struct		s_conv_spec
 
 t_vect				*d_conv(void *x);
 
-static t_conv_spec	conversions_arr[] =
+static t_conv_spec	convs_arr[] =
 {
-	{ "d\000\000",  &d_conv },
+	{ "d",  &d_conv },
 };
-static t_bst_tree	*conversions = NULL;
-
 
 #endif
