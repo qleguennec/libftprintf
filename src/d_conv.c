@@ -1,42 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   d_conv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/19 18:27:00 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/03/30 18:42:34 by qle-guen         ###   ########.fr       */
+/*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
+/*   Updated: 2016/03/30 19:35:36 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libprintf_intern.h>
 
-int			ft_printf
-	(const char *format, ...)
+t_vect		*d_conv
+	(void *x)
 {
-	va_list	l;
-	char	*sep;
-	char	*fmt;
-	char	*result;
-	void	*arg;
+	char	*buf;
+	t_list	*build;
+	t_vect	*builder;
 
-	init();
-	fmt = (char *)format;
-	va_start(l, format);
-	while (*fmt)
+	if (!((buf = ft_itoa((*(int*)x)))
+		&& (builder = malloc(sizeof(*builder)))
+		&& (build = malloc(sizeof(*build)))))
 	{
-		if (!(sep = ft_strchr(fmt, '%')))
-		{
-			ft_putstr(fmt);
-			break;
-		}
-		write(1, fmt, sep - format);
-		arg = va_arg(l, void*);
-		result = eval_arg(&fmt, sep + 1, arg);
-		ft_putstr(result);
-		ft_strdel(&result);
+		return (NULL);
+		p_exit(PRINTF_ERR_MALLOC, " in function d_conv");
 	}
-	va_end(l);
-	return (1);
+	build->content = buf;
+	build->content_size = ft_strlen(buf);
+	builder->content = build;
+	return (builder);
 }

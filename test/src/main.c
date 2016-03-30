@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libprintf.h                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/03/19 18:28:02 by qle-guen         ###   ########.fr       */
+/*   Created: 2016/03/30 19:52:26 by qle-guen          #+#    #+#             */
+/*   Updated: 2016/03/30 20:42:45 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBPRINTF_H
-# define LIBPRINTF_H
+#include <libprintf_intern.h>
 
-#include <libft.h>
-
-int			ft_printf(void);
-
-#endif
+int			main(void)
+{
+	ft_printf("%d", 10);
+}

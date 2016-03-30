@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/19 18:26:13 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/03/19 18:26:51 by qle-guen         ###   ########.fr       */
+/*   Created: 2016/03/30 19:05:39 by qle-guen          #+#    #+#             */
+/*   Updated: 2016/03/30 19:36:41 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libprintf.h>
+#include <libprintf_intern.h>
 
-int			main
-	(int argc, char **argv)
+void		p_exit(char *s1, char *s2)
 {
-	(void)argc;
-	(void)argv;
-	return (0);
+	ft_putstr("libprintf: ");
+	ft_putstr(s1);
+	ft_putendl(s2 ? s2 : "");
+	exit(1);
 }

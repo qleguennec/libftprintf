@@ -1,42 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   cmp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/19 18:27:00 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/03/30 18:42:34 by qle-guen         ###   ########.fr       */
+/*   Created: 2016/03/30 19:09:59 by qle-guen          #+#    #+#             */
+/*   Updated: 2016/03/30 20:51:33 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libprintf_intern.h>
 
-int			ft_printf
-	(const char *format, ...)
+int			cmp(void *a, void *b)
 {
-	va_list	l;
-	char	*sep;
-	char	*fmt;
-	char	*result;
-	void	*arg;
+	char	s1[3];
+	char	s2[3];
 
-	init();
-	fmt = (char *)format;
-	va_start(l, format);
-	while (*fmt)
-	{
-		if (!(sep = ft_strchr(fmt, '%')))
-		{
-			ft_putstr(fmt);
-			break;
-		}
-		write(1, fmt, sep - format);
-		arg = va_arg(l, void*);
-		result = eval_arg(&fmt, sep + 1, arg);
-		ft_putstr(result);
-		ft_strdel(&result);
-	}
-	va_end(l);
-	return (1);
+	ft_memcpy(s1, a, 3);
+	ft_memcpy(s2, b, 3);
+	printf("cmp: %s, %s\n", s1, s2);
+	return (ft_strcmp(s1, s2));
 }
