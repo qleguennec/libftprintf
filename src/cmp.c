@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 19:09:59 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/01 16:36:52 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/01 23:11:35 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,10 @@
 
 int			cmp(void *a, void *b)
 {
-	return (ft_memcmp(a, b, 1));
+	char	x;
+	char	y;
+
+	x = *((char *)a);
+	y = *((char *)b);
+	return (x - y);
 }

@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/01 18:56:42 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/01 23:26:53 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ static void			get_result
 		s += l->content_size;
 		l = l->next;
 	}
-	s -= builder->size;
 	ft_lstdel((t_list **)&builder->content, &ft_delete);
-	builder->content = s;
+	builder->content = s - builder->size;
 }
 
 static t_vect		*build_result
@@ -58,22 +57,22 @@ t_vect				*eval_arg
 {
 	t_attr_spec		*as;
 	t_conv_spec		*cs;
+	t_conv_spec		self;
 	t_vect			*builder;
 	t_attrs			attrs;
-	char			letter[3];
 
 	attrs = 0;
-	ft_bzero(letter, 3);
-	while ((*letter = *sep)
-		&& (as = (t_attr_spec *)bst_search(conf->attrs, letter, &cmp)))
+	while ((as = bst_search(conf->attrs, sep, &cmp)))
 	{
 		attrs |= 1 << as->offset;
 		sep++;
 	}
-	if (!(cs = (t_conv_spec *)bst_search(conf->convs, letter, &cmp)))
-		p_exit(PRINTF_ERR_CONV, letter);
-	builder = cs->conv_f(arg, cs);
+	if (!(cs = (bst_search(conf->convs, sep, &cmp))))
+		p_exit(PRINTF_ERR_CONV, sep);
+	ft_memcpy(&self, cs, sizeof(self));
+	builder = self.conv_f(&self, arg);
 	init_builder(builder);
+	eval_attrs(&self, builder, attrs, arg);
 	*fmt = sep + 1;
 	return (build_result(builder, &attrs));
 }

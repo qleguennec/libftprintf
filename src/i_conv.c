@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/01 18:39:35 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/01 22:42:10 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,40 @@ static unsigned long	get_mask
 	size_t				i;
 
 	i = 0;
-	ft_bzero(&mask, sizeof(mask));
+	mask = 0;
 	while (i < size * 8)
-	{
 		mask |= (unsigned long)1 << i++;
-	}
 	return (mask);
 }
 
+static unsigned long	abs_value
+	(t_conv_spec *self, void *x)
+{
+	unsigned long		ret;
+	unsigned long		mask;
+
+	ret = (unsigned long)x;
+	mask = get_mask(self->size);
+	if (self->sign & (ret >> (8 * self->size - 1)))
+	{
+		ret = mask & (~ ret) + 1;
+		self->sign += 2;
+	}
+	return (ret);
+}
+
 t_vect					*i_conv
-	(void *x, t_conv_spec *self)
+	(t_conv_spec *self, void *x)
 {
 	char				*nb;
 	t_vect				*ret;
 	size_t				base;
-	unsigned long		mask;
 	unsigned long		y;
 
 	if (!(ret = ft_memalloc(sizeof(*ret))))
 		p_exit(PRINTF_ERR_MALLOC, " in integer conversion");
 	base = ft_strlen(alphabets[self->base]);
-	mask = get_mask(self->size);
-	y = (unsigned long)x;
-	if ((self->sign &= (y >> (8 * self->size - 1))))
-		y = mask & (~ y) + 1;
+	y = abs_value(self, x);
 	ret->size = digits_nb((void *)y, base);
 	if (!(nb = malloc(ret->size)))
 		p_exit(PRINTF_ERR_MALLOC, " in integer conversion");
