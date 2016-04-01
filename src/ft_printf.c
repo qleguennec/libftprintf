@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:00 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/03/30 23:30:06 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/01 18:57:19 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ int			ft_printf
 			ft_putstr(fmt);
 			break;
 		}
-		write(1, fmt, sep - format);
+		write(1, fmt, sep - fmt);
 		arg = va_arg(l, void*);
 		result = eval_arg(conf, &fmt, sep + 1, arg);
 		write(1, result->content, result->size);
-		ft_memdel((void **)&result);
+		free(result->content);
+		free(result);
 	}
 	va_end(l);
 	return (1);

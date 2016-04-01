@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   d_conv.c                                           :+:      :+:    :+:   */
+/*   libprintf_alphabets.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/03/30 23:03:23 by qle-guen         ###   ########.fr       */
+/*   Created: 2016/04/01 14:52:30 by qle-guen          #+#    #+#             */
+/*   Updated: 2016/04/01 16:39:47 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libprintf_intern.h>
+#ifndef LIBPRINTF_ALPHABETS_H
+# define LIBPRINTF_ALPHABETS_H
 
-t_vect		*d_conv
-	(void *x)
+#define BASE2		0
+#define BASE10		1
+#define BASE16LOW	2
+#define BASE16UP	3
+
+static char		*alphabets[] =
 {
-	char	*buf;
-	t_list	*build;
-	t_vect	*builder;
+	"01",
+	"0123456789",
+	"0123456789abcdef",
+	"0123456789ABCDEF",
+};
 
-	if (!((buf = ft_itoa((int)x))
-		&& (builder = malloc(sizeof(*builder)))
-		&& (build = malloc(sizeof(*build)))))
-	{
-		return (NULL);
-		p_exit(PRINTF_ERR_MALLOC, " in function d_conv");
-	}
-	build->content = buf;
-	build->content_size = ft_strlen(buf);
-	builder->content = build;
-	return (builder);
-}
+#endif
