@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/01 23:13:47 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/02 13:06:26 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@
 typedef struct		s_conv_spec
 {
 	char			name;
-	t_vect 			*(* conv_f)(struct s_conv_spec *, void *);
+	t_list
+		*(* conv_f)(struct s_conv_spec *, void *, size_t);
 	unsigned int	sign : 2;
 	size_t			size;
 	unsigned int	base : 3;
 }					t_conv_spec;
 
-t_vect				*i_conv(t_conv_spec *self, void *x);
+t_list				*i_conv
+	(t_conv_spec *self, void *x, size_t precision);
 
 static t_conv_spec	convs_arr[] =
 {

@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/01 22:42:10 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/02 13:09:46 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,28 @@ static unsigned long	abs_value
 	return (ret);
 }
 
-t_vect					*i_conv
-	(t_conv_spec *self, void *x)
+t_list					*i_conv
+	(t_conv_spec *self, void *x, size_t precision)
 {
-	char				*nb;
-	t_vect				*ret;
+	t_list				*ret;
+	size_t				len;
 	size_t				base;
 	unsigned long		y;
 
-	if (!(ret = ft_memalloc(sizeof(*ret))))
-		p_exit(PRINTF_ERR_MALLOC, " in integer conversion");
+	(void)precision;
 	base = ft_strlen(alphabets[self->base]);
 	y = abs_value(self, x);
-	ret->size = digits_nb((void *)y, base);
-	if (!(nb = malloc(ret->size)))
-		p_exit(PRINTF_ERR_MALLOC, " in integer conversion");
-	nb += ret->size;
+	len = digits_nb((void *)y, base);
+	if (!(ret = ft_lstnew(NULL, len)))
+		return (NULL);
+	ret->content += len;
 	while (y >= base)
 	{
-		*--nb = *(alphabets[self->base] + y % base);
+		ret->content--;
+		(*(char *)ret->content) = *(alphabets[self->base] + y % base);
 		y /= base;
 	}
-	*--nb = *(alphabets[self->base] + y);
-	ret->content = nb;
+	ret->content--;
+	(*(char *)ret->content) = *(alphabets[self->base] + y);
 	return (ret);
 }
