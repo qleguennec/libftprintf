@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/02 23:27:33 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/03 01:40:01 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,36 @@ static t_list		*find_sep
 	return (ret);
 }
 
+int					get_result
+	(t_list **builder, t_conv_spec *cs, int width, t_attrs attrs)
+{
+	t_list			*l;
+	char			letter;
+	size_t			list_len;
+
+	list_len = ft_lstsum(*builder);
+	if ((unsigned int)width <= list_len || (cs->sign >> 1))
+		return (ft_lstbuild(*builder));
+	if (!(l = ft_lstnew(NULL, width - list_len)))
+		return (0);
+	if ((1 << MINUS_OFFSET) & attrs)
+		letter = ' ';
+	else
+		letter = ((1 << ZERO_OFFSET ? '0' : ' '));
+	ft_memset(l->content, letter, width - list_len);
+	if (!(*builder)->next || ((1 << MINUS_OFFSET) & attrs))
+	{
+		if ((1 << MINUS_OFFSET) & attrs)
+			ft_lstadd_end(builder, l);
+		else
+			ft_lstadd(builder, l);
+		return (ft_lstbuild(*builder));
+	}
+	l->next = (*builder)->next;
+	(*builder)->next = l;
+	return (ft_lstbuild(*builder));
+}
+
 t_list				*parse_fmt
 	(char **fmt, void ***args, t_printf_conf *conf)
 {
@@ -73,7 +103,7 @@ t_list				*parse_fmt
 	ft_lstadd(&ret, parse_conv(&cs, **args, fmt, conf));
 	ft_lstadd(&ret, eval_attrs(&cs, **args, attrs));
 	(*args)++;
-	if (!ft_lstbuild(ret))
+	if (!get_result(&ret, &cs, width, attrs))
 		p_exit(PRINTF_ERR_BUILD, *fmt);
 	return (ret);
 }
