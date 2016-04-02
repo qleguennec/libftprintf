@@ -6,22 +6,20 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:13:57 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/01 23:26:30 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/02 18:29:48 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libprintf_intern.h>
 
-static void	sharp_attr
-	(t_conv_spec *self, t_vect *builder, void *x)
+static t_list	*sharp_attr
+	(t_conv_spec *self, void *x)
 {
-	char	s[2];
-	t_list	*l;
-	size_t	len;
+	char		s[3];
 
 	if (!x)
-		return ;
-	ft_bzero(s, 2);
+		return (NULL);
+	ft_bzero(s, 3);
 	if (self->name == 'o')
 		*s = '0';
 	else if (self->name == 'x')
@@ -29,35 +27,27 @@ static void	sharp_attr
 	else if (self->name == 'X')
 		ft_strcpy(s, "0X");
 	else
-		return ;
-	len = ft_strlen(s);
-	if (!(l = ft_lstnew(s, len)))
-		p_exit(PRINTF_ERR_MALLOC, " in function sharp_attr");
-	ft_lstadd((t_list **)&builder->content, l);
-	builder->size += len;
+		return (NULL);
+	return (ft_lstnew(s, ft_strlen(s)));
 }
 
-void		eval_attrs
-	(t_conv_spec *self, t_vect *builder, t_attrs attrs, void *x)
+t_list			*eval_attrs
+	(t_conv_spec *self, void *x, t_attrs attrs)
 {
-	char	sign;
-	t_list	*l;
+	char		sign;
+	t_list		*l;
 
+	l = NULL;
+	sign = 0;
 	if ((1 << SHARP_OFFSET) & attrs)
-		sharp_attr(self, builder, x);
-	if (!self->sign)
-		return ;
+		ft_lstadd(&l, sharp_attr(self, x));
 	if (self->sign >> 1)
 		sign = '-';
 	else if ((1 << PLUS_OFFSET) & attrs)
 		sign = '+';
 	else if ((1 << SPACE_OFFSET) & attrs)
 		sign = ' ';
-	else
-		return ;
-	if (!(l = ft_lstnew(NULL, 1)))
-		p_exit(PRINTF_ERR_MALLOC, " in function eval_attrs");
-	(*(char *)l->content) = sign;
-	ft_lstadd((t_list **)&builder->content, l);
-	builder->size++;
+	if (sign)
+		ft_lstadd(&l, ft_lstnew(&sign, 1));
+	return (l);
 }

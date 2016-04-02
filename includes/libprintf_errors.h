@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:16:53 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/02 13:16:28 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/02 23:25:41 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 #define PRINTF_ERR_MALLOC	"malloc error"
 #define PRINTF_ERR_ATTR		"unknown attr: "
 #define PRINTF_ERR_CONV		"unknown conversion: "
-#define PRINTF_ERR_BUILD	"error building string"
+#define PRINTF_ERR_BUILD	"error building string: "
 
 #endif
