@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/02 15:47:30 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/02 16:56:05 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ t_list				*parse_fmt
 	attrs = 0;
 	parse_attrs(fmt, &attrs, conf);
 	ft_lstadd(&ret, parse_conv(fmt, **args, conf));
-	(**args)++;
+	(*args)++;
 	return (ret);
 }
