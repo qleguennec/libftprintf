@@ -17,7 +17,7 @@ if [ -z "$MAKEFILE_DIR" ]; then
 	MAKEFILE_DIR="./"
 fi
 
-CPY=(auteur includes src "$MAKEFILE_DIR/Makefile" src.mk)
+CPY=(auteur includes src "$MAKEFILE_DIR/Makefile" src.mk lib)
 
 for DIR in ${CPY[@]}; do
 	cp -r $DIR $RENDU_DIR 2> /dev/null

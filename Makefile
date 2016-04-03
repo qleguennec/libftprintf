@@ -75,7 +75,7 @@ test:
 	@test/test-functions-used.sh
 
 rendu:
-	@RENDU_DIR="/tmp" MAKEFILE_DIR="util" MAKE="deps" util/rendu.sh
+	@RENDU_DIR="test/lib" MAKEFILE_DIR="util" MAKE="deps" util/rendu.sh
 
 purge:
 	@util/purge.sh
