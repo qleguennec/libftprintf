@@ -24,12 +24,13 @@ echo -e "$INFO"Starting tests$END
 
 set -e
 test/test-printf
+make fclean
 
 echo -e "$INFO"Starting moulitest$END
-make -s rendu
+cp util/Makefile test/lib/libftprintf
 cd test
 if [ ! -d "moulitest" ]; then
 	git clone http://github.com/yyang42/moulitest.git
 fi
-echo "FT_PRINTF_PATH = /tmp/$PROJECT" > moulitest/config.ini
+echo "FT_PRINTF_PATH = $(pwd)/lib/libftprintf" > moulitest/config.ini
 make -C moulitest ft_printf
