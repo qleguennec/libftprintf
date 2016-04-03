@@ -1,4 +1,5 @@
 # Directories
+PROJECT		=	libftprintf
 BINDIR		?=	.
 SRCDIR		?=	src
 BUILDDIR	?=	build
@@ -6,7 +7,7 @@ LIBDIR		?=	$(BUILDDIR)
 DEPSDIR		?=	lib
 INCLUDE		+=	includes
 INCLUDE		+=	$(addsuffix /includes,$(LIBS))
-NAME		=	libprintf.a
+NAME		=	libftprintf.a
 TARGET		=	$(BINDIR)/$(NAME)
 
 # Compiler options
@@ -74,7 +75,7 @@ test:
 	@test/test-functions-used.sh
 
 rendu:
-	@util/rendu.sh
+	@RENDU_DIR="/tmp" MAKEFILE_DIR="util" MAKE="deps" util/rendu.sh
 
 purge:
 	@util/purge.sh

@@ -35,7 +35,7 @@ OBJECTS		=	$(addprefix $(BUILDDIR)/, $(SRC:%.c=%.o))
 LIBS		=	$(addprefix $(LIBDIR)/, $(addsuffix .a,$(LIBSRC)))
 
 all: deps $(TARGET)
-$(LIBDIR)/libprintf.a: $(LIBDIR)/libft.a $(LIBDIR)/libbst.a
+$(LIBDIR)/libftprintf.a: $(LIBDIR)/libft.a $(LIBDIR)/libbst.a
 $(LIBDIR)/libbst.a: $(LIBDIR)/libft.a
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c

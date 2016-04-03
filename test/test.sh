@@ -1,11 +1,10 @@
 #!/bin/bash
 
-RENDU_DIR=$(pwd)/test/lib/libprintf . util/rendu.sh
+RENDU_DIR=$(pwd)/test/lib . util/rendu.sh
 make -C test re
 if [ "$?" -ne 0 ]; then
 	exit 1
 fi
-cd test
 
 CK="\033[0;30m"
 RED="\033[0;31m"
@@ -23,5 +22,15 @@ INFO=$CYAN
 
 echo -e "$INFO"Starting tests$END
 
-./test-printf
-exit $?
+set -e
+test/test-printf
+
+echo -e "$INFO"Starting moulitest$END
+make -s rendu
+cd test
+if [ ! -d "moulitest" ]; then
+	git clone http://github.com/yyang42/moulitest.git
+fi
+cd moulitest
+echo "FT_PRINTF_PATH = /tmp/libftprintf" > config.ini
+make ft_printf

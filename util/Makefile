@@ -1,4 +1,5 @@
 # Directories
+PROJECT		=	libftprintf
 BINDIR		?=	.
 SRCDIR		?=	src
 BUILDDIR	?=	build
@@ -53,11 +54,11 @@ $(LIBDIR)/%.a: $(DEPSDIR)/%
 	@echo $(GREEN)+++ static lib:'\t'$(END)$(LIBDIR)/'\t'$(CYAN)$(@F)$(END)
 
 $(BUILDDIR)/$(NAME): $(OBJECTS)
-	@ar rc $(@) $< > /dev/null
+	@ar rc $(@) $(OBJECTS)
 	@echo $(GREEN)+++ static lib:'\t'$(END)$(BUILDDIR)/'\t'$(CYAN)$(@F)$(END)
 
-$(TARGET): $(BUILDDIR)/$(NAME) $(LIBS)
-	@ar qT $(@) $< $(LIBS) > /dev/null
+$(TARGET): $(LIBS) $(BUILDDIR)/$(NAME)
+	@ar qT $(@) $(BUILDDIR)/$(NAME) $(LIBS)
 	@echo $(GREEN)+++ target:'\t'$(END)./'\t'$(BLUE)$(NAME)$(END)
 
 $(DEPSDIR)/%:
