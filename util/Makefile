@@ -6,13 +6,13 @@ LIBDIR		?=	$(BUILDDIR)
 DEPSDIR		?=	lib
 INCLUDE		+=	includes
 INCLUDE		+=	$(addprefix $(DEPSDIR)/,$(addsuffix /includes,$(LIBSRC)))
-NAME		=	test-printf
+NAME		=	libftprintf.a
 TARGET		=	$(BINDIR)/$(NAME)
 
 # Compiler options
 CC			=	clang
 LIBFLAGS	=	$(subst lib,-l,$(LIBSRC))
-CFLAGS		=	$(addprefix -I,$(INCLUDE)) -g
+CFLAGS		=	$(addprefix -I,$(INCLUDE)) -Wall -Wextra -Werror -g
 
 # Color output
 BLACK		=	"\033[0;30m"
@@ -26,17 +26,16 @@ WHITE		=	"\033[0;37m"
 END			=	"\033[0m"
 
 # Source files
-SRC			+=	main.c
+include src.mk
 
 # Libraries
-LIBSRC		=	libftprintf libbst libft
+LIBSRC		=	libbst libft
 
 OBJECTS		=	$(addprefix $(BUILDDIR)/, $(SRC:%.c=%.o))
 LIBS		=	$(addprefix $(LIBDIR)/, $(addsuffix .a,$(LIBSRC)))
 
-all: deps $(TARGET)
-$(LIBDIR)/libprintf.a: $(LIBDIR)/libft.a $(LIBDIR)/libbst.a
-$(LIBDIR)/libbst.a: $(LIBDIR)/libft.a
+all:				deps $(TARGET)
+$(LIBDIR)/libbst.a:	$(LIBDIR)/libft.a
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	@[ -d $(BUILDDIR) ] || mkdir $(BUILDDIR); true
@@ -53,9 +52,13 @@ $(LIBDIR)/%.a: $(DEPSDIR)/%
 		make -s -C $< > /dev/null
 	@echo $(GREEN)+++ static lib:'\t'$(END)$(LIBDIR)/'\t'$(CYAN)$(@F)$(END)
 
-$(TARGET): $(OBJECTS) $(LIBS)
-	@$(CC) $(CFLAGS) -L$(BUILDDIR) $(OBJECTS) $(LIBFLAGS) -o $@
-	@echo $(GREEN)+++ target:'\t'$(END)$(BINDIR)/'\t'$(BLUE)$(NAME)$(END)
+$(BUILDDIR)/$(NAME): $(OBJECTS)
+	@ar rc $(@) $< > /dev/null
+	@echo $(GREEN)+++ static lib:'\t'$(END)$(BUILDDIR)/'\t'$(CYAN)$(@F)$(END)
+
+$(TARGET): $(BUILDDIR)/$(NAME) $(LIBS)
+	@ar qT $(@) $< $(LIBS) > /dev/null
+	@echo $(GREEN)+++ target:'\t'$(END)./'\t'$(BLUE)$(NAME)$(END)
 
 $(DEPSDIR)/%:
 	@git clone http://github.com/qleguennec/$(@F).git $@

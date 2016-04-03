@@ -6,3 +6,4 @@ SRC += eval_attrs.c
 SRC += parse_fmt.c
 SRC += digits.c
 SRC += cmp.c
+SRC += s_conv.c

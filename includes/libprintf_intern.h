@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/02 22:17:24 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/03 09:27:57 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdlib.h>
-
 #include <libprintf_errors.h>
 #include <libprintf_conversions.h>
 #include <libprintf_attributes.h>
@@ -34,7 +33,7 @@ static t_printf_conf	*conf = NULL;
 int						ft_printf(const char *format, ...);
 t_printf_conf			*init_conf(void);
 t_list					*parse_fmt
-	(char **fmt, void ***args, t_printf_conf *conf);
+	(char **fmt, va_list ap, t_printf_conf *conf);
 t_list					*eval_attrs
 	(t_conv_spec *self, void *x, t_attrs attrs);
 void					p_exit(char *s1, char *s2);

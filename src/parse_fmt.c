@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/03 01:40:01 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/03 02:10:08 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,10 @@ int					get_result
 }
 
 t_list				*parse_fmt
-	(char **fmt, void ***args, t_printf_conf *conf)
+	(char **fmt, va_list ap, t_printf_conf *conf)
 {
 	t_list			*ret;
+	void			*arg;
 	int				width;
 	t_attrs			attrs;
 	t_conv_spec		cs;
@@ -100,9 +101,9 @@ t_list				*parse_fmt
 	attrs = parse_attrs(fmt, conf);
 	width = ft_atoi(*fmt);
 	*fmt += (width ? digits_nb((unsigned long)width, 10) : 0);
-	ft_lstadd(&ret, parse_conv(&cs, **args, fmt, conf));
-	ft_lstadd(&ret, eval_attrs(&cs, **args, attrs));
-	(*args)++;
+	arg = va_arg(ap, void *);
+	ft_lstadd(&ret, parse_conv(&cs, arg, fmt, conf));
+	ft_lstadd(&ret, eval_attrs(&cs, arg, attrs));
 	if (!get_result(&ret, &cs, width, attrs))
 		p_exit(PRINTF_ERR_BUILD, *fmt);
 	return (ret);

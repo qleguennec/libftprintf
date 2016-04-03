@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/02 13:06:26 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/03 02:14:41 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct		s_conv_spec
 
 t_list				*i_conv
 	(t_conv_spec *self, void *x, size_t precision);
+t_list				*s_conv
+	(t_conv_spec *self, void *x, size_t precision);
 
 static t_conv_spec	convs_arr[] =
 {
@@ -35,6 +37,7 @@ static t_conv_spec	convs_arr[] =
 	{'o', &i_conv, 0, sizeof(int), BASE8},
 	{'x', &i_conv, 0, sizeof(int), BASE16LOW},
 	{'X', &i_conv, 0, sizeof(int), BASE16UP},
+	{'s', &s_conv, 0, sizeof(int), BASE16UP},
 };
 
 #endif

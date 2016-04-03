@@ -9,7 +9,13 @@ if [ -d "$RENDU_DIR" ]; then
 fi
 
 mkdir -p $RENDU_DIR
-CPY=(auteur includes src Makefile src.mk)
+if [ -f "util/Makefile" ]; then
+	MAKEFILE="util/Makefile"
+else
+	MAKEFILE="MAKEFILE"
+fi
+
+CPY=(auteur includes src $MAKEFILE src.mk)
 
 for DIR in ${CPY[@]}; do
 	cp -r $DIR $RENDU_DIR
