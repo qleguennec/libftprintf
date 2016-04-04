@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:55:58 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/01 16:37:02 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/03 22:30:25 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_bst_tree			*init_convs(void)
 	elem_size = sizeof(t_conv_spec);
 	convs = bst_fromarray(convs_arr, length, elem_size, &cmp);
 	if (!convs)
-		p_exit(PRINTF_ERR_MALLOC, " in function init_convs");
+		return (NULL);
 	return (convs);
 }
 
@@ -36,7 +36,7 @@ t_bst_tree			*init_attrs(void)
 	elem_size = sizeof(t_attr_spec);
 	attrs = bst_fromarray(attrs_arr, length, elem_size, &cmp);
 	if (!attrs)
-		p_exit(PRINTF_ERR_MALLOC, " in function init_attrs");
+		return (NULL);
 	return (attrs);
 }
 

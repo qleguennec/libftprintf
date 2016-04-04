@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/03 02:10:08 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/03 22:30:31 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_list		*parse_conv
 	t_conv_spec		*search;
 
 	if (!(search = bst_search(conf->convs, *fmt, &cmp)))
-		p_exit(PRINTF_ERR_CONV, *fmt);
+		return (NULL);
 	ft_memcpy(cs, search, sizeof(*cs));
 	(*fmt)++;
 	return (cs->conv_f(cs, arg, 0));
@@ -105,6 +105,6 @@ t_list				*parse_fmt
 	ft_lstadd(&ret, parse_conv(&cs, arg, fmt, conf));
 	ft_lstadd(&ret, eval_attrs(&cs, arg, attrs));
 	if (!get_result(&ret, &cs, width, attrs))
-		p_exit(PRINTF_ERR_BUILD, *fmt);
+		return (NULL);
 	return (ret);
 }

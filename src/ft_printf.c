@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:00 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/03 02:09:54 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/03 22:31:07 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int		print_result
 		l = l->next;
 	}
 	if (!(s = ft_strnew(len)))
-		p_exit(PRINTF_ERR_MALLOC, " in function print_result");
+		return (0);
 	l = *builder;
 	s += len;
 	while (l)

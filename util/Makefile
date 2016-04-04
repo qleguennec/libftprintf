@@ -6,7 +6,6 @@ BUILDDIR	?=	build
 LIBDIR		?=	$(BUILDDIR)
 DEPSDIR		?=	lib
 INCLUDE		+=	includes
-INCLUDE		+=	$(addprefix $(DEPSDIR)/,$(addsuffix /includes,$(LIBSRC)))
 NAME		=	libftprintf.a
 TARGET		=	$(BINDIR)/$(NAME)
 
@@ -32,33 +31,22 @@ include src.mk
 # Libraries
 LIBSRC		=	libbst libft
 
-OBJECTS		=	$(addprefix $(BUILDDIR)/, $(SRC:%.c=%.o))
-LIBS		=	$(addprefix $(LIBDIR)/, $(addsuffix .a,$(LIBSRC)))
+OBJECTS		+=	$(foreach lib, $(LIBSRC), $(addprefix $(DEPSDIR)/$(lib)/, $(shell make -s -C $(DEPSDIR)/$(lib) get-OBJECTS)))
+OBJECTS		+=	$(addprefix $(BUILDDIR)/, $(SRC:%.c=%.o))
 
 all:				deps $(TARGET)
-$(LIBDIR)/libbst.a:	$(LIBDIR)/libft.a
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	@[ -d $(BUILDDIR) ] || mkdir $(BUILDDIR); true
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo $(GREEN)+++ obj:'\t'$(END)$(BUILDDIR)/$(YELLOW)'\t'$(@F)$(END)
 
-$(LIBDIR)/%.a: $(DEPSDIR)/%
-	@[ -d $(BUILDDIR)/$* ] || mkdir -p $(BUILDDIR)/$*; true
-	@										\
-		DEPSDIR=$(CURDIR)/$(DEPSDIR)		\
-		BINDIR=$(CURDIR)/$(BUILDDIR)		\
-		BUILDDIR=$(CURDIR)/$(BUILDDIR)/$*	\
-		LIBDIR=$(CURDIR)/$(LIBDIR)			\
-		make -s -C $< > /dev/null
-	@echo $(GREEN)+++ static lib:'\t'$(END)$(LIBDIR)/'\t'$(CYAN)$(@F)$(END)
+$(DEPSDIR)/%.o: $(@D)
+	@INCLUDE=$(CURDIR)/$(INCLUDE) make -s -C $(@D:%/build=% build/$(@F)) > /dev/null
+	@echo $(GREEN)+++ obj:'\t'$(END)$(@D)/$(YELLOW)'\t'$(@F)$(END)
 
-$(BUILDDIR)/$(NAME): $(OBJECTS)
+$(TARGET): $(OBJECTS)
 	@ar rc $(@) $(OBJECTS)
-	@echo $(GREEN)+++ static lib:'\t'$(END)$(BUILDDIR)/'\t'$(CYAN)$(@F)$(END)
-
-$(TARGET): $(LIBS) $(BUILDDIR)/$(NAME)
-	@ar qT $(@) $(BUILDDIR)/$(NAME) $(LIBS)
 	@echo $(GREEN)+++ target:'\t'$(END)./'\t'$(BLUE)$(NAME)$(END)
 
 $(DEPSDIR)/%:
@@ -67,11 +55,11 @@ $(DEPSDIR)/%:
 
 .PHONY: clean fclean re deps clean-deps re-deps test rendu purge get-%
 
-clean:
+clean: $(OBJECTS)
 	@rm $(LIBS) 2> /dev/null &&	\
 	echo $(RED)--- static lib:'\t'$(END)$(LIBDIR)/'\t'$(CYAN)$(LIBS:$(LIBDIR)/%.a=%.a); true
-	@rm $(OBJECTS) 2> /dev/null	\
-	&& echo $(RED)--- obj:'\t'$(END)$(BUILDDIR)/'\t'$(YELLOW)$(OBJECTS:$(BUILDDIR)/%=%)$(END); true
+	@rm $< 2> /dev/null	\
+	&& echo $(RED)--- obj:'\t'$(END)$(<D)/'\t'$(YELLOW)$(<@)$(END); true
 
 fclean: clean
 	@[ -f $(TARGET) ] && rm $(TARGET) \
