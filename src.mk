@@ -1,6 +1,7 @@
 SRC += i_conv.c
 SRC += init_conf.c
 SRC += exit.c
+SRC += percent.c
 SRC += ft_printf.c
 SRC += eval_attrs.c
 SRC += parse_fmt.c

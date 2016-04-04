@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:55:58 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/03 22:30:25 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/04 22:19:01 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_bst_tree			*init_convs(void)
 
 	length = sizeof(convs_arr) / sizeof(t_conv_spec);
 	elem_size = sizeof(t_conv_spec);
-	convs = bst_fromarray(convs_arr, length, elem_size, &cmp);
+	convs = bst_fromarray(convs_arr, length, elem_size, &basic_cmp);
 	if (!convs)
 		return (NULL);
 	return (convs);
@@ -34,7 +34,7 @@ t_bst_tree			*init_attrs(void)
 
 	length = sizeof(attrs_arr) / sizeof(t_attr_spec);
 	elem_size = sizeof(t_attr_spec);
-	attrs = bst_fromarray(attrs_arr, length, elem_size, &cmp);
+	attrs = bst_fromarray(attrs_arr, length, elem_size, &basic_cmp);
 	if (!attrs)
 		return (NULL);
 	return (attrs);

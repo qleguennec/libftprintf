@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:29:31 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 13:42:18 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/04 19:29:09 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ typedef char		t_attrs;
 
 typedef struct		s_attr_spec
 {
-	char			name;
+	char			name[2];
 	unsigned int	mask : 5;
 }					t_attr_spec;
 
 static t_attr_spec	attrs_arr[] =
 {
-	{'#',	SHARP_MASK},
-	{'0',	ZERO_MASK},
-	{'-',	MINUS_MASK},
-	{' ',	SPACE_MASK},
-	{'+',	PLUS_MASK},
+	{"#",	SHARP_MASK},
+	{"0",	ZERO_MASK},
+	{"-",	MINUS_MASK},
+	{" ",	SPACE_MASK},
+	{"+",	PLUS_MASK},
 };
 
 #endif
