@@ -55,11 +55,11 @@ $(DEPSDIR)/%:
 
 .PHONY: clean fclean re deps clean-deps re-deps test rendu purge get-%
 
-clean: $(OBJECTS)
+clean:
 	@rm $(LIBS) 2> /dev/null &&	\
-	echo $(RED)--- static lib:'\t'$(END)$(LIBDIR)/'\t'$(CYAN)$(LIBS:$(LIBDIR)/%.a=%.a); true
-	@rm $< 2> /dev/null	\
-	&& echo $(RED)--- obj:'\t'$(END)$(<D)/'\t'$(YELLOW)$(<@)$(END); true
+	echo $(RED)--- static lib:'\t'$(CYAN)$(LIBS:$(LIBDIR)/%.a=%.a); true
+	@rm $(OBJECTS) 2> /dev/null	\
+	&& echo $(RED)--- obj:'\t'$(YELLOW)$(OBJECTS)$(END); true
 
 fclean: clean
 	@[ -f $(TARGET) ] && rm $(TARGET) \
