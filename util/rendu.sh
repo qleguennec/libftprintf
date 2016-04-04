@@ -23,6 +23,7 @@ for DIR in ${CPY[@]}; do
 	cp -r $DIR $RENDU_DIR 2> /dev/null
 done
 
+make -C $RENDU_DIR deps
 find lib -name "*.h" -exec cp {} $RENDU_DIR/includes \;
 
 [ -n "$MAKE" ] && make -C $RENDU_DIR $MAKE

@@ -41,8 +41,9 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo $(GREEN)+++ obj:'\t'$(END)$(BUILDDIR)/$(YELLOW)'\t'$(@F)$(END)
 
-$(DEPSDIR)/%.o: $(@D)
-	@INCLUDE=$(CURDIR)/$(INCLUDE) make -s -C $(@D:%/build=% build/$(@F)) > /dev/null
+$(DEPSDIR)/%.o:
+	@INCLUDE=$(CURDIR)/$(INCLUDE) \
+		make -s -C $(@D:%/build=% build/$(@F)) > /dev/null
 	@echo $(GREEN)+++ obj:'\t'$(END)$(@D)/$(YELLOW)'\t'$(@F)$(END)
 
 $(TARGET): $(OBJECTS)
@@ -74,7 +75,7 @@ clean-deps:
 
 re-deps: clean-deps deps
 
-test:
+test: rendu
 	@test/test.sh $(ARGS)
 	@test/test-functions-used.sh
 
