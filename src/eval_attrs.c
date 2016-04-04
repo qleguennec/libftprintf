@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:13:57 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 23:44:12 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/05 01:46:47 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_list			*eval_attrs
 	sign = 0;
 	if (SHARP_MASK & self->attrs || self->name[0] == 'p')
 		ft_lstadd(&l, sharp_attr(self));
-	if (self->neg && (PLUS_MASK & self->attrs))
+	if (self->neg)
 		sign = '-';
 	else if (PLUS_MASK & self->attrs)
 		sign = '+';

@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/05 00:14:37 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/05 01:43:51 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_list		*parse_conv
 		return (NULL);
 	attrs = cs->attrs;
 	ft_memcpy(cs, search, sizeof(*cs));
-	cs->attrs &= attrs;
+	cs->attrs = cs->valid_attrs & attrs;
 	if (cs->size)
 		cs->arg = va_arg(ap, t_arg);
 	*fmt += ft_strlen(cs->name);
@@ -105,14 +105,13 @@ t_list				*parse_fmt
 	cs.attrs = parse_attrs(fmt, conf);
 	width = ft_atoi(*fmt);
 	*fmt += (width ? digits_nb((t_arg)width, 10) : 0);
-	if (!**fmt)
-		return (NULL);
 	ft_lstadd(&ret, parse_conv(&cs, ap, fmt, conf));
-	ft_lstadd(&ret, eval_attrs(&cs));
-	if (!*cs.name)
-		return (NULL);
 	if (!ret)
-		return (ft_lstnew(buf, *fmt - buf));
+	{
+		*fmt = buf + ft_strlen(buf);
+		return (ft_lstnew(buf, ft_strlen(buf)));
+	}
+	ft_lstadd(&ret, eval_attrs(&cs));
 	get_result(&ret, &cs, width);
 	return (ret);
 }

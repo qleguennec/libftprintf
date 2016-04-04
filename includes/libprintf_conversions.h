@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 23:42:03 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/05 01:44:42 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct		s_conv_spec
 	unsigned int	neg : 1;
 	size_t			size;
 	unsigned int	base : 3;
+	unsigned int	valid_attrs : 5;
 	unsigned int	attrs : 5;
 }					t_conv_spec;
 
@@ -39,14 +40,14 @@ t_list				*percent
 
 static t_conv_spec	convs_arr[] =
 {
-	{"d", "0", 0, &i_conv, 0, sizeof(int), BASE10, 30},
-	{"i", "0", 0, &i_conv, 0, sizeof(int), BASE10, 30},
-	{"o", "0", 0, &i_conv, 0, sizeof(int), BASE8, 3},
-	{"x", "0", 0, &i_conv, 0, sizeof(int), BASE16LOW, 3},
-	{"X", "0", 0, &i_conv, 0, sizeof(int), BASE16UP, 3},
-	{"p", "(nil)", 0, &i_conv, 0, sizeof(void *), BASE16LOW, 1},
-	{"s","(null)", 0, &s_conv, 0, sizeof(char *), 0, 0},
-	{"%", "", 0, &percent, 0, 0, 0, 0},
+	{"d", "0", 0, &i_conv, 0, sizeof(int), BASE10, 30, 0},
+	{"i", "0", 0, &i_conv, 0, sizeof(int), BASE10, 30, 0},
+	{"o", "0", 0, &i_conv, 0, sizeof(int), BASE8, 3, 0},
+	{"x", "0", 0, &i_conv, 0, sizeof(int), BASE16LOW, 3, 0},
+	{"X", "0", 0, &i_conv, 0, sizeof(int), BASE16UP, 0, 1},
+	{"p", "(nil)", 0, &i_conv, 0, sizeof(void *), BASE16LOW, 1, 1},
+	{"s","(null)", 0, &s_conv, 0, sizeof(char *), 0, 0, 0},
+	{"%", "", 0, &percent, 0, 0, 0, 0, 0},
 };
 
 #endif
