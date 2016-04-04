@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 14:40:21 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/04 15:47:49 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ static unsigned int	parse_attrs
 }
 
 static t_list		*parse_conv
-	(t_conv_spec *cs, t_arg arg, char **fmt, t_printf_conf *conf)
+	(t_conv_spec *cs, va_list ap, char **fmt, t_printf_conf *conf)
 {
 	t_conv_spec		*search;
 
 	if (!(search = bst_search(conf->convs, *fmt, &cmp)))
 		return (NULL);
 	ft_memcpy(cs, search, sizeof(*cs));
-	cs->arg = arg;
+	if (cs->size)
+		cs->arg = va_arg(ap, t_arg);
 	(*fmt)++;
 	return (cs->conv_f(cs));
 }
@@ -88,7 +89,6 @@ t_list				*parse_fmt
 	(char **fmt, va_list ap, t_printf_conf *conf)
 {
 	t_list			*ret;
-	t_arg			arg;
 	int				width;
 	t_conv_spec		cs;
 
@@ -102,8 +102,7 @@ t_list				*parse_fmt
 	cs.attrs = parse_attrs(fmt, conf);
 	width = ft_atoi(*fmt);
 	*fmt += (width ? digits_nb((t_arg)width, 10) : 0);
-	arg = va_arg(ap, t_arg);
-	ft_lstadd(&ret, parse_conv(&cs, arg, fmt, conf));
+	ft_lstadd(&ret, parse_conv(&cs, ap, fmt, conf));
 	ft_lstadd(&ret, eval_attrs(&cs));
 	if (!get_result(&ret, &cs, width))
 		return (NULL);

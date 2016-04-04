@@ -6,5 +6,6 @@ SRC += eval_attrs.c
 SRC += parse_fmt.c
 SRC += digits.c
 SRC += cmp.c
+SRC += percent_conv.c
 SRC += s_conv.c
 SRC += null_case.c

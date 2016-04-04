@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 15:05:42 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/04 15:53:55 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ t_list				*i_conv
 	(t_conv_spec *self);
 t_list				*s_conv
 	(t_conv_spec *self);
+t_list				*percent_conv
+	(t_conv_spec *self);
 
 static t_conv_spec	convs_arr[] =
 {
@@ -45,6 +47,7 @@ static t_conv_spec	convs_arr[] =
 	{'X', "0", 0, &i_conv, 0, sizeof(int), BASE16UP, 3, 0},
 	{'p', "(nil)", 0, &i_conv, 0, sizeof(void *), BASE16LOW, 1, 1},
 	{'s',"(null)", 0, &s_conv, 0, sizeof(char *), 0, 0, 0},
+	{'%', "", 0, &percent_conv, 0, 0, 0, 0, 0},
 };
 
 #endif
