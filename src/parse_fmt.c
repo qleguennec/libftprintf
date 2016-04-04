@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 23:21:51 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/04 23:39:03 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_list		*parse_conv
 		return (NULL);
 	attrs = cs->attrs;
 	ft_memcpy(cs, search, sizeof(*cs));
-	cs->attrs = attrs;
+	cs->attrs &= attrs;
 	if (cs->size)
 		cs->arg = va_arg(ap, t_arg);
 	*fmt += ft_strlen(cs->name);
