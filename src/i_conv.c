@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 14:23:46 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/04 14:59:57 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_arg		abs_value
 
 	ret = self->arg;
 	mask = get_mask(self->size);
-	if ((PLUS_MASK & self->valid_attrs) 
+	if ((PLUS_MASK & self->valid_attrs)
 		&& (ret >> (8 * self->size - 1)))
 	{
 		ret = mask & (~ ret) + 1;
@@ -50,6 +50,8 @@ t_list					*i_conv
 	size_t				base;
 	t_arg				y;
 
+	if (!self->arg)
+		return (null_case(self));
 	base = ft_strlen(alphabets[self->base]);
 	y = abs_value(self);
 	len = digits_nb(y, base);

@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:13:57 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 14:24:32 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/04 14:40:44 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_list	*sharp_attr
 	ft_bzero(s, 3);
 	if (self->name == 'o')
 		*s = '0';
-	else if (self->name == 'x')
+	else if (self->name == 'x' || self->name == 'p')
 		ft_strcpy(s, "0x");
 	else if (self->name == 'X')
 		ft_strcpy(s, "0X");

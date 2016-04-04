@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/03 02:11:07 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 14:03:13 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/04 15:02:57 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,7 @@
 t_list			*s_conv
 	(t_conv_spec *self)
 {
-	t_list		*ret;
-	size_t		len;
-	char		*s;
-
-	s = (char *)self->arg;
-	len = (s ? ft_strlen(s) : 6);
-	if (!(ret = ft_lstnew(NULL, len)))
-		return (NULL);
-	if (s)
-		ft_memcpy(ret->content, s, len);
-	else
-		ft_memcpy(ret->content, "(null)", len);
-	return (ret);
+	if (!self->arg)
+		return (null_case(self));
+	return (ft_lstnew((char *)self->arg, ft_strlen((char *)self->arg)));
 }

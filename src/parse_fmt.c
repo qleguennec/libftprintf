@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 13:56:50 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/04 14:40:21 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,10 @@ t_list				*parse_fmt
 	if (**fmt != '%')
 		return (find_sep(fmt));
 	(*fmt)++;
+	ft_bzero(&cs, sizeof(cs));
 	cs.attrs = parse_attrs(fmt, conf);
 	width = ft_atoi(*fmt);
-	*fmt += (width ? digits_nb((unsigned long)width, 10) : 0);
+	*fmt += (width ? digits_nb((t_arg)width, 10) : 0);
 	arg = va_arg(ap, t_arg);
 	ft_lstadd(&ret, parse_conv(&cs, arg, fmt, conf));
 	ft_lstadd(&ret, eval_attrs(&cs));
