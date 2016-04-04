@@ -70,12 +70,12 @@ clean-deps:
 
 re-deps: clean-deps deps
 
+rendu: deps
+	@MAKEFILE_DIR="util" util/rendu.sh
+
 test: rendu
 	@test/test.sh $(ARGS)
 	@test/test-functions-used.sh
-
-rendu:
-	@MAKEFILE_DIR="util" util/rendu.sh
 
 purge:
 	@util/purge.sh
