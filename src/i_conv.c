@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 13:52:22 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/04 14:23:46 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_arg		abs_value
 	ret = self->arg;
 	mask = get_mask(self->size);
 	if ((PLUS_MASK & self->valid_attrs) 
-		& (ret >> (8 * self->size - 1)))
+		&& (ret >> (8 * self->size - 1)))
 	{
 		ret = mask & (~ ret) + 1;
 		self->neg = 1;
