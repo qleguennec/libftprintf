@@ -24,7 +24,8 @@ for DIR in ${CPY[@]}; do
 done
 
 make -C $RENDU_DIR deps
-find lib -name "*.h" -exec cp {} $RENDU_DIR/includes \;
+cd $RENDU_DIR
+find lib -name "*.h" -exec cp {} includes \;
 
-[ -n "$MAKE" ] && make -C $RENDU_DIR $MAKE
-ls -la $RENDU_DIR
+[ -n "$MAKE" ] && make $MAKE
+ls -la
