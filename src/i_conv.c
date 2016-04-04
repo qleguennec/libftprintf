@@ -6,52 +6,52 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/02 22:18:36 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/04 13:52:22 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libprintf_intern.h>
 
-static unsigned long	get_mask
+static t_arg			get_mask
 	(size_t size)
 {
-	unsigned long		mask;
+	t_arg				mask;
 	size_t				i;
 
 	i = 0;
 	mask = 0;
 	while (i < size * 8)
-		mask |= (unsigned long)1 << i++;
+		mask |= (t_arg)1 << i++;
 	return (mask);
 }
 
-static unsigned long	abs_value
-	(t_conv_spec *self, void *x)
+static t_arg		abs_value
+	(t_conv_spec *self)
 {
-	unsigned long		ret;
-	unsigned long		mask;
+	t_arg				ret;
+	t_arg				mask;
 
-	ret = (unsigned long)x;
+	ret = self->arg;
 	mask = get_mask(self->size);
-	if (self->sign & (ret >> (8 * self->size - 1)))
+	if ((PLUS_MASK & self->valid_attrs) 
+		& (ret >> (8 * self->size - 1)))
 	{
 		ret = mask & (~ ret) + 1;
-		self->sign += 2;
+		self->neg = 1;
 	}
 	return (ret);
 }
 
 t_list					*i_conv
-	(t_conv_spec *self, void *x, size_t precision)
+	(t_conv_spec *self)
 {
 	t_list				*ret;
 	size_t				len;
 	size_t				base;
-	unsigned long		y;
+	t_arg				y;
 
-	(void)precision;
 	base = ft_strlen(alphabets[self->base]);
-	y = abs_value(self, x);
+	y = abs_value(self);
 	len = digits_nb(y, base);
 	if (!(ret = ft_lstnew(NULL, len)))
 		return (NULL);

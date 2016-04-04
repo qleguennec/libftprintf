@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eval_attrs.c                                       :+:      :+:    :+:   */
+/*   eval_self->attrs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:13:57 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/03 02:11:01 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/04 13:46:41 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libprintf_intern.h>
 
 static t_list	*sharp_attr
-	(t_conv_spec *self, void *x)
+	(t_conv_spec *self)
 {
 	char		s[3];
 
-	if (!x)
+	if (!self->arg)
 		return (NULL);
 	ft_bzero(s, 3);
 	if (self->name == 'o')
@@ -32,20 +32,21 @@ static t_list	*sharp_attr
 }
 
 t_list			*eval_attrs
-	(t_conv_spec *self, void *x, t_attrs attrs)
+	(t_conv_spec *self)
 {
 	char		sign;
 	t_list		*l;
 
 	l = NULL;
 	sign = 0;
-	if ((1 << SHARP_OFFSET) & attrs)
-		ft_lstadd(&l, sharp_attr(self, x));
-	if (self->sign >> 1)
+	self->attrs &= self->valid_attrs;
+	if (SHARP_MASK & self->attrs)
+		ft_lstadd(&l, sharp_attr(self));
+	if (self->neg && (PLUS_MASK & self->attrs))
 		sign = '-';
-	else if ((1 << PLUS_OFFSET) & attrs)
+	else if (PLUS_MASK & self->attrs)
 		sign = '+';
-	else if ((1 << SPACE_OFFSET) & attrs)
+	else if (SPACE_MASK & self->attrs)
 		sign = ' ';
 	if (sign)
 		ft_lstadd(&l, ft_lstnew(&sign, 1));

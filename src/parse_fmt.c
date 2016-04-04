@@ -6,37 +6,38 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/03 22:30:31 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/04 13:56:50 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libprintf_intern.h>
 
-static t_attrs		parse_attrs
+static unsigned int	parse_attrs
 	(char **fmt, t_printf_conf *conf)
 {
 	t_attr_spec		*as;
-	t_attrs			attrs;
+	unsigned int	attrs;
 
 	attrs = 0;
 	while ((as = bst_search(conf->attrs, *fmt, &cmp)))
 	{
-		attrs |= 1 << as->offset;
+		attrs |= as->mask;
 		(*fmt)++;
 	}
 	return (attrs);
 }
 
 static t_list		*parse_conv
-	(t_conv_spec *cs, void *arg, char **fmt, t_printf_conf *conf)
+	(t_conv_spec *cs, t_arg arg, char **fmt, t_printf_conf *conf)
 {
 	t_conv_spec		*search;
 
 	if (!(search = bst_search(conf->convs, *fmt, &cmp)))
 		return (NULL);
 	ft_memcpy(cs, search, sizeof(*cs));
+	cs->arg = arg;
 	(*fmt)++;
-	return (cs->conv_f(cs, arg, 0));
+	return (cs->conv_f(cs));
 }
 
 static t_list		*find_sep
@@ -54,25 +55,25 @@ static t_list		*find_sep
 }
 
 int					get_result
-	(t_list **builder, t_conv_spec *cs, int width, t_attrs attrs)
+	(t_list **builder, t_conv_spec *cs, int width)
 {
 	t_list			*l;
 	char			letter;
 	size_t			list_len;
 
 	list_len = ft_lstsum(*builder);
-	if ((unsigned int)width <= list_len || (cs->sign >> 1))
+	if ((unsigned int)width <= list_len || (cs->neg))
 		return (ft_lstbuild(*builder));
 	if (!(l = ft_lstnew(NULL, width - list_len)))
 		return (0);
-	if ((1 << MINUS_OFFSET) & attrs)
+	if (MINUS_MASK & cs->attrs)
 		letter = ' ';
 	else
-		letter = ((1 << ZERO_OFFSET ? '0' : ' '));
+		letter = ((ZERO_MASK & cs->attrs) ? '0' : ' ');
 	ft_memset(l->content, letter, width - list_len);
-	if (!(*builder)->next || ((1 << MINUS_OFFSET) & attrs))
+	if (!(*builder)->next || ((MINUS_MASK) & cs->attrs))
 	{
-		if ((1 << MINUS_OFFSET) & attrs)
+		if (MINUS_MASK & cs->attrs)
 			ft_lstadd_end(builder, l);
 		else
 			ft_lstadd(builder, l);
@@ -87,9 +88,8 @@ t_list				*parse_fmt
 	(char **fmt, va_list ap, t_printf_conf *conf)
 {
 	t_list			*ret;
-	void			*arg;
+	t_arg			arg;
 	int				width;
-	t_attrs			attrs;
 	t_conv_spec		cs;
 
 	ret = NULL;
@@ -98,13 +98,13 @@ t_list				*parse_fmt
 	if (**fmt != '%')
 		return (find_sep(fmt));
 	(*fmt)++;
-	attrs = parse_attrs(fmt, conf);
+	cs.attrs = parse_attrs(fmt, conf);
 	width = ft_atoi(*fmt);
 	*fmt += (width ? digits_nb((unsigned long)width, 10) : 0);
-	arg = va_arg(ap, void *);
+	arg = va_arg(ap, t_arg);
 	ft_lstadd(&ret, parse_conv(&cs, arg, fmt, conf));
-	ft_lstadd(&ret, eval_attrs(&cs, arg, attrs));
-	if (!get_result(&ret, &cs, width, attrs))
+	ft_lstadd(&ret, eval_attrs(&cs));
+	if (!get_result(&ret, &cs, width))
 		return (NULL);
 	return (ret);
 }
