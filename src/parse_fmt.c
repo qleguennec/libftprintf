@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 15:47:49 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/04 17:48:28 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ t_list				*parse_fmt
 	if (**fmt != '%')
 		return (find_sep(fmt));
 	(*fmt)++;
+	if (**fmt == '%' && *fmt++)
+		return (ft_lstnew("%", 1));
 	ft_bzero(&cs, sizeof(cs));
 	cs.attrs = parse_attrs(fmt, conf);
 	width = ft_atoi(*fmt);
