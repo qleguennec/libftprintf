@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/05 01:43:51 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/05 01:52:48 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_list				*parse_fmt
 	width = ft_atoi(*fmt);
 	*fmt += (width ? digits_nb((t_arg)width, 10) : 0);
 	ft_lstadd(&ret, parse_conv(&cs, ap, fmt, conf));
-	if (!ret)
+	if (!ret && **fmt != '\0')
 	{
 		*fmt = buf + ft_strlen(buf);
 		return (ft_lstnew(buf, ft_strlen(buf)));
