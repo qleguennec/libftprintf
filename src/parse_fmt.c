@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/05 01:56:18 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/05 16:29:44 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int					get_result
 	size_t			list_len;
 
 	list_len = ft_lstsum(*builder);
-	if ((unsigned int)width <= list_len || (cs->neg))
+	if ((unsigned int)width <= list_len)
 		return (ft_lstbuild(*builder));
 	if (!(l = ft_lstnew(NULL, width - list_len)))
 		return (0);
@@ -74,7 +74,7 @@ int					get_result
 	else
 		letter = ((ZERO_MASK & cs->attrs) ? '0' : ' ');
 	ft_memset(l->content, letter, width - list_len);
-	if (!(*builder)->next || ((MINUS_MASK) & cs->attrs))
+	if (letter == ' ' || !(*builder)->next || ((MINUS_MASK) & cs->attrs))
 	{
 		if (MINUS_MASK & cs->attrs)
 			ft_lstadd_end(builder, l);
