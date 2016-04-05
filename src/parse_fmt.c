@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/05 23:03:57 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/05 23:33:51 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static t_conv_spec	*parse_conv
 {
 	t_conv_spec		*found;
 
-	if (!(found = bst_search(conf->convs, *fmt, &fmt_conv_cmp)))
+	if (!**fmt || !(found = 
+		bst_search(conf->convs, *fmt, &fmt_conv_cmp)))
 		return (NULL);
 	if (found->size)
 		found->arg = va_arg(ap, t_arg);
@@ -103,7 +104,7 @@ t_list				*parse_fmt
 	*fmt += ctxt.width ? digits_nb((t_arg)ctxt.width, 10) : 0;
 	ctxt.prec = **fmt == '.' ? ft_atoi(++(*fmt)) : 0;
 	*fmt += ctxt.prec ? digits_nb((t_arg)ctxt.prec, 10) : 0;
-	if (!(cs= parse_conv(ap, fmt, conf)) && **fmt)
+	if (!(cs = parse_conv(ap, fmt, conf)))
 	{
 		*fmt = buf + ft_strlen(buf);
 		return (ft_lstnew(buf, ft_strlen(buf)));
