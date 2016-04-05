@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 22:44:41 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/05 22:42:08 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int						ft_printf(const char *format, ...);
 t_printf_conf			*init_conf(void);
 t_list					*parse_fmt
 	(char **fmt, va_list ap, t_printf_conf *conf);
-t_list					*eval_attrs(t_conv_spec *self);
+t_list					*eval_attrs(t_conv_spec *self, t_ctxt_spec *ctxt);
 t_list					*null_case(t_conv_spec *self);
 void					p_exit(char *s1, char *s2);
 size_t					digits_nb(t_arg x, int base);

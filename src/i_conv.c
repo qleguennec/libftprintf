@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/05 01:54:08 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/05 22:56:10 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static t_arg		abs_value
 }
 
 t_list					*i_conv
-	(t_conv_spec *self)
+	(t_conv_spec *self, t_ctxt_spec *ctxt)
 {
 	t_list				*ret;
 	size_t				len;
@@ -54,18 +54,20 @@ t_list					*i_conv
 		return (null_case(self));
 	base = ft_strlen(alphabets[self->base]);
 	y = abs_value(self);
-	len = digits_nb(y, base);
+	len = ft_max(ctxt->prec, digits_nb(y, base));
 	if (!(ret = ft_lstnew(NULL, len)))
 		return (NULL);
-	ret->content += len;
-	while (y >= base)
+	while (len)
 	{
-		ret->content--;
-		(*(char *)ret->content) =
+		(((char *)ret->content)[--len]) =
 			*(alphabets[self->base] + y % base);
 		y /= base;
+		if (y && y < base)
+		{
+			(((char *)ret->content)[--len]) =
+				*(alphabets[self->base] + y % base);
+			y = 0;
+		}
 	}
-	ret->content--;
-	(*(char *)ret->content) = *(alphabets[self->base] + y);
 	return (ret);
 }

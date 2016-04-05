@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eval_self->attrs.c                                       :+:      :+:    :+:   */
+/*   eval_ctxt->attrs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:13:57 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/05 01:46:47 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/05 22:41:48 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,21 @@ static t_list	*sharp_attr
 }
 
 t_list			*eval_attrs
-	(t_conv_spec *self)
+	(t_conv_spec *self, t_ctxt_spec *ctxt)
 {
 	char		sign;
 	t_list		*l;
 
 	l = NULL;
 	sign = 0;
-	if (SHARP_MASK & self->attrs || self->name[0] == 'p')
+	ctxt->attrs &= self->valid_attrs;
+	if (SHARP_MASK & ctxt->attrs || self->name[0] == 'p')
 		ft_lstadd(&l, sharp_attr(self));
 	if (self->neg)
 		sign = '-';
-	else if (PLUS_MASK & self->attrs)
+	else if (PLUS_MASK & ctxt->attrs)
 		sign = '+';
-	else if (SPACE_MASK & self->attrs)
+	else if (SPACE_MASK & ctxt->attrs)
 		sign = ' ';
 	if (sign)
 		ft_lstadd(&l, ft_lstnew(&sign, 1));
