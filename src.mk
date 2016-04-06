@@ -9,4 +9,6 @@ SRC += parse_fmt.c
 SRC += digits.c
 SRC += cmp.c
 SRC += s_conv.c
+SRC += get_conv_result.c
+SRC += find_sep.c
 SRC += null_case.c

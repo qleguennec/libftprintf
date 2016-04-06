@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 11:30:58 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 16:24:10 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,8 @@ void					p_exit(char *s1, char *s2);
 size_t					digits_nb(t_arg x, int base);
 int						basic_cmp(void *a, void *b);
 int						fmt_conv_cmp(void *a, void *b);
+int						get_conv_result
+	(t_list **builder, t_ctxt_spec *ctxt);
+t_list					*find_sep(char **fmt);
 
 #endif
