@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 20:36:52 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 20:37:34 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ size_t				parse_l_modif
 	if (!(found = bst_search(conf->l_modifs, fmt_cpy, &fmt_spec_cmp)))
 	{
 		fmt_cpy[1] = '\0';
-		if (!(found = bst_search(conf->l_modifs, fmt_cpy, &fmt_spec_cmp)))
+		if (!(found = bst_search(conf->l_modifs, fmt_cpy, &cmp)))
 			return (0);
 	}
 	*fmt += ft_strlen(found->name);
@@ -82,7 +82,7 @@ t_conv_spec			*parse_conv
 		return (NULL);
 	*fmt_cpy = **fmt;
 	fmt_cpy[1] = '\0'; 
-	if (!(found = bst_search(conf->convs, fmt_cpy, &fmt_spec_cmp)))
+	if (!(found = bst_search(conf->convs, fmt_cpy, &cmp)))
 		return (NULL);
 	*fmt += ft_strlen(found->name);
 	return (found);

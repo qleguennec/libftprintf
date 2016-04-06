@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 19:14:26 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 20:38:02 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ t_list					*eval_fmt
 t_list					*null_case(t_conv_spec *self);
 void					p_exit(char *s1, char *s2);
 size_t					digits_nb(t_arg x, int base);
-int						basic_cmp(void *a, void *b);
-int						fmt_spec_cmp(void *a, void *b);
+int						cmp(void *a, void *b);
 unsigned int			parse_attrs(char **fmt, t_printf_conf *conf);
 size_t					parse_width(char **fmt);
 size_t					parse_prec(char **fmt);

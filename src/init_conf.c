@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:55:58 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 19:19:35 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 20:37:48 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_bst_tree			*init_convs(void)
 
 	length = sizeof(convs_arr) / sizeof(t_conv_spec);
 	elem_size = sizeof(t_conv_spec);
-	convs = bst_fromarray(convs_arr, length, elem_size, &basic_cmp);
+	convs = bst_fromarray(convs_arr, length, elem_size, &cmp);
 	if (!convs)
 		return (NULL);
 	return (convs);
@@ -34,7 +34,7 @@ t_bst_tree			*init_attrs(void)
 
 	length = sizeof(attrs_arr) / sizeof(t_attr_spec);
 	elem_size = sizeof(t_attr_spec);
-	attrs = bst_fromarray(attrs_arr, length, elem_size, &basic_cmp);
+	attrs = bst_fromarray(attrs_arr, length, elem_size, &cmp);
 	if (!attrs)
 		return (NULL);
 	return (attrs);
@@ -48,7 +48,7 @@ t_bst_tree			*init_l_modifs(void)
 
 	length = sizeof(l_modifs_arr) / sizeof(t_l_modif_spec);
 	elem_size = sizeof(t_l_modif_spec);
-	l_modifs = bst_fromarray(l_modifs_arr, length, elem_size, &basic_cmp);
+	l_modifs = bst_fromarray(l_modifs_arr, length, elem_size, &cmp);
 	if (!l_modifs)
 		return (NULL);
 	return (l_modifs);
