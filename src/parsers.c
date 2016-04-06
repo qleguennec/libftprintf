@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 19:55:22 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 20:36:52 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,18 @@ size_t				parse_l_modif
 	(char **fmt, t_printf_conf *conf)
 {
 	t_l_modif_spec	*found;
+	char			fmt_cpy[3];
 
-	if (!**fmt)
+	if (!**fmt) 
 		return (0);
-	if (!(found = bst_search(conf->l_modifs, *fmt, &fmt_spec_cmp)))
-		return (0);
+	ft_memcpy(fmt_cpy, *fmt, 2);
+	fmt_cpy[2] = '\0'; 
+	if (!(found = bst_search(conf->l_modifs, fmt_cpy, &fmt_spec_cmp)))
+	{
+		fmt_cpy[1] = '\0';
+		if (!(found = bst_search(conf->l_modifs, fmt_cpy, &fmt_spec_cmp)))
+			return (0);
+	}
 	*fmt += ft_strlen(found->name);
 	return (found->size);
 }
@@ -69,10 +76,13 @@ t_conv_spec			*parse_conv
 	(char **fmt, t_printf_conf *conf)
 {
 	t_conv_spec		*found;
+	char			fmt_cpy[2];
 
 	if (!**fmt) 
 		return (NULL);
-	if (!(found = bst_search(conf->convs, *fmt, &fmt_spec_cmp)))
+	*fmt_cpy = **fmt;
+	fmt_cpy[1] = '\0'; 
+	if (!(found = bst_search(conf->convs, fmt_cpy, &fmt_spec_cmp)))
 		return (NULL);
 	*fmt += ft_strlen(found->name);
 	return (found);
