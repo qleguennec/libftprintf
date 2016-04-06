@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 20:37:34 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 20:45:49 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,18 @@ unsigned int		parse_attrs
 {
 	t_attr_spec		*as;
 	unsigned int	attrs;
+	char			fmt_cpy[2];
 
+	if (!**fmt)
+		return (0);
 	attrs = 0;
-	while ((as = bst_search(conf->attrs, *fmt, &fmt_spec_cmp)))
+	*fmt_cpy = **fmt;
+	fmt_cpy[1] = '\0';
+	while ((as = bst_search(conf->attrs, fmt_cpy, &cmp)))
 	{
 		attrs |= as->mask;
 		(*fmt)++;
+		*fmt_cpy = **fmt;
 	}
 	return (attrs);
 }
@@ -32,6 +38,8 @@ size_t				parse_width
 {
 	size_t			width;
 
+	if (!**fmt)
+		return (0);
 	width = ft_atoi(*fmt);
 	if (width)
 		*fmt += digits_nb((t_arg)width, 10);
@@ -43,6 +51,8 @@ size_t				parse_prec
 {
 	size_t			prec;
 
+	if (!**fmt)
+		return (0);
 	if (**fmt != '.')
 		return (0);
 	(*fmt)++;
@@ -62,7 +72,7 @@ size_t				parse_l_modif
 		return (0);
 	ft_memcpy(fmt_cpy, *fmt, 2);
 	fmt_cpy[2] = '\0'; 
-	if (!(found = bst_search(conf->l_modifs, fmt_cpy, &fmt_spec_cmp)))
+	if (!(found = bst_search(conf->l_modifs, fmt_cpy, &cmp)))
 	{
 		fmt_cpy[1] = '\0';
 		if (!(found = bst_search(conf->l_modifs, fmt_cpy, &cmp)))

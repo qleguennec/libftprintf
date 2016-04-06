@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 19:35:30 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 20:39:40 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ t_list				*i_conv
 	(t_conv_spec *self, t_ctxt_spec *ctxt);
 t_list				*s_conv
 	(t_conv_spec *self, t_ctxt_spec *ctxt);
+t_list				*c_conv
+	(t_conv_spec *self, t_ctxt_spec *ctxt);
 t_list				*wc_conv
 	(t_conv_spec *self, t_ctxt_spec *ctxt);
 t_list				*wstr_conv
@@ -54,8 +56,8 @@ static t_conv_spec	convs_arr[] =
 {
 	{"d", "0", &i_conv, 0, sizeof(int), BASE10, 30},
 	{"u", "0", &i_conv, 0, sizeof(int), BASE10, 3},
-	{"c", "", &wc_conv, 0, 1, 0, 0},
-	{"C", "", &wc_conv, 0, 1, 0, 0},
+	{"c", "", &s_conv, 0, 1, 0, 0},
+	{"C", "", &c_conv, 0, 1, 0, 0},
 	{"S", "(null)", &wstr_conv, 0, 1, 0, 0},
 	{"i", "0", &i_conv, 0, sizeof(int), BASE10, 3},
 	{"o", "0", &i_conv, 0, sizeof(int), BASE8, 3},
