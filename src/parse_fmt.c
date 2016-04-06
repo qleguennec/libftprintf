@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 16:26:51 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 16:37:52 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static int			parse_prec
 
 	if (**fmt != '.')
 		return (0);
-	prec = ft_atoi(*(fmt++));
+	(*fmt)++;
+	prec = ft_atoi(*fmt);
 	if (prec)
 		*fmt += digits_nb((t_arg)prec, 10);
 	return (prec);

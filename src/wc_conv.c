@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 16:21:44 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 16:34:41 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ t_list		*wstr_conv
 	if (!(ret = malloc(sizeof(*ret))))
 		return (NULL);
 	ret->content = result;
-	ret->content_size = len;
+	ret->content_size = ctxt->prec ? ft_min(ctxt->prec, len) : len;
 	return (ret);
 }
