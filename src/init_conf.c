@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:55:58 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 22:19:01 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 18:43:07 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,20 @@ t_bst_tree			*init_attrs(void)
 	return (attrs);
 }
 
+t_bst_tree			*init_l_modifs(void)
+{
+	size_t			length;
+	size_t			elem_size;
+	t_bst_tree		*l_modifs;
+
+	length = sizeof(l_modifs_arr) / sizeof(t_l_modif_spec);
+	elem_size = sizeof(t_l_modif_spec);
+	l_modifs = bst_fromarray(attrs_arr, length, elem_size, &basic_cmp);
+	if (!l_modifs)
+		return (NULL);
+	return (l_modifs);
+}
+
 t_printf_conf		*init_conf(void)
 {
 	t_printf_conf	*conf;
@@ -47,5 +61,6 @@ t_printf_conf		*init_conf(void)
 	conf = malloc(sizeof(*conf));
 	conf->convs = init_convs();
 	conf->attrs = init_attrs();
+	conf->l_modifs = init_l_modifs();
 	return (conf);
 }

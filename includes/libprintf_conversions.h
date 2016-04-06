@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 16:40:56 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 18:50:36 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct		s_ctxt_spec
 	unsigned int	attrs : 5;
 	size_t			width;
 	size_t			prec;
+	size_t			l_modif;
 	t_arg			arg;
 }					t_ctxt_spec;
 

@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:00 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/03 22:31:07 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 18:42:22 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				ft_printf
 	builder = NULL;
 	if (!conf)
 		conf = init_conf();
-	while ((result = parse_fmt(&fmt, ap, conf)))
+	while ((result = eval_fmt(&fmt, ap, conf)))
 		ft_lstadd(&builder, result);
 	va_end(ap);
 	return (print_result(&builder));

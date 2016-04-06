@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 19:09:59 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 22:50:34 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 18:27:51 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int			basic_cmp
 	return (ft_strcmp(a, b));
 }
 
-int			fmt_conv_cmp
+int			fmt_spec_cmp
 	(void *a, void *b)
 {
 	char	*s1;
