@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/03 02:11:07 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 20:51:14 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 21:12:12 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_list			*s_conv
 
 	(void)self;
 	if (self->size > 1)
-		wstr_conv(self, ctxt);
+		return (wstr_conv(self, ctxt));
 	if (ctxt->prec)
 		len = ft_min(ctxt->prec, ft_strlen((char *)ctxt->arg));
 	else
