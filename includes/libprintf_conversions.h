@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 18:50:36 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 19:35:30 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct		s_ctxt_spec
 
 typedef struct		s_conv_spec
 {
-	char			name[4];
+	char			name[3];
 	char			null_case[10];
 	t_list			*(* conv_f)(struct s_conv_spec *, t_ctxt_spec *);
 	unsigned int	neg : 1;
@@ -56,8 +56,6 @@ static t_conv_spec	convs_arr[] =
 	{"u", "0", &i_conv, 0, sizeof(int), BASE10, 3},
 	{"c", "", &wc_conv, 0, 1, 0, 0},
 	{"C", "", &wc_conv, 0, 1, 0, 0},
-	{"lc", "", &wc_conv, 0, 1, 0, 0},
-	{"ls", "(null)", &wstr_conv, 0, 1, 0, 0},
 	{"S", "(null)", &wstr_conv, 0, 1, 0, 0},
 	{"i", "0", &i_conv, 0, sizeof(int), BASE10, 3},
 	{"o", "0", &i_conv, 0, sizeof(int), BASE8, 3},
@@ -67,13 +65,8 @@ static t_conv_spec	convs_arr[] =
 	{"s","(null)", &s_conv, 0, 1, 0, 0},
 	{"%", "", &percent, 0, 0, 0, 0},
 	{"D", "0", &i_conv, 0, sizeof(long int), BASE10, 30},
-	{"ld", "0", &i_conv, 0, sizeof(int), BASE10, 30},
-	{"lld", "0", &i_conv, 0, sizeof(long long int), BASE10, 30},
 	{"O", "0", &i_conv, 0, sizeof(long int), BASE8, 3},
-	{"lo", "0", &i_conv, 0, sizeof(long int), BASE8, 3},
 	{"U", "0", &i_conv, 0, sizeof(int), BASE10, 3},
-	{"lu", "0", &i_conv, 0, sizeof(int), BASE10, 3},
-	{"llu", "0", &i_conv, 0, sizeof(long long int), BASE10, 3},
 };
 
 #endif

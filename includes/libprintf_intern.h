@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 18:57:55 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 19:14:26 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct			s_printf_conf
 typedef struct			s_parse_result
 {
 	t_conv_spec			*conv;
-	t_ctxt_spec			*ctxt;
+	t_ctxt_spec			ctxt;
 }						t_parse_result;
 
 static t_printf_conf	*conf = NULL;

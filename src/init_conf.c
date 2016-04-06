@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:55:58 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 18:43:07 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 19:19:35 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_bst_tree			*init_l_modifs(void)
 
 	length = sizeof(l_modifs_arr) / sizeof(t_l_modif_spec);
 	elem_size = sizeof(t_l_modif_spec);
-	l_modifs = bst_fromarray(attrs_arr, length, elem_size, &basic_cmp);
+	l_modifs = bst_fromarray(l_modifs_arr, length, elem_size, &basic_cmp);
 	if (!l_modifs)
 		return (NULL);
 	return (l_modifs);

@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:29:31 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 19:29:09 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 19:35:43 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef char		t_attrs;
 
 typedef struct		s_attr_spec
 {
-	char			name[2];
+	char			name[3];
 	unsigned int	mask : 5;
 }					t_attr_spec;
 
