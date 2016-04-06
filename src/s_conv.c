@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/03 02:11:07 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/05 23:46:39 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 02:08:57 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ t_list			*s_conv
 			return (NULL);
 		return (null_case(self));
 	}
-	len = ft_min(ctxt->prec, ft_strlen((char *)self->arg));
-	return (ft_lstnew((char *)self->arg, len));
+	if (ctxt->prec)
+		len = ft_min(ctxt->prec, ft_strlen((char *)self->arg));
+	else
+		len = ft_strlen((char *)self->arg);
+	return (ft_lstnew((void *)self->arg, len));
 }
