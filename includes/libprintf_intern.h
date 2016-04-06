@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/05 22:42:08 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/06 11:30:58 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <wchar.h>
 #include <stddef.h>
 #include <libprintf_errors.h>
 #include <libprintf_conversions.h>
