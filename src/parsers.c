@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 20:45:49 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/07 18:46:58 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ size_t				parse_prec
 	return (prec);
 }
 
-size_t				parse_l_modif
+t_l_modif_spec		*parse_l_modif
 	(char **fmt, t_printf_conf *conf)
 {
 	t_l_modif_spec	*found;
@@ -79,7 +79,7 @@ size_t				parse_l_modif
 			return (0);
 	}
 	*fmt += ft_strlen(found->name);
-	return (found->size);
+	return (found);
 }
 
 t_conv_spec			*parse_conv

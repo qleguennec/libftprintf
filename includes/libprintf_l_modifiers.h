@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:31:21 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 19:35:00 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/07 18:44:44 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBPRINTF_L_MODIFIERS_H
 
 #include <stdint.h>
+#include <stdlib.h>
 
 typedef struct			s_l_modif_spec
 {

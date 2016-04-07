@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 21:06:44 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/07 18:45:50 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 # define LIBPRINTF_CONVERSIONS_H
 
 #include <libprintf_alphabets.h>
+#include <libprintf_l_modifiers.h>
 #include <limits.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <libft.h>
 
 typedef uintmax_t	t_arg;
 
@@ -24,7 +27,7 @@ typedef struct		s_ctxt_spec
 	unsigned int	attrs : 5;
 	size_t			width;
 	size_t			prec;
-	size_t			l_modif;
+	t_l_modif_spec	*l_modif;
 	t_arg			arg;
 }					t_ctxt_spec;
 

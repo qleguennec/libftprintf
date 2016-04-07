@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 20:38:02 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/07 18:46:56 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ unsigned int			parse_attrs(char **fmt, t_printf_conf *conf);
 size_t					parse_width(char **fmt);
 size_t					parse_prec(char **fmt);
 t_conv_spec				*parse_conv(char **fmt, t_printf_conf *conf);
-size_t					parse_l_modif(char **fmt, t_printf_conf *conf);
+t_l_modif_spec			*parse_l_modif(char **fmt, t_printf_conf *conf);
 
 #endif
