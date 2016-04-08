@@ -22,4 +22,4 @@ if [ ! -d "moulitest" ]; then
 	git clone http://github.com/yyang42/moulitest.git
 fi
 echo "FT_PRINTF_PATH = /tmp/libftprintf" > moulitest/config.ini
-make -s -C moulitest ft_printf
+make -C moulitest ft_printf

@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/07 18:45:50 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/07 19:29:25 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,36 +42,30 @@ typedef struct		s_conv_spec
 	unsigned int	valid_attrs : 5;
 }					t_conv_spec;
 
-t_list				*i_conv
-	(t_conv_spec *self, t_ctxt_spec *ctxt);
-t_list				*s_conv
-	(t_conv_spec *self, t_ctxt_spec *ctxt);
-t_list				*c_conv
-	(t_conv_spec *self, t_ctxt_spec *ctxt);
-t_list				*wc_conv
-	(t_conv_spec *self, t_ctxt_spec *ctxt);
-t_list				*wstr_conv
-	(t_conv_spec *self, t_ctxt_spec *ctxt);
-t_list				*percent
-	(t_conv_spec *self, t_ctxt_spec *ctxt);
+t_list				*i_conv(t_conv_spec *self, t_ctxt_spec *ctxt);
+t_list				*s_conv(t_conv_spec *self, t_ctxt_spec *ctxt);
+t_list				*c_conv(t_conv_spec *self, t_ctxt_spec *ctxt);
+t_list				*wc_conv(t_conv_spec *self, t_ctxt_spec *ctxt);
+t_list				*wstr_conv(t_conv_spec *self, t_ctxt_spec *ctxt);
+t_list				*percent(t_conv_spec *self, t_ctxt_spec *ctxt);
 
 static t_conv_spec	convs_arr[] =
 {
-	{"d", "0", &i_conv, 0, sizeof(int), BASE10, 30},
-	{"u", "0", &i_conv, 0, sizeof(int), BASE10, 3},
-	{"i", "0", &i_conv, 0, sizeof(int), BASE10, 3},
-	{"o", "0", &i_conv, 0, sizeof(int), BASE8, 3},
-	{"x", "0", &i_conv, 0, sizeof(int), BASE16LOW, 3},
-	{"X", "0", &i_conv, 0, sizeof(int), BASE16UP, 3},
-	{"D", "0", &i_conv, 0, sizeof(long int), BASE10, 30},
-	{"O", "0", &i_conv, 0, sizeof(long int), BASE8, 3},
-	{"U", "0", &i_conv, 0, sizeof(int), BASE10, 3},
-	{"c", "", &c_conv, 0, 1, 0, 0},
-	{"C", "", &c_conv, 0, 2, 0, 0},
-	{"s", "(null)", &s_conv, 0, 1, 0, 0},
-	{"S", "(null)", &s_conv, 0, 2, 0, 0},
-	{"p", "(nil)", &i_conv, 0, 0, BASE16LOW, 1},
-	{"%", "", &percent, 0, 0, 0, 0},
+	{"d" , "0"      , &i_conv  , 0 , sizeof(int)      , BASE10    , 30} ,
+	{"u" , "0"      , &i_conv  , 0 , sizeof(int)      , BASE10    , 3}  ,
+	{"i" , "0"      , &i_conv  , 0 , sizeof(int)      , BASE10    , 3}  ,
+	{"o" , "0"      , &i_conv  , 0 , sizeof(int)      , BASE8     , 3}  ,
+	{"x" , "0"      , &i_conv  , 0 , sizeof(int)      , BASE16LOW , 3}  ,
+	{"X" , "0"      , &i_conv  , 0 , sizeof(int)      , BASE16UP  , 3}  ,
+	{"D" , "0"      , &i_conv  , 0 , sizeof(long int) , BASE10    , 30} ,
+	{"O" , "0"      , &i_conv  , 0 , sizeof(long int) , BASE8     , 3}  ,
+	{"U" , "0"      , &i_conv  , 0 , sizeof(int)      , BASE10    , 3}  ,
+	{"p" , "(nil)"  , &i_conv  , 0 , 0                , BASE16LOW , 1}  ,
+	{"c" , ""       , &c_conv  , 0 , 1                , 0         , 0}  ,
+	{"C" , ""       , &c_conv  , 0 , 2                , 0         , 0}  ,
+	{"s" , "(null)" , &s_conv  , 0 , 1                , 0         , 0}  ,
+	{"S" , "(null)" , &s_conv  , 0 , 2                , 0         , 0}  ,
+	{"%" , ""       , &percent , 0 , 0                , 0         , 0}  ,
 };
 
 #endif

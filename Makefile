@@ -6,6 +6,7 @@ BUILDDIR	?=	build
 LIBDIR		?=	$(BUILDDIR)
 DEPSDIR		?=	lib
 INCLUDE		+=	includes
+INCLUDE		+=	$(addsuffix /includes, $(addprefix $(DEPSDIR)/, $(LIBSRC)))
 NAME		=	libftprintf.a
 TARGET		=	$(BINDIR)/$(NAME)
 
@@ -30,46 +31,50 @@ include src.mk
 
 # Libraries
 LIBSRC		=	libbst libft
+OBJECTS		=	$(addprefix $(BUILDDIR)/, $(SRC:%.c=%.o))
+LIBS		=	$(addprefix $(LIBDIR)/, $(addsuffix .a, $(LIBSRC)))
 
-OBJECTS		+=	$(foreach lib, $(LIBSRC), $(addprefix $(DEPSDIR)/$(lib)/, $(shell make -s -C $(DEPSDIR)/$(lib) get-OBJECTS)))
-OBJECTS		+=	$(addprefix $(BUILDDIR)/, $(SRC:%.c=%.o))
-
-all:				deps $(TARGET)
-
+all: $(TARGET)
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	@[ -d $(BUILDDIR) ] || mkdir $(BUILDDIR); true
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo $(GREEN)+++ obj:'\t'$(END)$(BUILDDIR)/$(YELLOW)'\t'$(@F)$(END)
+	@echo $(GREEN)+++ obj:'\t'$(END)$(BUILDDIR)/$(YELLOW) $(@F)$(END)
 
-$(DEPSDIR)/%.o:
-	@INCLUDE=$(CURDIR)/$(INCLUDE) \
-		make -s -C $(@D:%/build=% build/$(@F)) > /dev/null
-	@echo $(GREEN)+++ obj:'\t'$(END)$(@D)/$(YELLOW)'\t'$(@F)$(END)
+$(LIBDIR)/%.a: $(DEPSDIR)/%
+	@[ -d $(BUILDDIR)/$* ] || mkdir -p $(BUILDDIR)/$*; true
+	@										\
+		DEPSDIR=$(CURDIR)/$(DEPSDIR)		\
+		BINDIR=$(CURDIR)/$(BUILDDIR)		\
+		BUILDDIR=$(CURDIR)/$(BUILDDIR)/$*	\
+		LIBDIR=$(CURDIR)/$(LIBDIR)			\
+		make -s -C $< > /dev/null
+	@echo $(GREEN)+++ static lib:'\t'$(END)$(LIBDIR)/'\t'$(CYAN)$(@F)$(END)
 
-$(TARGET): $(OBJECTS)
-	@ar rc $(@) $(OBJECTS)
-	@echo $(GREEN)+++ target:'\t'$(END)./'\t'$(BLUE)$(NAME)$(END)
+$(TARGET): $(LIBS) $(OBJECTS)
+	@ar rc $(TARGET) $(OBJECTS)
+	@$(foreach lib, $(LIBS), $(shell ar x $(lib)))
+	@ar r $(TARGET) $(foreach lib, $(LIBS), $(shell ar t $(lib)))
+	@rm $(foreach lib, $(LIBS), $(shell ar t $(lib)))
+	@echo $(GREEN)+++ target:'\t'$(END)$(@D)/ $(BLUE)$(@F)$(END)
 
 $(DEPSDIR)/%:
 	@git clone http://github.com/qleguennec/$(@F).git $@
 	@make -s -C $@ purge
 
-.PHONY: clean fclean re deps clean-deps re-deps test rendu purge get-%
+.PHONY: clean fclean re deps clean-deps re-deps test rendu purge get-%%
 
 clean:
-	@rm $(LIBS) 2> /dev/null &&	\
-	echo $(RED)--- static lib:'\t'$(CYAN)$(LIBS:$(LIBDIR)/%.a=%.a); true
+	@rm $(LIBS) 2> /dev/null	\
+	&& echo $(RED)--- static lib:'\t'$(CYAN)$(LIBS:$(LIBDIR)/%.a=%.a); true
 	@rm $(OBJECTS) 2> /dev/null	\
 	&& echo $(RED)--- obj:'\t'$(YELLOW)$(OBJECTS)$(END); true
 
 fclean: clean
 	@[ -f $(TARGET) ] && rm $(TARGET) \
-	&& echo $(RED)--- target:'\t'$(END)$(BINDIR)/'\t'$(BLUE)$(NAME)$(END); true
+	&& echo $(RED)--- target:'\t'$(END)$(BINDIR)/ $(BLUE)$(NAME)$(END); true
 
 re: fclean all
-
 deps: $(addprefix $(DEPSDIR)/, $(LIBSRC))
-
 clean-deps:
 	@rm -rf $(DEPSDIR)
 
