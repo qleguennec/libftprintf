@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/07 22:08:31 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/08 21:16:51 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include <libprintf_conversions.h>
 #include <libprintf_attributes.h>
 #include <libprintf_l_modifiers.h>
+#include <assert.h>
 
 typedef struct			 s_printf_conf
 {
