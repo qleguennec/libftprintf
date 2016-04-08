@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/08 14:42:13 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/08 15:48:27 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ t_list				*eval_fmt
 	parse_fmt(&p_res, fmt, conf);;
 	if (!p_res.conv)
 	{
-		*fmt = start + ft_strlen(start);
-		return (*fmt - start > 1 ?
-			ft_lstnew(start, ft_strlen(start)) : NULL);
+		start = *fmt;
+		*fmt += ft_strlen(*fmt);
+		return (ft_lstnew(start, *fmt - start));
 	}
 	if (p_res.conv->size)
 		p_res.ctxt.arg = va_arg(ap, t_arg);
