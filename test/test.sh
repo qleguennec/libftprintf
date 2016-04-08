@@ -23,4 +23,4 @@ if [ ! -d "moulitest" ]; then
 fi
 sed -i'' 's/\/\/ test->debug/test->debug/g' moulitest/ft_printf_tests/tests/*.spec.c
 echo "FT_PRINTF_PATH = /tmp/libftprintf" > moulitest/config.ini
-make -C moulitest ft_printf
+make -s -C moulitest ft_printf
