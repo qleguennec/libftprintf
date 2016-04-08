@@ -21,5 +21,6 @@ cd test
 if [ ! -d "moulitest" ]; then
 	git clone http://github.com/yyang42/moulitest.git
 fi
+sed -i'' 's/\/\/ test->debug/test->debug/g' moulitest/ft_printf_tests/tests/*.spec.c
 echo "FT_PRINTF_PATH = /tmp/libftprintf" > moulitest/config.ini
 make -C moulitest ft_printf
