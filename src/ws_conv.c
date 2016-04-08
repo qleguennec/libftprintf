@@ -6,13 +6,14 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/08 16:14:31 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/08 17:06:18 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libprintf_intern.h>
 
-size_t		insert_wc(char *s, wchar_t wc)
+size_t		insert_wc
+	(char *s, wchar_t wc)
 {
 	size_t	len;
 	size_t	i;
