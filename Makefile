@@ -51,10 +51,10 @@ $(LIBDIR)/%.a: $(DEPSDIR)/%
 	@echo $(GREEN)+++ static lib:'\t'$(END)$(LIBDIR)/'\t'$(CYAN)$(@F)$(END)
 
 $(TARGET): $(LIBS) $(OBJECTS)
-	@ar rc $(TARGET) $(OBJECTS)
-	@$(foreach lib, $(LIBS), $(shell ar x $(lib)))
-	@ar r $(TARGET) $(foreach lib, $(LIBS), $(shell ar t $(lib)))
-	@rm $(foreach lib, $(LIBS), $(shell ar t $(lib)))
+	@ar -rc $(TARGET) $(OBJECTS)
+	@$(foreach lib, $(LIBS), $(shell ar -x $(lib)))
+	@ar -r $(TARGET) $(foreach lib, $(LIBS), $(shell ar -t $(lib)))
+	@rm $(foreach lib, $(LIBS), $(shell ar -t $(lib)))
 	@echo $(GREEN)+++ target:'\t'$(END)$(@D)/ $(BLUE)$(@F)$(END)
 
 $(DEPSDIR)/%:
