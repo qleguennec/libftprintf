@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/08 13:55:01 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/08 14:06:49 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ t_list					*i_conv
 	size_t				base;
 	t_arg				y;
 
+	if (!ctxt->arg)
+		return (null_case(self));
 	base = ft_strlen(alphabets[self->base]);
 	y = abs_value(self, ctxt);
 	len = ft_max(ctxt->prec, digits_nb(y, base));

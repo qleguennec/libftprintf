@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/06 16:34:41 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/08 14:07:36 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ t_list		*wc_conv
 	char	result[sizeof(wchar_t)];
 	size_t	len;
 
-	(void)self;
+	if (!ctxt->arg)
+		return (null_case(self));
 	len = insert_wc(result, (wchar_t)ctxt->arg);
 	return (ft_lstnew(result, len));
 }
@@ -58,7 +59,8 @@ t_list		*wstr_conv
 	size_t	len;
 	t_list	*ret;
 
-	(void)self;
+	if (!ctxt->arg)
+		return (null_case(self));
 	arg = (wchar_t *)ctxt->arg;
 	if (!(result = malloc(ft_wstrlen(arg) * sizeof(wchar_t))))
 		return (NULL);

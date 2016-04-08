@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/08 13:54:53 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/08 14:09:29 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ static t_conv_spec	convs_arr[] =
 	{"D" , "0"      , &i_conv  , sizeof(long int) , BASE10    , 30} ,
 	{"O" , "0"      , &i_conv  , sizeof(long int) , BASE8     , 3}  ,
 	{"U" , "0"      , &i_conv  , sizeof(int)      , BASE10    , 3}  ,
-	{"p" , "(nil)"  , &i_conv  , 0                , BASE16LOW , 1}  ,
+	{"p" , "(nil)"  , &i_conv  , 1                , BASE16LOW , 1}  ,
 	{"c" , ""       , &c_conv  , 1                , 0         , 0}  ,
-	{"C" , ""       , &c_conv  , 2                , 0         , 0}  ,
+	{"C" , ""       , &c_conv  , 1                , 0         , 0}  ,
 	{"s" , "(null)" , &s_conv  , 1                , 0         , 0}  ,
-	{"S" , "(null)" , &s_conv  , 2                , 0         , 0}  ,
+	{"S" , "(null)" , &s_conv  , 1                , 0         , 0}  ,
 	{"%" , ""       , &percent , 0                , 0         , 0}  ,
 };
 

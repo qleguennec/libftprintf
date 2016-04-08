@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/03 02:11:07 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/07 19:10:49 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/08 14:08:51 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_list			*c_conv
 {
 	char		arg[1];
 
+	if (!ctxt->arg)
+		return (null_case(self));
 	if (ctxt->l_modif && ft_strequ(ctxt->l_modif->name, "l"))
 		return (wc_conv(self, ctxt));
 	arg[0] = (char)ctxt->arg;
@@ -28,7 +30,8 @@ t_list			*s_conv
 {
 	size_t		len;
 
-	(void)self;
+	if (!ctxt->arg)
+		return (null_case(self));
 	if (ctxt->l_modif && ft_strequ(ctxt->l_modif->name, "l"))
 		return (wstr_conv(self, ctxt));
 	if (ctxt->prec)
