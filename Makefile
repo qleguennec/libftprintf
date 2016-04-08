@@ -53,8 +53,8 @@ $(LIBDIR)/%.a: $(DEPSDIR)/%
 $(TARGET): $(LIBS) $(OBJECTS)
 	ar -qc $(TARGET) $(OBJECTS)
 	$(foreach lib, $(LIBS), $(shell ar -x $(lib)))
-	ar -q $(TARGET) $(foreach lib, $(LIBS), $(shell ar -t $(lib)))
-	rm $(foreach lib, $(LIBS), $(shell ar -t $(lib)))
+	ar -q $(TARGET) $(foreach lib, $(LIBS), $(shell ar -t $(lib) | grep ".o"))
+	rm $(foreach lib, $(LIBS), $(shell ar -t $(lib) | grep ".o"))
 	@echo $(GREEN)+++ target:'\t'$(END)$(@D)/ $(BLUE)$(@F)$(END)
 
 $(DEPSDIR)/%:
