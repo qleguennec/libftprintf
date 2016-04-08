@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/08 14:07:36 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/08 16:14:31 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_list		*wc_conv
 	return (ft_lstnew(result, len));
 }
 
-t_list		*wstr_conv
+t_list		*ws_conv
 	(t_conv_spec *self, t_ctxt_spec *ctxt)
 {
 	char	*result;

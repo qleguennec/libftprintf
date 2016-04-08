@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/03 02:11:07 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/08 14:08:51 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/08 16:13:02 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ t_list			*s_conv
 
 	if (!ctxt->arg)
 		return (null_case(self));
-	if (ctxt->l_modif && ft_strequ(ctxt->l_modif->name, "l"))
-		return (wstr_conv(self, ctxt));
+	if (self->ismodif_length && ctxt->l_modif
+		&& ft_strequ(ctxt->l_modif->name, "l"))
+		return (ws_conv(self, ctxt));
 	if (ctxt->prec)
 		len = ft_min(ctxt->prec, ft_strlen((char *)ctxt->arg));
 	else

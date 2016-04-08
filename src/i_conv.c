@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/08 14:06:49 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/08 16:09:01 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static t_arg		abs_value
 	t_arg				mask;
 	size_t				size;
 
-	size = ctxt->l_modif ? ctxt->l_modif->size : self->size;
+	size = (self->ismodif_length && ctxt->l_modif)
+		? ctxt->l_modif->size : self->size;
 	ret = (t_arg)ctxt->arg;
 	mask = get_mask(size);
 	if ((PLUS_MASK & self->valid_attrs)
