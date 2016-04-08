@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/08 21:30:51 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/08 21:58:50 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ t_list		*wctobl
 
 	if (wc < 0x80)
 		return (ft_lstnew(&wc, 1));
-	if (!(ret = ft_memalloc(sizeof(*ret))))
+	if (!(ret = malloc(sizeof(*ret))))
 		return (NULL);
-	while (ret->content_size < 4 && wc >> ret->content_size * 8)
+	ret->content_size = 2;
+	while (ret->content_size <= 4 && wc >> ret->content_size * 6)
 		ret->content_size++;
-	i = ++ret->content_size;
+	i = ret->content_size;
 	if (!(buf = malloc(ret->content_size)))
 		return (NULL);
 	mask = 0;
@@ -65,6 +66,7 @@ t_list		*ws_conv
 	ret = NULL;
 	while (len)
 		ft_lstadd(&ret, wctobl(arg[--len]));
+	assert(ret != NULL);
 	ft_lstbuild(ret);
 	return (ret);
 }
