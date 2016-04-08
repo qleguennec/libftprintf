@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/07 18:47:44 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/08 13:55:01 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_arg		abs_value
 		&& (ret >> (8 * size - 1)))
 	{
 		ret = mask & (~ ret) + 1;
-		self->neg = 1;
+		ctxt->neg = 1;
 	}
 	return (ret);
 }
