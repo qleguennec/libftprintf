@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/09 15:23:54 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/09 15:44:18 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ t_list				*eval_fmt
 	start = *fmt;
 	parse_fmt(&p_res, fmt, conf);
 	if (!p_res.conv)
-		ret = (**fmt ? ft_lstnew((*fmt)++, 1) : NULL);
+		ret = **fmt ? ft_lstnew((*fmt)++, 1) : NULL;
 	else
 	{
 		if (p_res.conv->size)
 			p_res.ctxt.arg = va_arg(*ap, t_arg);
-		ft_lstadd(&ret, p_res.conv->conv_f(&p_res));
+		ret = p_res.conv->conv_f(&p_res);
 		ft_lstadd(&ret, eval_attrs(p_res.conv, &p_res.ctxt));
 	}
 	get_conv_result(&ret, &p_res);
