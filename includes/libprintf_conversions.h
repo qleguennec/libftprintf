@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/09 12:32:16 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/09 13:16:14 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static t_conv_spec	convs_arr[] =
 	{"D" , "0"      , &i_conv  , sizeof(long int) , BASE10    , 30 , 0} ,
 	{"O" , "0"      , &i_conv  , sizeof(long int) , BASE8     , 3  , 0} ,
 	{"U" , "0"      , &i_conv  , sizeof(int)      , BASE10    , 3  , 0} ,
-	{"p" , "0x0"    , &i_conv  , 1                , BASE16LOW , 1  , 1} ,
+	{"p" , "0x0"    , &i_conv  , sizeof(void *)   , BASE16LOW , 1  , 1} ,
 	{"c" , ""       , &c_conv  , 1                , 0         , 0  , 1} ,
 	{"C" , ""       , &wc_conv , 1                , 0         , 0  , 0} ,
 	{"s" , "(null)" , &s_conv  , 1                , 0         , 0  , 1} ,
