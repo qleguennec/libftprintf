@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:31:21 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/07 18:44:44 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/09 13:54:10 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ typedef struct			s_l_modif_spec
 
 static t_l_modif_spec	l_modifs_arr[] =
 {
-	{"hh", sizeof(char)},
-	{"h", sizeof(short)},
-	{"l", sizeof(long)},
-	{"ll", sizeof(long long)},
-	{"j", sizeof(intmax_t)},
-	{"t", sizeof(ptrdiff_t)},
+	{"hh" , sizeof(char)}      ,
+	{"h"  , sizeof(short)}     ,
+	{"l"  , sizeof(long)}      ,
+	{"ll" , sizeof(long long)} ,
+	{"j"  , sizeof(intmax_t)}  ,
+	{"t"  , sizeof(ptrdiff_t)} ,
+	{"z"  , sizeof(size_t)}    ,
 };
 
 #endif
