@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:00 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/08 14:28:34 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/09 03:20:17 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,16 @@ int				ft_printf
 	(const char *format, ...)
 {
 	va_list		ap;
-	size_t		n_args;
 	char		*fmt;
 	t_list		*result;
 	t_list		*builder;
 
 	fmt = (char *)format;
-	n_args = 0;
 	va_start(ap, format);
-	fmt = (char *)format;
 	builder = NULL;
 	if (!conf)
 		conf = init_conf();
-	while ((result = eval_fmt(&fmt, ap, conf)))
+	while ((result = eval_fmt(&fmt, &ap, conf)))
 		ft_lstadd(&builder, result);
 	va_end(ap);
 	return (print_result(&builder));

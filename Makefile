@@ -13,7 +13,7 @@ TARGET		=	$(BINDIR)/$(NAME)
 # Compiler options
 CC			=	clang
 LIBFLAGS	=	$(subst lib,-l,$(LIBSRC))
-CFLAGS		=	$(addprefix -I,$(INCLUDE)) -Wall -Wextra -Werror -g
+CFLAGS		=	$(addprefix -I,$(INCLUDE)) -Wall -Wextra -Werror -g -O0
 
 # Color output
 BLACK		=	"\033[0;30m"

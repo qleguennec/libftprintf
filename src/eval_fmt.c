@@ -6,11 +6,12 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/08 15:48:27 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/09 13:03:31 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libprintf_intern.h>
+#include <stdio.h>
 
 t_list				*find_sep
 	(char **fmt)
@@ -26,26 +27,26 @@ t_list				*find_sep
 }
 
 int					get_conv_result
-	(t_list **builder, t_ctxt_spec *ctxt)
+	(t_list **builder, t_parse_result *p)
 {
 	t_list			*l;
 	char			letter;
 	size_t			list_len;
 
 	list_len = ft_lstsum(*builder);
-	if ((unsigned int)ctxt->width <= list_len)
+	if ((unsigned int)p->ctxt.width <= list_len)
 		return (ft_lstbuild(*builder));
-	if (!(l = ft_lstnew(NULL, ctxt->width - list_len)))
+	if (!(l = ft_lstnew(NULL, p->ctxt.width - list_len)))
 		return (0);
-	if (MINUS_MASK & ctxt->attrs)
+	if (MINUS_MASK & p->ctxt.attrs)
 		letter = ' ';
 	else
-		letter = ((ZERO_MASK & ctxt->attrs) ? '0' : ' ');
-	ft_memset(l->content, letter, ctxt->width - list_len);
+		letter = ((ZERO_MASK & p->ctxt.attrs) ? '0' : ' ');
+	ft_memset(l->content, letter, p->ctxt.width - list_len);
 	if (letter == ' ' || !(*builder)->next
-		|| ((MINUS_MASK) & ctxt->attrs))
+		|| ((MINUS_MASK) & p->ctxt.attrs))
 	{
-		if (MINUS_MASK & ctxt->attrs)
+		if (MINUS_MASK & p->ctxt.attrs)
 			return (ft_lstbuild(ft_lstadd_end(builder, l)));
 		else
 			return (ft_lstbuild(ft_lstadd(builder, l)));
@@ -67,7 +68,7 @@ static void			parse_fmt
 }
 
 t_list				*eval_fmt
-	(char **fmt, va_list ap, t_printf_conf *conf)
+	(char **fmt, va_list *ap, t_printf_conf *conf)
 {
 	char			*start;
 	t_list			*ret;
@@ -77,9 +78,8 @@ t_list				*eval_fmt
 		return (NULL);
 	if (**fmt != '%')
 		return (find_sep(fmt));
-	start = *fmt;
-	ft_bzero(&p_res, sizeof(p_res));
-	parse_fmt(&p_res, fmt, conf);;
+	ret = NULL;
+	parse_fmt(&p_res, fmt, conf);
 	if (!p_res.conv)
 	{
 		start = *fmt;
@@ -87,9 +87,9 @@ t_list				*eval_fmt
 		return (ft_lstnew(start, *fmt - start));
 	}
 	if (p_res.conv->size)
-		p_res.ctxt.arg = va_arg(ap, t_arg);
-	ret = p_res.conv->conv_f(p_res.conv, &p_res.ctxt);
+		p_res.ctxt.arg = va_arg(*ap, t_arg);
+	ft_lstadd(&ret, p_res.conv->conv_f(&p_res));
 	ft_lstadd(&ret, eval_attrs(p_res.conv, &p_res.ctxt));
-	get_conv_result(&ret, &p_res.ctxt);
+	get_conv_result(&ret, &p_res);
 	return (ret);
 }

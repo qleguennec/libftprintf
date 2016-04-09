@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/08 21:58:50 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/08 23:38:34 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,26 @@ t_list		*wctobl
 }
 
 t_list		*wc_conv
-	(t_conv_spec *self, t_ctxt_spec *ctxt)
+	(t_parse_result *p)
 {
-	if (!ctxt->arg)
-		return (null_case(self));
-	return (wctobl((wchar_t)ctxt->arg));
+	if (!p->ctxt.arg)
+		return (null_case(p->conv));
+	return (wctobl((wchar_t)p->ctxt.arg));
 }
 
 t_list		*ws_conv
-	(t_conv_spec *self, t_ctxt_spec *ctxt)
+	(t_parse_result *p)
 {
 	wchar_t	*arg;
 	size_t	len;
 	t_list	*ret;
 
-	if (!ctxt->arg)
-		return (null_case(self));
-	len = ft_wstrlen((const wchar_t *)ctxt->arg);
+	if (!p->ctxt.arg)
+		return (null_case(p->conv));
+	len = ft_wstrlen((const wchar_t *)p->ctxt.arg);
 	if (!len)
 		return (ft_lstnew("", 1));
-	arg = (wchar_t *)ctxt->arg;
+	arg = (wchar_t *)p->ctxt.arg;
 	ret = NULL;
 	while (len)
 		ft_lstadd(&ret, wctobl(arg[--len]));

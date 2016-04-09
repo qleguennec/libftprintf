@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/08 18:41:07 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/09 12:32:16 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 
 #include <libprintf_alphabets.h>
 #include <libprintf_l_modifiers.h>
+#include <libprintf_intern.h>
 #include <limits.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <libft.h>
 
-typedef uintmax_t	t_arg;
+typedef size_t		t_arg;
+struct				s_conv_spec;
+struct				s_ctxt_spec;
+struct				s_parse_result;
 
 typedef struct		s_ctxt_spec
 {
@@ -36,19 +40,25 @@ typedef struct		s_conv_spec
 {
 	char			name[3];
 	char			null_case[10];
-	t_list			*(* conv_f)(struct s_conv_spec *, t_ctxt_spec *);
+	t_list			*(* conv_f)(struct s_parse_result *);
 	size_t			size;
 	unsigned int	base : 3;
 	unsigned int	valid_attrs : 5;
 	unsigned int	ismodif_length;
 }					t_conv_spec;
 
-t_list				*i_conv(t_conv_spec *self, t_ctxt_spec *ctxt);
-t_list				*s_conv(t_conv_spec *self, t_ctxt_spec *ctxt);
-t_list				*c_conv(t_conv_spec *self, t_ctxt_spec *ctxt);
-t_list				*wc_conv(t_conv_spec *self, t_ctxt_spec *ctxt);
-t_list				*ws_conv(t_conv_spec *self, t_ctxt_spec *ctxt);
-t_list				*percent(t_conv_spec *self, t_ctxt_spec *ctxt);
+typedef struct		s_parse_result
+{
+	t_conv_spec		*conv;
+	t_ctxt_spec		ctxt;
+}					t_parse_result;
+
+t_list				*i_conv(t_parse_result *p);
+t_list				*s_conv(t_parse_result *p);
+t_list				*c_conv(t_parse_result *p);
+t_list				*wc_conv(t_parse_result *p);
+t_list				*ws_conv(t_parse_result *p);
+t_list				*percent(t_parse_result *p);
 
 static t_conv_spec	convs_arr[] =
 {

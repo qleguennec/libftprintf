@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/08 16:09:01 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/09 12:59:56 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,51 +26,49 @@ static t_arg			get_mask
 }
 
 static t_arg		abs_value
-	(t_conv_spec *self, t_ctxt_spec *ctxt)
+	(t_parse_result *p)
 {
 	t_arg				ret;
 	t_arg				mask;
 	size_t				size;
 
-	size = (self->ismodif_length && ctxt->l_modif)
-		? ctxt->l_modif->size : self->size;
-	ret = (t_arg)ctxt->arg;
+	size = (p->conv->ismodif_length && p->ctxt.l_modif)
+		? p->ctxt.l_modif->size : p->conv->size;
+	ret = p->ctxt.arg;
 	mask = get_mask(size);
-	if ((PLUS_MASK & self->valid_attrs)
+	ret &= mask;
+	if ((PLUS_MASK & p->conv->valid_attrs)
 		&& (ret >> (8 * size - 1)))
 	{
 		ret = mask & (~ ret) + 1;
-		ctxt->neg = 1;
+		p->ctxt.neg = 1;
 	}
 	return (ret);
 }
 
 t_list					*i_conv
-	(t_conv_spec *self, t_ctxt_spec *ctxt)
+	(t_parse_result *p)
 {
 	t_list				*ret;
+	char				*buf;
 	size_t				len;
 	size_t				base;
 	t_arg				y;
 
-	if (!ctxt->arg)
-		return (null_case(self));
-	base = ft_strlen(alphabets[self->base]);
-	y = abs_value(self, ctxt);
-	len = ft_max(ctxt->prec, digits_nb(y, base));
+	if (!p->ctxt.arg)
+		return (null_case(p->conv));
+	base = ft_strlen(alphabets[p->conv->base]);
+	y = abs_value(p);
+	len = ft_max(p->ctxt.prec, digits_nb(y, base));
 	if (!(ret = ft_lstnew(NULL, len)))
 		return (NULL);
-	while (len)
+	buf = malloc(len);
+	while (len && y >= base)
 	{
-		(((char *)ret->content)[--len]) =
-			*(alphabets[self->base] + y % base);
+		buf[--len] = *(alphabets[p->conv->base] + y % base);
 		y /= base;
-		if (y && y < base)
-		{
-			(((char *)ret->content)[--len]) =
-				*(alphabets[self->base] + y % base);
-			y = 0;
-		}
 	}
+	buf[--len] = *(alphabets[p->conv->base] + y);
+	ret->content = buf;
 	return (ret);
 }
