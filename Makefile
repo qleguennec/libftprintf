@@ -35,6 +35,7 @@ OBJECTS		=	$(addprefix $(BUILDDIR)/, $(SRC:%.c=%.o))
 LIBS		=	$(addprefix $(LIBDIR)/, $(addsuffix .a, $(LIBSRC)))
 
 all: $(TARGET)
+$(NAME): $(TARGET)
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	@[ -d $(BUILDDIR) ] || mkdir $(BUILDDIR); true
 	@$(CC) $(CFLAGS) -c $< -o $@

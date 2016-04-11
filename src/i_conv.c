@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/09 12:59:56 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/11 15:39:55 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,19 @@ t_list					*i_conv
 	char				*buf;
 	size_t				len;
 	size_t				base;
+	size_t				ndigs;
 	t_arg				y;
 
 	if (!p->ctxt.arg)
 		return (null_case(p->conv));
 	base = ft_strlen(alphabets[p->conv->base]);
 	y = abs_value(p);
-	len = ft_max(p->ctxt.prec, digits_nb(y, base));
+	ndigs = digits_nb(y, base);
+	len = ft_max(p->ctxt.prec, ndigs);
 	if (!(ret = ft_lstnew(NULL, len)))
 		return (NULL);
 	buf = malloc(len);
+	ft_bzero(buf, len);
 	while (len && y >= base)
 	{
 		buf[--len] = *(alphabets[p->conv->base] + y % base);
