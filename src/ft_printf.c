@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:00 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/09 16:01:41 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/11 16:32:55 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int		print_result
 		l = l->next;
 	}
 	ft_lstdel(builder, &ft_delete);
-	ft_putstr(s);
+	write(1, s, len);
 	ft_strdel(&s);
 	return (len);
 }

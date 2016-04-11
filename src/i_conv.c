@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/11 15:39:55 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/11 16:45:51 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_list					*i_conv
 	if (!(ret = ft_lstnew(NULL, len)))
 		return (NULL);
 	buf = malloc(len);
-	ft_bzero(buf, len);
+	ft_memset(buf, '0', len);
 	while (len && y >= base)
 	{
 		buf[--len] = *(alphabets[p->conv->base] + y % base);
