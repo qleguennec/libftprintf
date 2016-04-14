@@ -52,9 +52,9 @@ $(LIBDIR)/%.a: $(DEPSDIR)/%
 	@echo $(GREEN)+++ static lib:'\t'$(END)$(LIBDIR)/'\t'$(CYAN)$(@F)$(END)
 
 $(TARGET): $(LIBS) $(OBJECTS)
-	@ar -qc $(TARGET) $(OBJECTS)
+	@ar -rc $(TARGET) $(OBJECTS)
 	@$(foreach lib, $(LIBS), $(shell ar -x $(lib)))
-	@ar -q $(TARGET) $(foreach lib, $(LIBS), $(shell ar -t $(lib) | grep ".o"))
+	@ar -r $(TARGET) $(foreach lib, $(LIBS), $(shell ar -t $(lib) | grep ".o" | grep -v SYMDEF))
 	@rm $(foreach lib, $(LIBS), $(shell ar -t $(lib) | grep ".o"))
 	@echo $(GREEN)+++ target:'\t'$(END)$(@D)/ $(BLUE)$(@F)$(END)
 

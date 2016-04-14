@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/11 16:45:51 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/14 12:48:54 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_arg			get_mask
 	return (mask);
 }
 
-static t_arg		abs_value
+static t_arg			abs_value
 	(t_parse_result *p)
 {
 	t_arg				ret;
@@ -40,7 +40,7 @@ static t_arg		abs_value
 	if ((PLUS_MASK & p->conv->valid_attrs)
 		&& (ret >> (8 * size - 1)))
 	{
-		ret = mask & (~ ret) + 1;
+		ret = mask & (~ret) + 1;
 		p->ctxt.neg = 1;
 	}
 	return (ret);
@@ -51,17 +51,15 @@ t_list					*i_conv
 {
 	t_list				*ret;
 	char				*buf;
+	t_arg				y;
 	size_t				len;
 	size_t				base;
-	size_t				ndigs;
-	t_arg				y;
 
 	if (!p->ctxt.arg)
 		return (null_case(p->conv));
-	base = ft_strlen(alphabets[p->conv->base]);
 	y = abs_value(p);
-	ndigs = digits_nb(y, base);
-	len = ft_max(p->ctxt.prec, ndigs);
+	base = ft_strlen(alphabets[p->conv->base]);
+	len = ft_max(p->ctxt.prec, digits_nb(y, base));
 	if (!(ret = ft_lstnew(NULL, len)))
 		return (NULL);
 	buf = malloc(len);

@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/09 15:44:18 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/14 12:07:38 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ t_list				*find_sep
 	t_list			*ret;
 	char			*sep;
 
-	(sep = ft_strchr(*fmt, '%')) || (sep = ft_strend(*fmt));
+	sep = ft_strchr(*fmt, '%');
+	if (!sep)
+		sep = ft_strend(*fmt);
 	if (!(ret = ft_lstnew(*fmt, sep - *fmt)))
 		return (NULL);
 	*fmt = sep;
