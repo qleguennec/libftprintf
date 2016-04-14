@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/14 13:48:43 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/14 14:08:16 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,12 @@ static void			parse_fmt
 	(*fmt)++;
 	p_res->ctxt.attrs = parse_attrs(fmt, conf);
 	p_res->ctxt.width = parse_width(fmt);
-	p_res->ctxt.prec = parse_prec(fmt);
+	if (**fmt == '.')
+	{
+		(*fmt)++;
+		if (!(p_res->ctxt.prec = parse_prec(fmt)))
+			return ((void)parse_conv(fmt, conf));
+	}
 	p_res->ctxt.l_modif = parse_l_modif(fmt, conf);
 	p_res->conv = parse_conv(fmt, conf);
 }

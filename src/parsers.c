@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/14 13:08:19 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/14 13:55:45 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ size_t				parse_prec
 	size_t			prec;
 
 	if (!**fmt)
-		return (0);
-	if (**fmt != '.')
 		return (0);
 	(*fmt)++;
 	prec = ft_atoi(*fmt);
