@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/03 02:11:07 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/19 13:53:54 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/19 17:20:33 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_list			*s_conv
 {
 	size_t		len;
 
+	if (!p->ctxt.prec)
+		return (NULL);
 	if (!p->ctxt.arg)
 		return (null_case(p));
 	if (p->conv->ismodif_length && p->ctxt.l_modif
