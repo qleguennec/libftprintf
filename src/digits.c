@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 11:27:23 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/04 14:40:42 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/19 15:54:14 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ size_t				digits_nb
 {
 	size_t			digits;
 
-	if (!x)
-		return (1);
 	digits = 0;
 	while (x)
 	{

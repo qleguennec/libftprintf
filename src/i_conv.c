@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/18 14:11:53 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/19 15:50:43 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,18 @@ static t_arg			abs_value
 	return (ret);
 }
 
+static size_t			get_digit_prec
+	(t_parse_result *p, t_arg x, size_t base)
+{
+	size_t				len;
+
+	len = ft_max(p->ctxt.prec, digits_nb(x, base));
+	if ((SHARP_MASK & p->ctxt.attrs)
+		&& (p->conv->name[0] == 'o' || p->conv->name[0] == 'O'))
+		len++;
+	return (len);
+}
+
 t_list					*i_conv
 	(t_parse_result *p)
 {
@@ -55,11 +67,10 @@ t_list					*i_conv
 	size_t				len;
 	size_t				base;
 
-	if (!p->ctxt.arg)
-		return (null_case(p->conv));
 	y = abs_value(p);
 	base = ft_strlen(alphabets[p->conv->base]);
-	len = ft_max(p->ctxt.prec, digits_nb(y, base));
+	if (!(len = get_digit_prec(p, y, base)))
+			return (NULL);
 	if (!(ret = ft_lstnew(NULL, len)))
 		return (NULL);
 	buf = malloc(len);

@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/18 14:25:29 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/19 15:39:10 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ int					get_conv_result
 	size_t			list_len;
 
 	list_len = ft_lstsum(*builder);
-	if ((unsigned int)p->ctxt.width <= list_len)
+	if ((unsigned int)p->ctxt.width < list_len)
 		return (ft_lstbuild(*builder));
 	if (!(l = ft_lstnew(NULL, p->ctxt.width - list_len)))
 		return (0);
 	if (MINUS_MASK & p->ctxt.attrs)
 		letter = ' ';
 	else
-		letter = ((!p->ctxt.prec && ZERO_MASK & p->ctxt.attrs) ? '0' : ' ');
+		letter = (p->ctxt.prec == 1 && ZERO_MASK & p->ctxt.attrs ? '0' : ' ');
 	ft_memset(l->content, letter, p->ctxt.width - list_len);
 	if (letter == ' ' || !(*builder)->next
 		|| ((MINUS_MASK) & p->ctxt.attrs))
@@ -66,8 +66,7 @@ static void			parse_fmt
 	if (**fmt == '.')
 	{
 		(*fmt)++;
-		if (!(p_res->ctxt.prec = parse_prec(fmt)))
-			return ((void)parse_conv(fmt, conf));
+		p_res->ctxt.prec = parse_prec(fmt);
 	}
 	p_res->ctxt.l_modif = parse_l_modif(fmt, conf);
 	p_res->conv = parse_conv(fmt, conf);
@@ -86,6 +85,7 @@ t_list				*eval_fmt
 		return (find_sep(fmt));
 	ret = NULL;
 	ft_bzero(&p_res, sizeof(p_res));
+	p_res.ctxt.prec = 1;
 	start = *fmt;
 	parse_fmt(&p_res, fmt, conf);
 	if (!p_res.conv)
@@ -95,7 +95,7 @@ t_list				*eval_fmt
 		if (p_res.conv->size)
 			p_res.ctxt.arg = va_arg(*ap, t_arg);
 		ret = p_res.conv->conv_f(&p_res);
-		ft_lstadd(&ret, eval_attrs(p_res.conv, &p_res.ctxt));
+		ft_lstadd(&ret, eval_attrs_post(p_res.conv, &p_res.ctxt));
 	}
 	get_conv_result(&ret, &p_res);
 	return (ret);

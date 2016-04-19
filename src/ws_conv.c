@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/09 13:48:39 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/19 13:48:10 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_list		*wc_conv
 	(t_parse_result *p)
 {
 	if (!p->ctxt.arg)
-		return (null_case(p->conv));
+		return (null_case(p));
 	return (wctobl((wchar_t)p->ctxt.arg));
 }
 
@@ -58,7 +58,7 @@ t_list		*ws_conv
 	t_list	*ret;
 
 	if (!p->ctxt.arg)
-		return (null_case(p->conv));
+		return (null_case(p));
 	len = ft_wstrlen((const wchar_t *)p->ctxt.arg);
 	if (!len)
 		return (NULL);
