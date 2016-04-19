@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/19 13:48:10 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/19 18:09:26 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,17 @@ t_list		*ws_conv
 	size_t	len;
 	t_list	*ret;
 
+	if (!p->ctxt.prec)
+		return (NULL);
 	if (!p->ctxt.arg)
 		return (null_case(p));
-	len = ft_wstrlen((const wchar_t *)p->ctxt.arg);
+	arg = (wchar_t *)p->ctxt.arg;
+	if (p->ctxt.prec > 1)
+		len = ft_min(p->ctxt.prec, ft_wstrlen(arg));
+	else
+		len = ft_wstrlen(arg);
 	if (!len)
 		return (NULL);
-	arg = (wchar_t *)p->ctxt.arg;
 	ret = NULL;
 	while (len)
 		ft_lstadd(&ret, wctobl(arg[--len]));
