@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/19 15:50:43 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/19 17:14:04 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,11 @@ static size_t			get_digit_prec
 {
 	size_t				len;
 
-	len = ft_max(p->ctxt.prec, digits_nb(x, base));
-	if ((SHARP_MASK & p->ctxt.attrs)
+	if (!p->ctxt.prec && !p->ctxt.arg)
+		len = 0;
+	else
+		len = ft_max(p->ctxt.prec, digits_nb(x, base));
+	if ((SHARP_MASK & p->ctxt.attrs) && (x || !p->ctxt.prec)
 		&& (p->conv->name[0] == 'o' || p->conv->name[0] == 'O'))
 		len++;
 	return (len);

@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/18 14:32:04 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/19 17:01:40 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ t_list				*percent(t_parse_result *p);
 
 static t_conv_spec	convs_arr[] =
 {
-	{"d" , "0"      , &i_conv  , sizeof(int)    , BASE10    , 30 , 1} ,
-	{"u" , "0"      , &i_conv  , sizeof(int)    , BASE10    , 7  , 1} ,
-	{"i" , "0"      , &i_conv  , sizeof(int)    , BASE10    , 30 , 1} ,
-	{"o" , "0"      , &i_conv  , sizeof(int)    , BASE8     , 7  , 1} ,
-	{"x" , "0"      , &i_conv  , sizeof(int)    , BASE16LOW , 7  , 1} ,
-	{"X" , "0"      , &i_conv  , sizeof(int)    , BASE16UP  , 3  , 1} ,
-	{"D" , "0"      , &i_conv  , sizeof(long)   , BASE10    , 30 , 0} ,
-	{"O" , "0"      , &i_conv  , sizeof(long)   , BASE8     , 3  , 0} ,
-	{"U" , "0"      , &i_conv  , sizeof(long)   , BASE10    , 3  , 0} ,
-	{"p" , "0x0"    , &i_conv  , sizeof(void *) , BASE16LOW , 4  , 0} ,
+	{"d" , ""      , &i_conv  , sizeof(int)    , BASE10    , 30 , 1} ,
+	{"u" , ""      , &i_conv  , sizeof(int)    , BASE10    , 7  , 1} ,
+	{"i" , ""      , &i_conv  , sizeof(int)    , BASE10    , 30 , 1} ,
+	{"o" , ""      , &i_conv  , sizeof(int)    , BASE8     , 7  , 1} ,
+	{"x" , ""      , &i_conv  , sizeof(int)    , BASE16LOW , 7  , 1} ,
+	{"X" , ""      , &i_conv  , sizeof(int)    , BASE16UP  , 3  , 1} ,
+	{"D" , ""      , &i_conv  , sizeof(long)   , BASE10    , 30 , 0} ,
+	{"O" , ""      , &i_conv  , sizeof(long)   , BASE8     , 3  , 0} ,
+	{"U" , ""      , &i_conv  , sizeof(long)   , BASE10    , 3  , 0} ,
+	{"p" , ""    , &i_conv  , sizeof(void *) , BASE16LOW , 4  , 0} ,
 	{"c" , ""       , &c_conv  , 1              , 0         , 6  , 1} ,
 	{"C" , ""       , &wc_conv , 1              , 0         , 6  , 2} ,
 	{"s" , "(null)" , &s_conv  , 1              , 0         , 4  , 1} ,
