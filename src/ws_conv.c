@@ -6,23 +6,23 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/19 18:09:26 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/20 14:00:15 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libprintf_intern.h>
 
-t_list		*wctobl
+static t_list	*wctobl
 	(wchar_t wc)
 {
-	t_list	*ret;
-	size_t	i;
-	wchar_t	mask;
-	char	*buf;
+	t_list		*ret;
+	size_t		i;
+	wchar_t		mask;
+	char		*buf;
 
 	if (wc < 0x80)
 		return (ft_lstnew(&wc, 1));
-	if (!(ret = malloc(sizeof(*ret))))
+	if (!(ret = ft_memalloc(sizeof(*ret))))
 		return (NULL);
 	ret->content_size = 2;
 	while (ret->content_size <= 4 && wc >> ret->content_size * 6)
@@ -42,7 +42,7 @@ t_list		*wctobl
 	return (ret);
 }
 
-t_list		*wc_conv
+t_list			*wc_conv
 	(t_parse_result *p)
 {
 	if (!p->ctxt.arg)
@@ -50,12 +50,12 @@ t_list		*wc_conv
 	return (wctobl((wchar_t)p->ctxt.arg));
 }
 
-t_list		*ws_conv
+t_list			*ws_conv
 	(t_parse_result *p)
 {
-	wchar_t	*arg;
-	size_t	len;
-	t_list	*ret;
+	wchar_t		*arg;
+	size_t		len;
+	t_list		*ret;
 
 	if (!p->ctxt.prec)
 		return (NULL);

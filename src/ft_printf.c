@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:00 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/11 16:32:55 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/20 13:31:43 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,14 @@
 static int		print_result
 	(t_list **builder)
 {
-	char		*s;
-	t_list		*l;
 	size_t		len;
 
-	l = *builder;
-	len = 0;
-	while (l)
-	{
-		len += l->content_size;
-		l = l->next;
-	}
-	if (!(s = ft_strnew(len)))
-		return (0);
-	l = *builder;
-	s += len;
-	while (l)
-	{
-		s -= l->content_size;
-		ft_memcpy(s, l->content, l->content_size);
-		l = l->next;
-	}
+	if (!(ft_lstbuild(*builder)))
+		return (-1);
+	len = (*builder)->content_size;
+	write(1, (*builder)->content, len);
 	ft_lstdel(builder, &ft_delete);
-	write(1, s, len);
-	ft_strdel(&s);
+	ft_memdel((void **)&conf);
 	return (len);
 }
 
