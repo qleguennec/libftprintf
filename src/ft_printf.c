@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:00 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/20 13:31:43 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/20 14:05:22 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int		print_result
 {
 	size_t		len;
 
-	if (!(ft_lstbuild(*builder)))
+	if (!(ft_lstrevbuild(*builder)))
 		return (-1);
 	len = (*builder)->content_size;
 	write(1, (*builder)->content, len);

@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/20 14:00:15 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/20 15:05:46 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static t_list	*wctobl
 t_list			*wc_conv
 	(t_parse_result *p)
 {
-	if (!p->ctxt.arg)
-		return (null_case(p));
 	return (wctobl((wchar_t)p->ctxt.arg));
 }
 

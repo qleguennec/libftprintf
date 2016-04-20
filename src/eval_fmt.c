@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/20 13:49:57 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/20 15:02:34 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int					get_conv_result
 	if (MINUS_MASK & p->ctxt.attrs)
 		letter = ' ';
 	else
-		letter = (p->ctxt.prec == 1 && ZERO_MASK & p->ctxt.attrs ? '0' : ' ');
+		letter = p->ctxt.prec == 1 && ZERO_MASK & p->ctxt.attrs ? '0' : ' ';
 	ft_memset(l->content, letter, p->ctxt.width - list_len);
 	if (letter == ' ' || !(*builder)->next
 		|| ((MINUS_MASK) & p->ctxt.attrs))
