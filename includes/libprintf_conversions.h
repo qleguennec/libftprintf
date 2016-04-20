@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/20 13:59:00 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/20 15:20:42 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ static t_conv_spec	convs_arr[] =
 	{"O" , ""       , &i_conv  , sizeof(long)   , BASE8     , 3  , 0} ,
 	{"U" , ""       , &i_conv  , sizeof(long)   , BASE10    , 3  , 0} ,
 	{"p" , ""       , &i_conv  , sizeof(void *) , BASE16LOW , 4  , 0} ,
-	{"c" , ""       , &c_conv  , 1              , 0         , 6  , 3} ,
-	{"C" , ""       , &wc_conv , 1              , 0         , 6  , 2} ,
-	{"s" , "(null)" , &s_conv  , 1              , 0         , 4  , 3} ,
-	{"S" , "(null)" , &ws_conv , 1              , 0         , 4  , 3} ,
+	{"c" , ""       , &c_conv  , 0              , 0         , 6  , 3} ,
+	{"C" , ""       , &wc_conv , 0              , 0         , 6  , 2} ,
+	{"s" , "(null)" , &s_conv  , 0              , 0         , 4  , 3} ,
+	{"S" , "(null)" , &ws_conv , 0              , 0         , 4  , 3} ,
 	{"%" , ""       , &percent , 0              , 0         , 4  , 1} ,
 };
 

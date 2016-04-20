@@ -1,0 +1,3 @@
+for each conversion, add a "prec_given" attribute
+delete null_case (confusing)
+"p" conv should have its own conversion function (not a numeric conversion)
