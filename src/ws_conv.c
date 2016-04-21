@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/20 15:05:46 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/21 14:33:39 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_list			*ws_conv
 	if (!p->ctxt.prec)
 		return (NULL);
 	if (!p->ctxt.arg)
-		return (null_case(p));
+		return (ft_lstnew("(null)", 6));
 	arg = (wchar_t *)p->ctxt.arg;
 	if (p->ctxt.prec > 1)
 		len = ft_min(p->ctxt.prec, ft_wstrlen(arg));
