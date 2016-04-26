@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:30:55 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/21 15:03:34 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/26 11:50:07 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct		s_conv_spec
 	size_t			size;
 	unsigned int	base : 3;
 	unsigned int	valid_attrs : 5;
-	unsigned int	ismodif_length;
+	unsigned int	ismodif_length : 1;
 }					t_conv_spec;
 
 typedef struct		s_parse_result
@@ -72,12 +72,12 @@ static t_conv_spec	convs_arr[] =
 	{"D" , &i_conv  , sizeof(long)   , BASE10    , 30 , 0} ,
 	{"O" , &i_conv  , sizeof(long)   , BASE8     , 3  , 0} ,
 	{"U" , &i_conv  , sizeof(long)   , BASE10    , 3  , 0} ,
-	{"p" , &p_conv  , sizeof(void *) , BASE16LOW , 4  , 0} ,
-	{"c" , &c_conv  , 1              , 0         , 6  , 3} ,
-	{"C" , &wc_conv , 1              , 0         , 6  , 2} ,
-	{"s" , &s_conv  , 1              , 0         , 4  , 3} ,
-	{"S" , &ws_conv , 1              , 0         , 4  , 3} ,
-	{"%" , &percent , 0              , 0         , 4  , 1} ,
+	{"p" , &p_conv  , 1              , BASE16LOW , 6  , 0} ,
+	{"c" , &c_conv  , 1              , 0         , 6  , 1} ,
+	{"C" , &wc_conv , 1              , 0         , 6  , 0} ,
+	{"s" , &s_conv  , 1              , 0         , 6  , 1} ,
+	{"S" , &ws_conv , 1              , 0         , 6  , 0} ,
+	{"%" , &percent , 0              , 0         , 4  , 0} ,
 };
 
 #endif

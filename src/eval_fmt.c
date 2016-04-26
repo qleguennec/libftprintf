@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/21 14:36:49 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/26 11:56:02 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int					get_conv_result
 	if (MINUS_MASK & p->ctxt.attrs)
 		letter = ' ';
 	else
-		letter = p->ctxt.prec == 1 && ZERO_MASK & p->ctxt.attrs ? '0' : ' ';
+		letter = (p->conv->size <= 1 || !p->ctxt.prec_given) && ZERO_MASK & p->ctxt.attrs ? '0' : ' ';
 	ft_memset(l->content, letter, p->ctxt.width - list_len);
 	if (letter == ' ' || !(*builder)->next
 		|| ((MINUS_MASK) & p->ctxt.attrs))
@@ -98,6 +98,7 @@ t_list				*eval_fmt
 		ret = p_res.conv->conv_f(&p_res);
 		ft_lstadd(&ret, eval_attrs_post(p_res.conv, &p_res.ctxt));
 	}
-	get_conv_result(&ret, &p_res);
+	if (ret)
+		get_conv_result(&ret, &p_res);
 	return (ret);
 }
