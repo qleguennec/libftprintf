@@ -13,7 +13,7 @@ TARGET		=	$(BINDIR)/$(NAME)
 # Compiler options
 CC			=	clang
 LIBFLAGS	=	$(subst lib,-l,$(LIBSRC))
-CFLAGS		=	$(addprefix -I,$(INCLUDE)) -Wall -Wextra -Werror -g -O0
+CFLAGS		=	$(addprefix -I,$(INCLUDE)) -Wall -Wextra -Werror -g
 
 # Color output
 BLACK		=	"\033[0;30m"
@@ -38,7 +38,7 @@ all: $(TARGET)
 $(NAME): $(TARGET)
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	@[ -d $(BUILDDIR) ] || mkdir $(BUILDDIR); true
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 	@echo $(GREEN)+++ obj:'\t'$(END)$(BUILDDIR)/$(YELLOW) $(@F)$(END)
 
 $(LIBDIR)/%.a: $(DEPSDIR)/%
@@ -54,7 +54,7 @@ $(LIBDIR)/%.a: $(DEPSDIR)/%
 $(TARGET): $(LIBS) $(OBJECTS)
 	@ar -rc $(TARGET) $(OBJECTS)
 	@$(foreach lib, $(LIBS), $(shell ar -x $(lib)))
-	@ar -r $(TARGET) $(foreach lib, $(LIBS), $(shell ar -t $(lib) | grep ".o" | grep -v SYMDEF))
+	ar -r $(TARGET) $(foreach lib, $(LIBS), $(shell ar -t $(lib) | grep ".o" | grep -v SYMDEF))
 	@rm $(foreach lib, $(LIBS), $(shell ar -t $(lib) | grep ".o"))
 	@echo $(GREEN)+++ target:'\t'$(END)$(@D)/ $(BLUE)$(@F)$(END)
 

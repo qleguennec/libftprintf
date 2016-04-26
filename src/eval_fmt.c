@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/26 12:36:48 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/26 13:04:16 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,13 @@ t_list				*find_sep
 char				get_width_letter
 	(t_parse_result *p)
 {
-	char			letter;
-
+	if (!p->conv)
+		return ('0');
 	if (MINUS_MASK & p->ctxt.attrs)
-		letter = ' ';
+		return (' ');
 	else
-		letter = p->conv && (p->conv->size <= 1 || !p->ctxt.prec_given)
-			&& ZERO_MASK & p->ctxt.attrs ? '0' : ' ';
-	return (letter);
+		return (p->conv && (p->conv->size <= 1 || !p->ctxt.prec_given)
+			&& ZERO_MASK & p->ctxt.attrs ? '0' : ' ');
 }
 
 int					get_conv_result
