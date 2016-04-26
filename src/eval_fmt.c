@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/26 13:04:16 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/26 13:07:08 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char				get_width_letter
 	(t_parse_result *p)
 {
 	if (!p->conv)
-		return ('0');
+		return (ZERO_MASK & p->ctxt.attrs ? '0' : ' ');
 	if (MINUS_MASK & p->ctxt.attrs)
 		return (' ');
 	else
