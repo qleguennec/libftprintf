@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/26 12:12:43 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/26 12:36:48 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int					get_conv_result
 		return (0);
 	letter = get_width_letter(p);
 	ft_memset(l->content, letter, p->ctxt.width - list_len);
+	if (!(*builder))
+		return (ft_lstadd(builder, l) != NULL);
 	if (letter == ' ' || !(*builder)->next
 		|| ((MINUS_MASK) & p->ctxt.attrs))
 	{
