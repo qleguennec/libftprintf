@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/26 11:56:02 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/04/26 12:12:43 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,19 @@ t_list				*find_sep
 	return (ret);
 }
 
+char				get_width_letter
+	(t_parse_result *p)
+{
+	char			letter;
+
+	if (MINUS_MASK & p->ctxt.attrs)
+		letter = ' ';
+	else
+		letter = p->conv && (p->conv->size <= 1 || !p->ctxt.prec_given)
+			&& ZERO_MASK & p->ctxt.attrs ? '0' : ' ';
+	return (letter);
+}
+
 int					get_conv_result
 	(t_list **builder, t_parse_result *p)
 {
@@ -39,10 +52,7 @@ int					get_conv_result
 		return (ft_lstbuild(*builder));
 	if (!(l = ft_lstnew(NULL, p->ctxt.width - list_len)))
 		return (0);
-	if (MINUS_MASK & p->ctxt.attrs)
-		letter = ' ';
-	else
-		letter = (p->conv->size <= 1 || !p->ctxt.prec_given) && ZERO_MASK & p->ctxt.attrs ? '0' : ' ';
+	letter = get_width_letter(p);
 	ft_memset(l->content, letter, p->ctxt.width - list_len);
 	if (letter == ' ' || !(*builder)->next
 		|| ((MINUS_MASK) & p->ctxt.attrs))
@@ -84,6 +94,8 @@ t_list				*eval_fmt
 		return (NULL);
 	if (**fmt != '%')
 		return (find_sep(fmt));
+	if (!*(*fmt + 1))
+		return (NULL);
 	ret = NULL;
 	ft_bzero(&p_res, sizeof(p_res));
 	p_res.ctxt.prec = 1;
@@ -98,7 +110,6 @@ t_list				*eval_fmt
 		ret = p_res.conv->conv_f(&p_res);
 		ft_lstadd(&ret, eval_attrs_post(p_res.conv, &p_res.ctxt));
 	}
-	if (ret)
-		get_conv_result(&ret, &p_res);
+	get_conv_result(&ret, &p_res);
 	return (ret);
 }
