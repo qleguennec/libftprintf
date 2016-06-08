@@ -6,11 +6,11 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 11:27:23 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/19 16:49:44 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/08 19:39:10 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libprintf_intern.h>
+#include <libftprintf_intern.h>
 
 size_t				digits_nb
 	(t_arg x, int base)

@@ -6,11 +6,11 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/21 14:33:39 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/08 19:57:00 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libprintf_intern.h>
+#include <libftprintf_intern.h>
 
 static t_list	*wctobl
 	(wchar_t wc)

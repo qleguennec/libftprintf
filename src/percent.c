@@ -6,11 +6,11 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/04 19:24:38 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/08 23:38:54 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/08 19:55:20 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libprintf_intern.h>
+#include <libftprintf_intern.h>
 
 t_list		*percent
 	(t_parse_result *p)

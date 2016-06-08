@@ -6,11 +6,11 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/21 14:38:42 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/08 19:56:01 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libprintf_intern.h>
+#include <libftprintf_intern.h>
 
 unsigned int		parse_attrs
 	(char **fmt, t_printf_conf *conf)

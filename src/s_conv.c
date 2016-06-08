@@ -6,11 +6,11 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/03 02:11:07 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/26 11:07:27 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/08 19:54:59 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libprintf_intern.h>
+#include <libftprintf_intern.h>
 
 t_list			*c_conv
 	(t_parse_result *p)

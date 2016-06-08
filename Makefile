@@ -8,7 +8,6 @@ DEPSDIR		?=	lib
 INCLUDE		+=	includes
 INCLUDE		+=	$(addsuffix /includes, $(addprefix $(DEPSDIR)/, $(LIBSRC)))
 NAME		=	libftprintf.a
-TARGET		=	$(BINDIR)/$(NAME)
 
 # Compiler options
 CC			=	clang
@@ -34,8 +33,7 @@ LIBSRC		=	libbst libft
 OBJECTS		=	$(addprefix $(BUILDDIR)/, $(SRC:%.c=%.o))
 LIBS		=	$(addprefix $(LIBDIR)/, $(addsuffix .a, $(LIBSRC)))
 
-all: $(TARGET)
-$(NAME): $(TARGET)
+all: $(NAME)
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	@[ -d $(BUILDDIR) ] || mkdir $(BUILDDIR); true
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -51,11 +49,12 @@ $(LIBDIR)/%.a: $(DEPSDIR)/%
 		make -s -C $< > /dev/null
 	@echo $(GREEN)+++ static lib:'\t'$(END)$(LIBDIR)/'\t'$(CYAN)$(@F)$(END)
 
-$(TARGET): $(LIBS) $(OBJECTS)
-	@ar -rc $(TARGET) $(OBJECTS)
+$(NAME): $(LIBS) $(OBJECTS)
+	@ar -rc $(NAME) $(OBJECTS)
 	@$(foreach lib, $(LIBS), $(shell ar -x $(lib)))
-	ar -r $(TARGET) $(foreach lib, $(LIBS), $(shell ar -t $(lib) | grep ".o" | grep -v SYMDEF))
+	ar -r $(NAME) $(foreach lib, $(LIBS), $(shell ar -t $(lib) | grep ".o" | grep -v SYMDEF))
 	@rm $(foreach lib, $(LIBS), $(shell ar -t $(lib) | grep ".o"))
+	@rm "__.SYMDEF SORTED" || true
 	@echo $(GREEN)+++ target:'\t'$(END)$(@D)/ $(BLUE)$(@F)$(END)
 
 $(DEPSDIR)/%:
@@ -69,9 +68,10 @@ clean:
 	&& echo $(RED)--- static lib:'\t'$(CYAN)$(LIBS:$(LIBDIR)/%.a=%.a); true
 	@rm $(OBJECTS) 2> /dev/null	\
 	&& echo $(RED)--- obj:'\t'$(YELLOW)$(OBJECTS)$(END); true
+	@rm -rf $(BUILDDIR)
 
 fclean: clean
-	@[ -f $(TARGET) ] && rm $(TARGET) \
+	@[ -f $(NAME) ] && rm $(NAME) \
 	&& echo $(RED)--- target:'\t'$(END)$(BINDIR)/ $(BLUE)$(NAME)$(END); true
 
 re: fclean all

@@ -6,11 +6,11 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/26 13:27:55 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/08 20:03:08 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libprintf_intern.h>
+#include <libftprintf_intern.h>
 
 static t_arg			get_mask
 	(size_t size)
@@ -73,19 +73,20 @@ t_list					*i_conv
 	size_t				base;
 
 	y = abs_value(p);
-	base = ft_strlen(alphabets[p->conv->base]);
+	base = ft_strlen(g_alphabets[p->conv->base]);
 	if (!(len = get_digit_prec(p, y, base)))
-			return (NULL);
+		return (NULL);
 	if (!(ret = ft_lstnew(NULL, len)))
 		return (NULL);
-	buf = malloc(len);
+	if (!(buf = malloc(len)))
+		return (NULL);
 	ft_memset(buf, '0', len);
 	while (len && y >= base)
 	{
-		buf[--len] = *(alphabets[p->conv->base] + y % base);
+		buf[--len] = *(g_alphabets[p->conv->base] + y % base);
 		y /= base;
 	}
-	buf[--len] = *(alphabets[p->conv->base] + y);
+	buf[--len] = *(g_alphabets[p->conv->base] + y);
 	ret->content = buf;
 	return (ret);
 }

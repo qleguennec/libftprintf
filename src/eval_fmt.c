@@ -6,11 +6,11 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/26 13:07:08 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/08 19:55:42 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libprintf_intern.h>
+#include <libftprintf_intern.h>
 
 t_list				*find_sep
 	(char **fmt)
@@ -106,8 +106,7 @@ t_list				*eval_fmt
 		ret = **fmt ? ft_lstnew((*fmt)++, 1) : NULL;
 	else
 	{
-		if (p_res.conv->size)
-			p_res.ctxt.arg = va_arg(*ap, t_arg);
+		p_res.conv->size ? p_res.ctxt.arg = va_arg(*ap, t_arg) : (t_arg)NULL;
 		ret = p_res.conv->conv_f(&p_res);
 		ft_lstadd(&ret, eval_attrs_post(p_res.conv, &p_res.ctxt));
 	}

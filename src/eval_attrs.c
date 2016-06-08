@@ -6,11 +6,11 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:13:57 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/21 15:56:51 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/08 19:54:22 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libprintf_intern.h>
+#include <libftprintf_intern.h>
 
 static t_list	*sharp_attr
 	(t_conv_spec *self, t_ctxt_spec *ctxt)
@@ -36,7 +36,7 @@ t_list			*eval_attrs_post
 	l = NULL;
 	sign = 0;
 	ctxt->attrs &= self->valid_attrs;
-	if (SHARP_MASK & ctxt->attrs || self->name[0] == 'p')
+	if (SHARP_MASK & ctxt->attrs)
 		ft_lstadd(&l, sharp_attr(self, ctxt));
 	if (ctxt->neg)
 		sign = '-';

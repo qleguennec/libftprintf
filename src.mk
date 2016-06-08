@@ -1,5 +1,4 @@
 SRC += digits.c
-SRC += exit.c
 SRC += s_conv.c
 SRC += percent.c
 SRC += eval_fmt.c

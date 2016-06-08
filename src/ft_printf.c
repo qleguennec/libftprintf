@@ -6,11 +6,12 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:00 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/04/20 15:07:51 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/08 20:14:32 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libprintf_intern.h>
+#include <libftprintf_intern.h>
+#include <unistd.h>
 
 static int		print_result
 	(t_list **builder)
@@ -24,7 +25,10 @@ static int		print_result
 	len = (*builder)->content_size;
 	write(1, (*builder)->content, len);
 	ft_lstdel(builder, &ft_delete);
-	ft_memdel((void **)&conf);
+	bst_delete(g_conf->attrs);
+	bst_delete(g_conf->convs);
+	bst_delete(g_conf->l_modifs);
+	ft_memdel((void **)&g_conf);
 	return (len);
 }
 
@@ -39,9 +43,9 @@ int				ft_printf
 	fmt = (char *)format;
 	va_start(ap, format);
 	builder = NULL;
-	if (!conf)
-		conf = init_conf();
-	while ((result = eval_fmt(&fmt, &ap, conf)))
+	if (!g_conf)
+		g_conf = init_conf();
+	while ((result = eval_fmt(&fmt, &ap, g_conf)))
 		ft_lstadd(&builder, result);
 	va_end(ap);
 	return (print_result(&builder));
