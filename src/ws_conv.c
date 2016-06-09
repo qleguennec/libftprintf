@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/09 12:08:56 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/09 16:07:28 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,21 @@ static t_list	*wctobl
 		return (ft_lstnew(&wc, 1));
 	if (!(ret = ft_memalloc(sizeof(*ret))))
 		return (NULL);
-	ret->content_size = 2;
-	while (ret->content_size <= 4 && wc >> ret->content_size * 6)
-		ret->content_size++;
-	i = ret->content_size;
-	if (!(buf = malloc(ret->content_size)))
+	ret->size = 2;
+	while (ret->size <= 4 && wc >> ret->size * 6)
+		ret->size++;
+	i = ret->size;
+	if (!(buf = malloc(ret->size)))
 		return (NULL);
 	mask = 0;
 	while (i)
 		mask |= 1 << (8 - i--);
-	i = ret->content_size - 1;
+	i = ret->size - 1;
 	*buf++ = mask | (wc >> 6 * i--);
 	while (i)
 		*buf++ = 0x80 | (wc >> 6 * i-- & 0x3F);
 	*buf = 0x80 | (wc & 0x3F);
-	ret->content = buf - ret->content_size + 1;
+	ret->data = buf - ret->size + 1;
 	return (ret);
 }
 
@@ -57,11 +57,11 @@ t_list			*ws_build
 	if (!p->ctxt.prec_given)
 		return (ft_lstbuild(ret) ? ret : NULL);
 	alst = &ret;
-	len = ret->content_size;
+	len = ret->size;
 	while ((*alst) && len <= p->ctxt.prec)
 	{
 		alst = &(*alst)->next;
-		len += (*alst)->content_size;
+		len += (*alst)->size;
 	}
 	ft_lstdel(alst, &ft_delete);
 	return (ft_lstbuild(ret) ? ret : NULL);

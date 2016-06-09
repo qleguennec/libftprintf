@@ -87,6 +87,6 @@ t_list					*i_conv
 		y /= base;
 	}
 	buf[--len] = *(g_alphabets[p->conv->base] + y);
-	ret->content = buf;
+	ret->data = buf;
 	return (ret);
 }

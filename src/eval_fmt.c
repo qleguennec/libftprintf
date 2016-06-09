@@ -52,7 +52,7 @@ int					get_conv_result
 	if (!(l = ft_lstnew(NULL, p->ctxt.width - list_len)))
 		return (0);
 	letter = get_width_letter(p);
-	ft_memset(l->content, letter, p->ctxt.width - list_len);
+	ft_memset(l->data, letter, p->ctxt.width - list_len);
 	if (!(*builder))
 		return (ft_lstadd(builder, l) != NULL);
 	if (letter == ' ' || !(*builder)->next

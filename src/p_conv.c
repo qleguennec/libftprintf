@@ -29,15 +29,15 @@ t_list					*p_conv
 		: ft_max(p->ctxt.prec, digits_nb(arg, base)) + 2;
 	if (!(ret = ft_lstnew(NULL, len)))
 		return (NULL);
-	ft_memset(ret->content, '0', len);
-	((char *)ret->content)[1] = 'x';
+	ft_memset(ret->data, '0', len);
+	((char *)ret->data)[1] = 'x';
 	while (len && arg >= base)
 	{
-		((char *)ret->content)[--len] =
+		((char *)ret->data)[--len] =
 			*(g_alphabets[p->conv->base] + arg % base);
 		arg /= base;
 	}
-	((char *)ret->content)[--len] = *(g_alphabets[p->conv->base] + arg);
-	ret->content = ret->content;
+	((char *)ret->data)[--len] = *(g_alphabets[p->conv->base] + arg);
+	ret->data = ret->data;
 	return (ret);
 }
