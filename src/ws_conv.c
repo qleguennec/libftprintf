@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/09 12:08:56 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/09 12:13:00 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ t_list			*ws_build
 		return (ft_lstbuild(ret) ? ret : NULL);
 	alst = &ret;
 	len = ret->content_size;
-	while ((*alst) && len <= p->ctxt.prec)
+	while (len <= p->ctxt.prec)
 	{
 		alst = &(*alst)->next;
+		if (!(*alst))
+			break;
 		len += (*alst)->content_size;
 	}
 	ft_lstdel(alst, &ft_delete);
