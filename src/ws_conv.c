@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/08 19:57:00 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/09 12:08:56 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,25 @@ t_list			*wc_conv
 	return (wctobl((wchar_t)p->ctxt.arg));
 }
 
+t_list			*ws_build
+	(t_parse_result *p, t_list *ret)
+{
+	size_t		len;
+	t_list		**alst;
+
+	if (!p->ctxt.prec_given)
+		return (ft_lstbuild(ret) ? ret : NULL);
+	alst = &ret;
+	len = ret->content_size;
+	while ((*alst) && len <= p->ctxt.prec)
+	{
+		alst = &(*alst)->next;
+		len += (*alst)->content_size;
+	}
+	ft_lstdel(alst, &ft_delete);
+	return (ft_lstbuild(ret) ? ret : NULL);
+}
+
 t_list			*ws_conv
 	(t_parse_result *p)
 {
@@ -60,15 +79,11 @@ t_list			*ws_conv
 	if (!p->ctxt.arg)
 		return (ft_lstnew("(null)", 6));
 	arg = (wchar_t *)p->ctxt.arg;
-	if (p->ctxt.prec > 1)
-		len = ft_min(p->ctxt.prec, ft_wstrlen(arg));
-	else
-		len = ft_wstrlen(arg);
+	len = ft_wstrlen(arg);
 	if (!len)
 		return (NULL);
 	ret = NULL;
 	while (len)
 		ft_lstadd(&ret, wctobl(arg[--len]));
-	ft_lstbuild(ret);
-	return (ret);
+	return (ret ? ws_build(p, ret) : NULL);
 }
