@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/14 12:48:29 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/14 17:45:34 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,29 @@ unsigned int		parse_attrs
 	return (attrs);
 }
 
-size_t				parse_width
-	(char **fmt)
+size_t				parse_num
+	(char **fmt, va_list *ap)
 {
-	size_t			width;
+	int				arg;
+	size_t			num;
 
 	if (!**fmt)
 		return (0);
-	width = ft_atoi(*fmt);
-	if (width)
-		*fmt += digits_nb((t_arg)width, 10);
-	return (width);
-}
-
-size_t				parse_prec
-	(char **fmt)
-{
-	size_t			prec;
-
-	if (!**fmt)
-		return (0);
-	prec = ft_atoi(*fmt);
-	while (ft_isdigit(**fmt))
+	if (**fmt == '*')
+	{
 		(*fmt)++;
-	return (prec);
+		arg = va_arg(*ap, int);
+		if (arg < 0)
+		{
+			num = (size_t) - arg;
+			num |= 0xF0000;
+		}
+		else
+			num = (size_t)arg;
+	}
+	else if ((num = ft_atoi(*fmt)))
+		*fmt += digits_nb((t_arg)num, 10);
+	return (num);
 }
 
 t_l_modif_spec		*parse_l_modif

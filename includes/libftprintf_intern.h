@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/14 13:49:14 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/14 17:45:45 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ void					p_exit(char *s1, char *s2);
 size_t					digits_nb(t_arg x, int base);
 int						cmp(void *a, void *b);
 unsigned int			parse_attrs(char **fmt, t_printf_conf *conf);
-size_t					parse_width(char **fmt);
-size_t					parse_prec(char **fmt);
+size_t					parse_num(char **fmt, va_list *ap);
 t_conv_spec				*parse_conv(char **fmt, t_printf_conf *conf);
 t_l_modif_spec			*parse_l_modif(char **fmt, t_printf_conf *conf);
 int						handle_wildcard(char **fmt, va_list *cpy);
