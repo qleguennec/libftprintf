@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/14 18:10:55 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/14 19:29:57 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,7 @@ static void			parse_fmt
 		p_res->ctxt.prec_given = 1;
 		p_res->ctxt.prec = parse_num(fmt, ap);
 		if (p_res->ctxt.prec & 0xF0000)
-		{
-			p_res->ctxt.prec_given = 0;
 			p_res->ctxt.prec = 0;
-		}
 	}
 	p_res->ctxt.l_modif = parse_l_modif(fmt, conf);
 	p_res->conv = parse_conv(fmt, conf);
