@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/14 18:05:49 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/14 23:45:33 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,22 @@ size_t				parse_num
 		return (0);
 	if (**fmt == '*')
 	{
-		(*fmt)++;
 		arg = va_arg(*ap, int);
+		if (ft_isdigit(*++(*fmt)))
+			return (parse_num(fmt, ap));
 		if (arg < 0)
 		{
 			num = (size_t) - arg;
-			num |= 0xF0000;
+			num |= (size_t)0xF << 32;
 		}
 		else
 			num = (size_t)arg;
+		return (num);
 	}
-	else if ((num = ft_atoi(*fmt)))
-		*fmt += digits_nb((t_arg)num, 10);
-	return (num);
+	num = ft_atoi(*fmt);
+	while (ft_isdigit(**fmt))
+		(*fmt)++;
+	return (**fmt != '*' ? num : parse_num(fmt, ap));
 }
 
 t_l_modif_spec		*parse_l_modif

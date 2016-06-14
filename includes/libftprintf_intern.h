@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/14 18:15:22 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/14 23:23:59 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <stddef.h>
+# include <limits.h>
 
 typedef struct			s_printf_conf
 {
