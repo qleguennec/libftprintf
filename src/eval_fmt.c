@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/08 19:55:42 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/14 12:16:18 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int					get_conv_result
 	if (!(l = ft_lstnew(NULL, p->ctxt.width - list_len)))
 		return (0);
 	letter = get_width_letter(p);
-	ft_memset(l->content, letter, p->ctxt.width - list_len);
+	ft_memset(l->data, letter, p->ctxt.width - list_len);
 	if (!(*builder))
 		return (ft_lstadd(builder, l) != NULL);
 	if (letter == ' ' || !(*builder)->next
@@ -69,11 +69,11 @@ int					get_conv_result
 }
 
 static void			parse_fmt
-	(t_parse_result *p_res, char **fmt, t_printf_conf *conf)
+	(t_parse_result *p_res, char **fmt, t_printf_conf *conf, va_list *ap)
 {
 	(*fmt)++;
 	p_res->ctxt.attrs = parse_attrs(fmt, conf);
-	p_res->ctxt.width = parse_width(fmt);
+	p_res->ctxt.width = parse_width(fmt, ap);
 	if (**fmt == '.')
 	{
 		(*fmt)++;
@@ -101,7 +101,7 @@ t_list				*eval_fmt
 	ft_bzero(&p_res, sizeof(p_res));
 	p_res.ctxt.prec = 1;
 	start = *fmt;
-	parse_fmt(&p_res, fmt, conf);
+	parse_fmt(&p_res, fmt, conf, ap);
 	if (!p_res.conv)
 		ret = **fmt ? ft_lstnew((*fmt)++, 1) : NULL;
 	else

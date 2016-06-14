@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/08 19:56:01 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/14 12:17:33 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,20 @@ unsigned int		parse_attrs
 }
 
 size_t				parse_width
-	(char **fmt)
+	(char **fmt, va_list *ap)
 {
 	size_t			width;
+	int				arg;
 
 	if (!**fmt)
 		return (0);
-	width = ft_atoi(*fmt);
+	if (**fmt == '*')
+	{
+		arg = va_arg(*ap, int);
+		width = (size_t)arg;
+	}
+	else
+		width = ft_atoi(*fmt);
 	if (width)
 		*fmt += digits_nb((t_arg)width, 10);
 	return (width);

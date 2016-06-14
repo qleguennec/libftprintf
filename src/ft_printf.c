@@ -22,8 +22,8 @@ static int		print_result
 		return (0);
 	if (!(ft_lstrevbuild(*builder)))
 		return (-1);
-	len = (*builder)->content_size;
-	write(1, (*builder)->content, len);
+	len = (*builder)->size;
+	write(1, (*builder)->data, len);
 	ft_lstdel(builder, &ft_delete);
 	bst_delete(g_conf->attrs);
 	bst_delete(g_conf->convs);
