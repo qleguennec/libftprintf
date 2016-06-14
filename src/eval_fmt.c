@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/14 12:16:18 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/14 13:50:01 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ int					get_conv_result
 }
 
 static void			parse_fmt
-	(t_parse_result *p_res, char **fmt, t_printf_conf *conf, va_list *ap)
+	(t_parse_result *p_res, char **fmt, t_printf_conf *conf)
 {
-	(*fmt)++;
+	if (**fmt == '%')
+		(*fmt)++;
 	p_res->ctxt.attrs = parse_attrs(fmt, conf);
-	p_res->ctxt.width = parse_width(fmt, ap);
 	if (**fmt == '.')
 	{
 		(*fmt)++;

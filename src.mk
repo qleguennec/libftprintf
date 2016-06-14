@@ -5,6 +5,7 @@ SRC += eval_fmt.c
 SRC += eval_attrs.c
 SRC += parsers.c
 SRC += ft_printf.c
+SRC += handle_wildcard.c
 SRC += cmp.c
 SRC += init_conf.c
 SRC += ws_conv.c
