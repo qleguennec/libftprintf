@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/18 01:58:58 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/18 02:32:03 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int				p_conv
 	w = *v;
 	arg = p->ctxt.arg;
 	len = ZERO_MASK & p->ctxt.attrs
-		? MAX(p->ctxt.width, ft_max(p->ctxt.prec, digits_nb(arg, 16)) + 2)
+		? MAX(p->ctxt.width, MAX(p->ctxt.prec, digits_nb(arg, 16)) + 2)
 		: MAX(p->ctxt.prec, digits_nb(arg, 16)) + 2;
 	if (!(vect_memset(v, '0', len, 0)))
 		return (0);

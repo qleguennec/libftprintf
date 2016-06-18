@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/03 02:11:07 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/18 01:00:09 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/18 02:31:47 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int				s_conv
 		&& ft_strequ(p->ctxt.l_modif->name, "l"))
 		return (ws_conv(p, v));
 	if (p->ctxt.prec_given)
-		len = ft_min(p->ctxt.prec, ft_strlen((char *)p->ctxt.arg));
+		len = MIN(p->ctxt.prec, ft_strlen((char *)p->ctxt.arg));
 	else
 		len = ft_strlen((char *)p->ctxt.arg);
 	return (vect_add(v, (void *)p->ctxt.arg, len));
