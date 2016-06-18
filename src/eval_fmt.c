@@ -6,67 +6,25 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/14 23:37:22 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/18 01:02:35 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf_intern.h>
 #include <unistd.h>
 
-t_list				*find_sep
-	(char **fmt)
+static int			find_sep
+	(char **fmt, t_vect **v)
 {
-	t_list			*ret;
 	char			*sep;
 
 	sep = ft_strchr(*fmt, '%');
 	if (!sep)
 		sep = ft_strend(*fmt);
-	if (!(ret = ft_lstnew(*fmt, sep - *fmt)))
-		return (NULL);
-	*fmt = sep;
-	return (ret);
-}
-
-char				get_width_letter
-	(t_parse_result *p)
-{
-	if (!p->conv)
-		return (ZERO_MASK & p->ctxt.attrs ? '0' : ' ');
-	if (MINUS_MASK & p->ctxt.attrs)
-		return (' ');
-	else
-		return (p->conv && (p->conv->size <= 1 || !p->ctxt.prec_given)
-			&& ZERO_MASK & p->ctxt.attrs ? '0' : ' ');
-}
-
-int					get_conv_result
-	(t_list **builder, t_parse_result *p)
-{
-	t_list			*l;
-	char			letter;
-	size_t			list_len;
-
-	list_len = ft_lstsum(*builder);
-	if ((unsigned int)p->ctxt.width < list_len)
-		return (ft_lstbuild(*builder));
-	if (!(l = ft_lstnew(NULL, p->ctxt.width - list_len)))
+	if (!(vect_add(v, *fmt, sep - *fmt)))
 		return (0);
-	letter = get_width_letter(p);
-	ft_memset(l->data, letter, p->ctxt.width - list_len);
-	if (!(*builder))
-		return (ft_lstadd(builder, l) != NULL);
-	if (letter == ' ' || !(*builder)->next
-		|| ((MINUS_MASK) & p->ctxt.attrs))
-	{
-		if (MINUS_MASK & p->ctxt.attrs)
-			return (ft_lstbuild(ft_lstadd_end(builder, l)));
-		else
-			return (ft_lstbuild(ft_lstadd(builder, l)));
-	}
-	l->next = (*builder)->next;
-	(*builder)->next = l;
-	return (ft_lstbuild(*builder));
+	*fmt = sep;
+	return (1);
 }
 
 static void			parse_fmt
@@ -96,32 +54,25 @@ static void			parse_fmt
 	p_res->conv = parse_conv(fmt, conf);
 }
 
-t_list				*eval_fmt
-	(char **fmt, va_list *ap, t_printf_conf *conf)
+int					eval_fmt
+	(char **fmt, va_list *ap, t_vect **v, t_printf_conf *conf)
 {
-	char			*start;
-	t_list			*ret;
 	t_parse_result	p_res;
 
 	if (!**fmt)
-		return (NULL);
+		return (0);
 	if (**fmt != '%')
-		return (find_sep(fmt));
+		return (find_sep(fmt, v));
 	if (!*(*fmt + 1))
-		return (NULL);
-	ret = NULL;
+		return (0);
 	ft_bzero(&p_res, sizeof(p_res));
 	p_res.ctxt.prec = 1;
-	start = *fmt;
 	parse_fmt(&p_res, fmt, conf, ap);
 	if (!p_res.conv)
-		ret = **fmt ? ft_lstnew((*fmt)++, 1) : NULL;
-	else
-	{
-		p_res.conv->size ? p_res.ctxt.arg = va_arg(*ap, t_arg) : (t_arg)NULL;
-		ret = p_res.conv->conv_f(&p_res);
-		ft_lstadd(&ret, eval_attrs_post(p_res.conv, &p_res.ctxt));
-	}
-	get_conv_result(&ret, &p_res);
-	return (ret);
+		return (**fmt ? vect_add(v, *fmt, 1) : 0);
+	if (p_res.conv->size)
+		p_res.ctxt.arg = va_arg(*ap, t_arg);
+	if (!(p_res.conv->conv_f(&p_res, v) && eval_post(&p_res, v)))
+		return (0);
+	return (1);
 }

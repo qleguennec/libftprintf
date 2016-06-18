@@ -6,27 +6,28 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/14 23:23:59 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/18 00:50:04 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFTPRINTF_INTERN_H
 # define LIBFTPRINTF_INTERN_H
 
-#define BASE2		0
-#define BASE8		1
-#define BASE10		2
-#define BASE16LOW	3
-#define BASE16UP	4
+# define BASE2		0
+# define BASE8		1
+# define BASE10		2
+# define BASE16LOW	3
+# define BASE16UP	4
 
-#define SHARP_MASK	(1 << 0)
-#define ZERO_MASK	(1 << 1)
-#define MINUS_MASK	(1 << 2)
-#define SPACE_MASK	(1 << 3)
-#define PLUS_MASK	(1 << 4)
+# define SHARP_MASK	(1 << 0)
+# define ZERO_MASK	(1 << 1)
+# define MINUS_MASK	(1 << 2)
+# define SPACE_MASK	(1 << 3)
+# define PLUS_MASK	(1 << 4)
 
 # include <libft.h>
 # include <libbst.h>
+# include <libvect.h>
 # include <stdarg.h>
 # include <stdlib.h>
 # include <stdint.h>
@@ -39,8 +40,6 @@ typedef struct			s_printf_conf
 	t_bst_tree			*attrs;
 	t_bst_tree			*l_modifs;
 }						t_printf_conf;
-
-static t_printf_conf	*g_conf = NULL;
 
 static char				*g_alphabets[] =
 {
@@ -102,7 +101,7 @@ typedef struct			s_ctxt_spec
 typedef struct			s_conv_spec
 {
 	char				name[3];
-	t_list				*(* conv_f)(struct s_parse_result *);
+	int					(* conv_f)(struct s_parse_result *, t_vect **);
 	size_t				size;
 	unsigned int		base : 3;
 	unsigned int		valid_attrs : 5;
@@ -115,13 +114,13 @@ typedef struct			s_parse_result
 	t_ctxt_spec			ctxt;
 }						t_parse_result;
 
-t_list					*i_conv(t_parse_result *p);
-t_list					*p_conv(t_parse_result *p);
-t_list					*s_conv(t_parse_result *p);
-t_list					*c_conv(t_parse_result *p);
-t_list					*wc_conv(t_parse_result *p);
-t_list					*ws_conv(t_parse_result *p);
-t_list					*percent(t_parse_result *p);
+int						i_conv(t_parse_result *p, t_vect **v);
+int						p_conv(t_parse_result *p, t_vect **v);
+int						s_conv(t_parse_result *p, t_vect **v);
+int						c_conv(t_parse_result *p, t_vect **v);
+int						wc_conv(t_parse_result *p, t_vect **v);
+int						ws_conv(t_parse_result *p, t_vect **v);
+int						percent(t_parse_result *p, t_vect **v);
 
 static t_conv_spec	g_convs_arr[] =
 {
@@ -143,8 +142,9 @@ static t_conv_spec	g_convs_arr[] =
 };
 
 t_printf_conf			*init_conf(void);
-t_list					*eval_attrs_post(t_conv_spec *self, t_ctxt_spec *ctxt);
-t_list					*eval_fmt(char **fmt, va_list *ap, t_printf_conf *conf);
+int						eval_post(t_parse_result *p, t_vect **v);
+int						eval_fmt
+	(char **fmt, va_list *ap, t_vect **v, t_printf_conf *conf);
 void					p_exit(char *s1, char *s2);
 size_t					digits_nb(t_arg x, int base);
 int						cmp(void *a, void *b);
@@ -152,6 +152,5 @@ unsigned int			parse_attrs(char **fmt, t_printf_conf *conf);
 size_t					parse_num(char **fmt, va_list *ap);
 t_conv_spec				*parse_conv(char **fmt, t_printf_conf *conf);
 t_l_modif_spec			*parse_l_modif(char **fmt, t_printf_conf *conf);
-int						handle_wildcard(char **fmt, va_list *cpy);
 
 #endif

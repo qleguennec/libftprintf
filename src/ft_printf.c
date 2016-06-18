@@ -6,47 +6,56 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:00 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/08 20:14:32 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/18 01:43:20 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf_intern.h>
 #include <unistd.h>
 
-static int		print_result
-	(t_list **builder)
+static int					print_result
+	(t_vect **builder)
 {
-	size_t		len;
+	size_t					len;
+	t_vect					*w;
 
 	if (!*builder)
 		return (0);
-	if (!(ft_lstrevbuild(*builder)))
-		return (-1);
-	len = (*builder)->size;
-	write(1, (*builder)->data, len);
-	ft_lstdel(builder, &ft_delete);
-	bst_delete(g_conf->attrs);
-	bst_delete(g_conf->convs);
-	bst_delete(g_conf->l_modifs);
-	ft_memdel((void **)&g_conf);
+	w = *builder;
+	write(1, w->data, w->used);
+	len = w->used;
+	vect_del(builder);
 	return (len);
 }
 
-int				ft_printf
+int							ft_printf
 	(const char *format, ...)
 {
-	va_list		ap;
-	char		*fmt;
-	t_list		*result;
-	t_list		*builder;
+	static t_printf_conf	*conf = NULL;
+	va_list					ap;
+	char					*fmt;
+	size_t					len;
+	t_vect					*v;
+	t_vect					*builder;
 
 	fmt = (char *)format;
 	va_start(ap, format);
 	builder = NULL;
-	if (!g_conf)
-		g_conf = init_conf();
-	while ((result = eval_fmt(&fmt, &ap, g_conf)))
-		ft_lstadd(&builder, result);
+	v = NULL;
+	if (!conf)
+		conf = init_conf();
+	while (eval_fmt(&fmt, &ap, &v, conf))
+	{
+		if (!vect_add(&builder, v->data, v->used))
+			return (0);
+		v->used = 0;
+	}
 	va_end(ap);
-	return (print_result(&builder));
+	len = print_result(&builder);
+	vect_del(&v);
+	bst_delall(&conf->attrs);
+	bst_delall(&conf->convs);
+	bst_delall(&conf->l_modifs);
+	ft_memdel((void **)&conf);
+	return (len);
 }

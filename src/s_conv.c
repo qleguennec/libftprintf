@@ -6,38 +6,35 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/03 02:11:07 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/08 19:54:59 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/18 01:00:09 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf_intern.h>
 
-t_list			*c_conv
-	(t_parse_result *p)
+int				c_conv
+	(t_parse_result *p, t_vect **v)
 {
-	char		arg[1];
-
 	if (p->ctxt.l_modif && ft_strequ(p->ctxt.l_modif->name, "l"))
-		return (wc_conv(p));
-	arg[0] = (char)p->ctxt.arg;
-	return (ft_lstnew(arg, 1));
+		return (wc_conv(p, v));
+	return (vect_memset(v, (unsigned char)p->ctxt.arg, 1, 0));
 }
 
-t_list			*s_conv
-	(t_parse_result *p)
+int				s_conv
+	(t_parse_result *p, t_vect **v)
 {
 	size_t		len;
 
 	if (!p->ctxt.prec)
-		return (NULL);
+		return (0);
 	if (!p->ctxt.arg)
-		return (ft_lstnew("(null)", 6));
+		return (vect_addstr(v, "(null)"));
 	if (p->conv->ismodif_length && p->ctxt.l_modif
 		&& ft_strequ(p->ctxt.l_modif->name, "l"))
-		return (ws_conv(p));
+		return (ws_conv(p, v));
 	if (p->ctxt.prec_given)
 		len = ft_min(p->ctxt.prec, ft_strlen((char *)p->ctxt.arg));
 	else
 		len = ft_strlen((char *)p->ctxt.arg);
-	return (ft_lstnew((char *)p->ctxt.arg, len));
+	return (vect_add(v, (void *)p->ctxt.arg, len));
 }

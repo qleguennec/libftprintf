@@ -6,38 +6,36 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/08 20:03:14 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/18 01:58:58 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf_intern.h>
 
-t_list					*p_conv
-	(t_parse_result *p)
+int				p_conv
+	(t_parse_result *p, t_vect **v)
 {
-	size_t				len;
-	size_t				base;
-	t_list				*ret;
-	size_t				arg;
+	size_t		len;
+	size_t		arg;
+	t_vect		*w;
+	char		*buf;
 
 	if (!p->ctxt.prec)
-		return (ft_lstnew("0x", 2));
+		return (vect_addstr(v, "0x"));
+	w = *v;
 	arg = p->ctxt.arg;
-	base = ft_strlen(g_alphabets[p->conv->base]);
 	len = ZERO_MASK & p->ctxt.attrs
-		? ft_max(p->ctxt.width, ft_max(p->ctxt.prec, digits_nb(arg, base)) + 2)
-		: ft_max(p->ctxt.prec, digits_nb(arg, base)) + 2;
-	if (!(ret = ft_lstnew(NULL, len)))
-		return (NULL);
-	ft_memset(ret->data, '0', len);
-	((char *)ret->data)[1] = 'x';
-	while (len && arg >= base)
+		? MAX(p->ctxt.width, ft_max(p->ctxt.prec, digits_nb(arg, 16)) + 2)
+		: MAX(p->ctxt.prec, digits_nb(arg, 16)) + 2;
+	if (!(vect_memset(v, '0', len, 0)))
+		return (0);
+	((char *)w->data)[1] = 'x';
+	buf = w->data;
+	while (len && arg >= 16)
 	{
-		((char *)ret->data)[--len] =
-			*(g_alphabets[p->conv->base] + arg % base);
-		arg /= base;
+		buf[--len] = *(g_alphabets[p->conv->base] + arg % 16);
+		arg /= 16;
 	}
-	((char *)ret->data)[--len] = *(g_alphabets[p->conv->base] + arg);
-	ret->data = ret->data;
-	return (ret);
+	buf[--len] = *(g_alphabets[p->conv->base] + arg);
+	return (1);
 }

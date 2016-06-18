@@ -29,7 +29,7 @@ END			=	"\033[0m"
 include src.mk
 
 # Libraries
-LIBSRC		=	libbst libft
+LIBSRC		=	libbst libvect libft
 OBJECTS		=	$(addprefix $(BUILDDIR)/, $(SRC:%.c=%.o))
 LIBS		=	$(addprefix $(LIBDIR)/, $(addsuffix .a, $(LIBSRC)))
 

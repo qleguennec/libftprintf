@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/08 20:03:08 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/18 02:27:28 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static size_t			get_digit_prec
 	if (!p->ctxt.prec && !p->ctxt.arg)
 		len = 0;
 	else
-		len = ft_max(p->ctxt.prec, digits_nb(x, base));
+		len = MAX(p->ctxt.prec, digits_nb(x, base));
 	if ((SHARP_MASK & p->ctxt.attrs)
 		&& (!p->ctxt.prec_given || !p->ctxt.prec)
 		&& (x || !p->ctxt.prec)
@@ -63,30 +63,28 @@ static size_t			get_digit_prec
 	return (len);
 }
 
-t_list					*i_conv
-	(t_parse_result *p)
+int						i_conv
+	(t_parse_result *p, t_vect **v)
 {
-	t_list				*ret;
 	char				*buf;
 	t_arg				y;
 	size_t				len;
 	size_t				base;
+	t_vect				*w;
 
 	y = abs_value(p);
 	base = ft_strlen(g_alphabets[p->conv->base]);
 	if (!(len = get_digit_prec(p, y, base)))
-		return (NULL);
-	if (!(ret = ft_lstnew(NULL, len)))
-		return (NULL);
-	if (!(buf = malloc(len)))
-		return (NULL);
-	ft_memset(buf, '0', len);
+		return (0);
+	if (!(vect_memset(v, '0', len, 0)))
+		return (0);
+	w = *v;
+	buf = w->data;
 	while (len && y >= base)
 	{
 		buf[--len] = *(g_alphabets[p->conv->base] + y % base);
 		y /= base;
 	}
 	buf[--len] = *(g_alphabets[p->conv->base] + y);
-	ret->data = buf;
-	return (ret);
+	return (1);
 }

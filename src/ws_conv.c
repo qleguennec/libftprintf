@@ -6,84 +6,67 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/09 16:07:28 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/18 02:28:25 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf_intern.h>
 
-static t_list	*wctobl
-	(wchar_t wc)
+static int		wctovect
+	(t_vect **v, wchar_t wc)
 {
-	t_list		*ret;
 	size_t		i;
+	size_t		size;
 	wchar_t		mask;
 	char		*buf;
 
 	if (wc < 0x80)
-		return (ft_lstnew(&wc, 1));
-	if (!(ret = ft_memalloc(sizeof(*ret))))
-		return (NULL);
-	ret->size = 2;
-	while (ret->size <= 4 && wc >> ret->size * 6)
-		ret->size++;
-	i = ret->size;
-	if (!(buf = malloc(ret->size)))
-		return (NULL);
+		return (vect_memset(v, (unsigned char)wc, 1, (*v)->used));
+	size = 2;
+	while (size <= 4 && wc >> size * 6)
+		size++;
+	i = size;
+	buf = (*v)->data + (*v)->used;
+	if (!vect_req(*v, size))
+		return (0);
 	mask = 0;
 	while (i)
 		mask |= 1 << (8 - i--);
-	i = ret->size - 1;
+	i = size - 1;
 	*buf++ = mask | (wc >> 6 * i--);
 	while (i)
 		*buf++ = 0x80 | (wc >> 6 * i-- & 0x3F);
 	*buf = 0x80 | (wc & 0x3F);
-	ret->data = buf - ret->size + 1;
-	return (ret);
+	return (1);
 }
 
-t_list			*wc_conv
-	(t_parse_result *p)
+int				wc_conv
+	(t_parse_result *p, t_vect **v)
 {
-	return (wctobl((wchar_t)p->ctxt.arg));
+	return (wctovect(v, (wchar_t)p->ctxt.arg));
 }
 
-t_list			*ws_build
-	(t_parse_result *p, t_list *ret)
-{
-	size_t		len;
-	t_list		**alst;
-
-	if (!p->ctxt.prec_given)
-		return (ft_lstbuild(ret) ? ret : NULL);
-	alst = &ret;
-	len = ret->size;
-	while ((*alst) && len <= p->ctxt.prec)
-	{
-		alst = &(*alst)->next;
-		len += (*alst)->size;
-	}
-	ft_lstdel(alst, &ft_delete);
-	return (ft_lstbuild(ret) ? ret : NULL);
-}
-
-t_list			*ws_conv
-	(t_parse_result *p)
+int				ws_conv
+	(t_parse_result *p, t_vect **v)
 {
 	wchar_t		*arg;
+	size_t		i;
 	size_t		len;
-	t_list		*ret;
 
 	if (!p->ctxt.prec)
-		return (NULL);
+		return (0);
 	if (!p->ctxt.arg)
-		return (ft_lstnew("(null)", 6));
+		return (vect_addstr(v, "(null)"));
 	arg = (wchar_t *)p->ctxt.arg;
-	len = ft_wstrlen(arg);
+	len = p->ctxt.prec_given ? MIN(ft_wstrlen(arg), p->ctxt.prec)
+		: ft_wstrlen(arg);
 	if (!len)
-		return (NULL);
-	ret = NULL;
-	while (len)
-		ft_lstadd(&ret, wctobl(arg[--len]));
-	return (ret ? ws_build(p, ret) : NULL);
+		return (0);
+	i = 0;
+	while (i < len)
+	{
+		if (!(wctovect(v, arg[i++])))
+			return (0);
+	}
+	return (1);
 }
