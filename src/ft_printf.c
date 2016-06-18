@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:00 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/18 01:43:20 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/18 14:28:48 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int							ft_printf
 	}
 	va_end(ap);
 	len = print_result(&builder);
-	vect_del(&v);
+	if (v)
+		vect_del(&v);
 	bst_delall(&conf->attrs);
 	bst_delall(&conf->convs);
 	bst_delall(&conf->l_modifs);

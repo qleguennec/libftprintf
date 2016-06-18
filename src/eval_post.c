@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:13:57 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/18 02:26:31 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/18 16:10:09 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ static int		sharp_attr
 	(t_parse_result *p, t_vect **v)
 {
 	char		buf[2];
+	char		letter;
 	t_vect		*w;
 
 	w = *v;
+	if (!p->ctxt.arg)
+		return (1);
 	if (p->conv->name[0] == 'x')
 		ft_memcpy(buf, "0x", 2);
 	else if (p->conv->name[0] == 'X')
@@ -41,7 +44,11 @@ static int		sharp_attr
 		return (0);
 	if (p->ctxt.width <= w->used)
 		return (1);
-	return (vect_memset(v, get_width_letter(p), p->ctxt.width - w->used , 2));
+	letter = get_width_letter(p);
+	if (letter == ' ')
+		return (vect_memset(v, letter, p->ctxt.width - w->used
+			, MINUS_MASK & p->ctxt.attrs ? w->used : 0));
+	return (vect_memset(v, letter, p->ctxt.width - w->used , 2));
 }
 
 int				eval_post
@@ -49,23 +56,27 @@ int				eval_post
 {
 	char		sign;
 	size_t		n;
-	t_vect		*w;
 
 	sign = 0;
-	p->ctxt.attrs &= p->conv->valid_attrs;
-	if (SHARP_MASK & p->ctxt.attrs)
+	if (!(*v || (*v = ft_memalloc(sizeof(**v))) != NULL))
+		return (0);
+	if (p->conv)
+		p->ctxt.attrs &= p->conv->valid_attrs;
+	if (p->conv && SHARP_MASK & p->ctxt.attrs)
 		return (sharp_attr(p, v));
 	if (p->ctxt.neg)
 		sign = '-';
 	else if (PLUS_MASK & p->ctxt.attrs)
 		sign = '+';
-	else if (SPACE_MASK & p->ctxt.attrs)
+	else if (p->conv && SPACE_MASK & p->ctxt.attrs)
 		sign = ' ';
-	w = *v;
 	if (sign && !vect_memset(v, sign, 1, 0))
 		return (0);
-	if (p->ctxt.width <= w->used)
+	if (p->ctxt.width <= (*v)->used)
 		return (1);
-	n = MINUS_MASK & p->ctxt.attrs ? w->used : 0;
-	return (vect_memset(v, get_width_letter(p), p->ctxt.width - w->used, n));
+	if (sign && ZERO_MASK & p->ctxt.attrs)
+		n = MINUS_MASK & p->ctxt.attrs ? (*v)->used : 1;
+	else
+		n = MINUS_MASK & p->ctxt.attrs ? (*v)->used : 0;
+	return (vect_memset(v, get_width_letter(p), p->ctxt.width - (*v)->used, n));
 }

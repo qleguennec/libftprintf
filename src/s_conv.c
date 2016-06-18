@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/03 02:11:07 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/18 02:31:47 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/18 15:25:51 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int				s_conv
 	size_t		len;
 
 	if (!p->ctxt.prec)
-		return (0);
+		return (1);
 	if (!p->ctxt.arg)
 		return (vect_addstr(v, "(null)"));
 	if (p->conv->ismodif_length && p->ctxt.l_modif

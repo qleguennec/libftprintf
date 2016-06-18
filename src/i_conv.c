@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/18 02:27:28 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/18 15:32:18 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ static size_t			get_digit_prec
 		&& (!p->ctxt.prec_given || !p->ctxt.prec)
 		&& (x || !p->ctxt.prec)
 		&& (p->conv->name[0] == 'o' || p->conv->name[0] == 'O'))
+	{
 		len++;
+		p->ctxt.attrs &= ~SHARP_MASK;
+	}
 	return (len);
 }
 
@@ -75,7 +78,7 @@ int						i_conv
 	y = abs_value(p);
 	base = ft_strlen(g_alphabets[p->conv->base]);
 	if (!(len = get_digit_prec(p, y, base)))
-		return (0);
+		return (*v ? 1 : (*v = ft_memalloc(sizeof(**v))) != NULL);
 	if (!(vect_memset(v, '0', len, 0)))
 		return (0);
 	w = *v;

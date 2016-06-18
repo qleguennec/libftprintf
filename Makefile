@@ -89,7 +89,7 @@ rendu:
 	@util/rendu.sh
 
 purge:
-	@util/purge.sh
+	@util/purge.sh || true
 
 get-%:
 	@echo '$($*)'
