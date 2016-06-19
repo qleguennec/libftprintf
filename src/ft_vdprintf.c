@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/19 14:31:34 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 14:43:10 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/19 15:46:15 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int				ft_vdprintf
 	if (!v)
 		return (-1);
 	len = v->used;
-	write(fd, format, len);
+	write(fd, v->data, len);
 	vect_del(&v);
 	return (len);
 }
