@@ -5,7 +5,6 @@ SRC += ft_printf.c
 SRC += ws_conv.c
 SRC += eval_fmt.c
 SRC += digits.c
-SRC += cmp.c
 SRC += eval_post.c
 SRC += parsers.c
 SRC += s_conv.c
