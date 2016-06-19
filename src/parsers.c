@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 13:17:24 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/19 14:44:35 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ unsigned int		parse_attrs
 }
 
 size_t				parse_num
-	(char **fmt, va_list *ap)
+	(char **fmt, va_list ap)
 {
 	int				arg;
 	size_t			num;
@@ -78,7 +78,7 @@ size_t				parse_num
 		return (0);
 	if (**fmt == '*')
 	{
-		arg = va_arg(*ap, int);
+		arg = va_arg(ap, int);
 		if (ft_isdigit(*++(*fmt)))
 			return (parse_num(fmt, ap));
 		if (arg < 0)

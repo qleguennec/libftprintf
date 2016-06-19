@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_vdprintf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/19 14:16:36 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 14:38:21 by qle-guen         ###   ########.fr       */
+/*   Created: 2016/06/19 14:31:34 by qle-guen          #+#    #+#             */
+/*   Updated: 2016/06/19 14:43:10 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libftprintf.h>
+#include <libftprintf_intern.h>
+#include <unistd.h>
 
-int				ft_dprintf
-	(int fd, const char *format, ...)
+int				ft_vdprintf
+	(int fd, const char *format, va_list ap)
 {
-	va_list		ap;
+	t_vect		*v;
+	size_t		len;
 
-	va_start(ap, format);
-	return (ft_vdprintf(fd, format, ap));
+	v = get_result(format, ap);
+	if (!v)
+		return (-1);
+	len = v->used;
+	write(fd, format, len);
+	vect_del(&v);
+	return (len);
 }

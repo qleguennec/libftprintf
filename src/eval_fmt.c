@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 13:20:34 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/19 14:44:11 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int			find_sep
 }
 
 static void			parse_fmt
-	(t_parse_result *p_res, char **fmt, va_list *ap)
+	(t_parse_result *p_res, char **fmt, va_list ap)
 {
 	if (**fmt == '%')
 		(*fmt)++;
@@ -55,7 +55,7 @@ static void			parse_fmt
 }
 
 int					eval_fmt
-	(char **fmt, va_list *ap, t_vect **v)
+	(char **fmt, va_list ap, t_vect **v)
 {
 	t_parse_result	p_res;
 
@@ -72,7 +72,7 @@ int					eval_fmt
 		return ((**fmt ? vect_add(v, (*fmt)++, 1) : 0)
 			&& eval_post(&p_res, v));
 	if (p_res.conv->size)
-		p_res.ctxt.arg = va_arg(*ap, t_arg);
+		p_res.ctxt.arg = va_arg(ap, t_arg);
 	if (!(p_res.conv->conv_f(&p_res, v) && eval_post(&p_res, v)))
 		return (0);
 	return (1);
