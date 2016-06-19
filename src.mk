@@ -1,3 +1,4 @@
+SRC += get_result.c
 SRC += i_conv.c
 SRC += p_conv.c
 SRC += percent.c
@@ -7,4 +8,5 @@ SRC += eval_fmt.c
 SRC += digits.c
 SRC += eval_post.c
 SRC += parsers.c
+SRC += ft_dprintf.c
 SRC += s_conv.c

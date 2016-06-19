@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/08 18:44:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 14:24:47 by qle-guen         ###   ########.fr       */
+/*   Created: 2016/06/19 14:16:36 by qle-guen          #+#    #+#             */
+/*   Updated: 2016/06/19 14:24:50 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#include <libftprintf_intern.h>
+#include <unistd.h>
 
-int		ft_dprintf(int fd, const char *format, ...);
-int		ft_printf(const char *format, ...);
+int				ft_dprintf
+	(int fd, const char *format, ...)
+{
+	va_list		ap;
+	t_vect		*res;
+	size_t		len;
 
-#endif
+	va_start(ap, fd);
+	res = get_result(format, &ap);
+	len = res->used;
+	write(fd, res->data, len);
+	vect_del(&res);
+	return (len);
+}
