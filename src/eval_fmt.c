@@ -6,12 +6,11 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 14:58:49 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/19 16:42:00 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf_intern.h>
-#include <unistd.h>
 
 static int			find_sep
 	(char **fmt, t_vect **v)

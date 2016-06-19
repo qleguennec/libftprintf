@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/19 14:51:27 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 14:52:30 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/19 17:09:06 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ int				ft_asprintf
 	(char **ret, const char *format, ...)
 {
 	va_list		ap;
+	int			p_ret;
 
 	va_start(ap, format);
-	return (ft_vasprintf(ret, format, ap));
+	p_ret = ft_vasprintf(ret, format, ap);
+	va_end(ap);
+	return (p_ret);
 }

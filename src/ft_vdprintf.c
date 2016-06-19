@@ -6,12 +6,13 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/19 14:31:34 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 15:46:15 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/19 17:07:00 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf_intern.h>
 #include <unistd.h>
+#include <limits.h>
 
 int				ft_vdprintf
 	(int fd, const char *format, va_list ap)
@@ -22,8 +23,7 @@ int				ft_vdprintf
 	v = get_result(format, ap);
 	if (!v)
 		return (-1);
-	len = v->used;
-	write(fd, v->data, len);
+	len = write(fd, v->data, v->used);
 	vect_del(&v);
-	return (len);
+	return (len <= INT_MAX ? len : -1);
 }

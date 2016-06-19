@@ -6,11 +6,12 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/19 15:15:42 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 15:39:58 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/19 17:08:28 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf_intern.h>
+#include <limits.h>
 
 int				ft_vsnprintf
 	(char *str, size_t size, const char *format, va_list ap)
@@ -25,12 +26,14 @@ int				ft_vsnprintf
 		*str = '\0';
 		return (1);
 	}
+	if (size > (size_t)INT_MAX + 1)
+		return (-1);
 	v = get_result(format, ap);
 	if (!v)
 		return (-1);
 	len = MIN(size - 1, v->used);
 	ft_memcpy(str, v->data, len);
-	str[len] = '\0';
 	vect_del(&v);
-	return (len);
+	str[len] = '\0';
+	return (v->used <= INT_MAX ? v->used : -1);
 }
