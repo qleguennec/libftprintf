@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 13:19:43 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/19 13:23:31 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ static t_conv_spec	g_convs_arr[] =
 
 int						eval_post(t_parse_result *p, t_vect **v);
 int						eval_fmt(char **fmt, va_list *ap, t_vect **v);
-void					p_exit(char *s1, char *s2);
 size_t					digits_nb(t_arg x, int base);
 unsigned int			parse_attrs(char **fmt);
 size_t					parse_num(char **fmt, va_list *ap);
