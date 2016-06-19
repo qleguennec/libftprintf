@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/18 00:50:04 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/19 13:19:43 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,12 @@
 # define PLUS_MASK	(1 << 4)
 
 # include <libft.h>
-# include <libbst.h>
 # include <libvect.h>
 # include <stdarg.h>
 # include <stdlib.h>
 # include <stdint.h>
 # include <stddef.h>
 # include <limits.h>
-
-typedef struct			s_printf_conf
-{
-	t_bst_tree			*convs;
-	t_bst_tree			*attrs;
-	t_bst_tree			*l_modifs;
-}						t_printf_conf;
 
 static char				*g_alphabets[] =
 {
@@ -58,11 +50,11 @@ typedef struct			s_l_modif_spec
 
 static t_l_modif_spec	g_l_modifs_arr[] =
 {
-	{"hh", sizeof(char)},
 	{"h", sizeof(short)},
+	{"hh", sizeof(char)},
+	{"j", sizeof(intmax_t)},
 	{"l", sizeof(long)},
 	{"ll", sizeof(long long)},
-	{"j", sizeof(intmax_t)},
 	{"t", sizeof(ptrdiff_t)},
 	{"z", sizeof(size_t)},
 };
@@ -75,11 +67,11 @@ typedef struct			s_attr_spec
 
 static t_attr_spec		g_attrs_arr[] =
 {
-	{"#", SHARP_MASK},
-	{"0", ZERO_MASK},
-	{"-", MINUS_MASK},
 	{" ", SPACE_MASK},
+	{"#", SHARP_MASK},
 	{"+", PLUS_MASK},
+	{"-", MINUS_MASK},
+	{"0", ZERO_MASK},
 };
 
 typedef size_t			t_arg;
@@ -124,33 +116,30 @@ int						percent(t_parse_result *p, t_vect **v);
 
 static t_conv_spec	g_convs_arr[] =
 {
-	{"d", &i_conv, sizeof(int), BASE10, 30, 1},
-	{"u", &i_conv, sizeof(int), BASE10, 7, 1},
-	{"i", &i_conv, sizeof(int), BASE10, 30, 1},
-	{"o", &i_conv, sizeof(int), BASE8, 7, 1},
-	{"x", &i_conv, sizeof(int), BASE16LOW, 7, 1},
-	{"X", &i_conv, sizeof(int), BASE16UP, 3, 1},
+	{"%", &percent, 0, 0, 6, 0},
+	{"C", &wc_conv, 1, 0, 6, 0},
 	{"D", &i_conv, sizeof(long), BASE10, 30, 0},
 	{"O", &i_conv, sizeof(long), BASE8, 3, 0},
-	{"U", &i_conv, sizeof(long), BASE10, 3, 0},
-	{"p", &p_conv, 1, BASE16LOW, 6, 0},
-	{"c", &c_conv, 1, 0, 6, 1},
-	{"C", &wc_conv, 1, 0, 6, 0},
-	{"s", &s_conv, 1, 0, 6, 1},
 	{"S", &ws_conv, 1, 0, 6, 0},
-	{"%", &percent, 0, 0, 6, 0},
+	{"U", &i_conv, sizeof(long), BASE10, 3, 0},
+	{"X", &i_conv, sizeof(int), BASE16UP, 3, 1},
+	{"c", &c_conv, 1, 0, 6, 1},
+	{"d", &i_conv, sizeof(int), BASE10, 30, 1},
+	{"i", &i_conv, sizeof(int), BASE10, 30, 1},
+	{"o", &i_conv, sizeof(int), BASE8, 7, 1},
+	{"p", &p_conv, 1, BASE16LOW, 6, 0},
+	{"s", &s_conv, 1, 0, 6, 1},
+	{"u", &i_conv, sizeof(int), BASE10, 7, 1},
+	{"x", &i_conv, sizeof(int), BASE16LOW, 7, 1},
 };
 
-t_printf_conf			*init_conf(void);
 int						eval_post(t_parse_result *p, t_vect **v);
-int						eval_fmt
-	(char **fmt, va_list *ap, t_vect **v, t_printf_conf *conf);
+int						eval_fmt(char **fmt, va_list *ap, t_vect **v);
 void					p_exit(char *s1, char *s2);
 size_t					digits_nb(t_arg x, int base);
-int						cmp(void *a, void *b);
-unsigned int			parse_attrs(char **fmt, t_printf_conf *conf);
+unsigned int			parse_attrs(char **fmt);
 size_t					parse_num(char **fmt, va_list *ap);
-t_conv_spec				*parse_conv(char **fmt, t_printf_conf *conf);
-t_l_modif_spec			*parse_l_modif(char **fmt, t_printf_conf *conf);
+t_conv_spec				*parse_conv(char **fmt);
+t_l_modif_spec			*parse_l_modif(char **fmt);
 
 #endif

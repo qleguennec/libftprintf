@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/18 16:09:18 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/19 13:20:34 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ static int			find_sep
 }
 
 static void			parse_fmt
-	(t_parse_result *p_res, char **fmt, t_printf_conf *conf, va_list *ap)
+	(t_parse_result *p_res, char **fmt, va_list *ap)
 {
 	if (**fmt == '%')
 		(*fmt)++;
-	p_res->ctxt.attrs = parse_attrs(fmt, conf);
+	p_res->ctxt.attrs = parse_attrs(fmt);
 	p_res->ctxt.width = parse_num(fmt, ap);
 	if (p_res->ctxt.width & (size_t)0xF << 32)
 	{
@@ -50,12 +50,12 @@ static void			parse_fmt
 			p_res->ctxt.prec = 1;
 		}
 	}
-	p_res->ctxt.l_modif = parse_l_modif(fmt, conf);
-	p_res->conv = parse_conv(fmt, conf);
+	p_res->ctxt.l_modif = parse_l_modif(fmt);
+	p_res->conv = parse_conv(fmt);
 }
 
 int					eval_fmt
-	(char **fmt, va_list *ap, t_vect **v, t_printf_conf *conf)
+	(char **fmt, va_list *ap, t_vect **v)
 {
 	t_parse_result	p_res;
 
@@ -67,7 +67,7 @@ int					eval_fmt
 		return (0);
 	ft_bzero(&p_res, sizeof(p_res));
 	p_res.ctxt.prec = 1;
-	parse_fmt(&p_res, fmt, conf, ap);
+	parse_fmt(&p_res, fmt, ap);
 	if (!p_res.conv)
 		return ((**fmt ? vect_add(v, (*fmt)++, 1) : 0)
 			&& eval_post(&p_res, v));

@@ -29,7 +29,7 @@ END			=	"\033[0m"
 include src.mk
 
 # Libraries
-LIBSRC		=	libbst libvect libft
+LIBSRC		=	libvect libft
 OBJECTS		=	$(addprefix $(BUILDDIR)/, $(SRC:%.c=%.o))
 LIBS		=	$(addprefix $(LIBDIR)/, $(addsuffix .a, $(LIBSRC)))
 
@@ -54,7 +54,7 @@ $(NAME): $(LIBS) $(OBJECTS)
 	@$(foreach lib, $(LIBS), $(shell ar -x $(lib)))
 	ar -r $(NAME) $(foreach lib, $(LIBS), $(shell ar -t $(lib) | grep ".o" | grep -v SYMDEF))
 	@rm $(foreach lib, $(LIBS), $(shell ar -t $(lib) | grep ".o"))
-	@rm "__.SYMDEF SORTED" || true
+	@rm "__.SYMDEF SORTED" > /dev/null 2>&1 || true
 	@echo $(GREEN)+++ target:'\t'$(END)$(@D)/ $(BLUE)$(@F)$(END)
 
 $(DEPSDIR)/%:

@@ -6,25 +6,60 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/14 23:45:33 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/19 13:17:24 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf_intern.h>
+#include <stdio.h>
+
+static void			*binary_search
+	(char *str, void *fst, void *lst, size_t size)
+{
+	void			*n;
+	int				cmp;
+
+	if (ft_strcmp(str, fst) < 0 || ft_strcmp(str, lst) > 0)
+		return (NULL);
+	if (fst == lst)
+		return (!ft_strcmp(str, fst) ? fst : NULL);
+	if (fst == lst - size)
+	{
+		cmp = ft_strcmp(str, (char *)fst);
+		if (!cmp)
+			return (fst);
+		if (cmp > 0)
+			return (!ft_strcmp(str, lst) ? lst : NULL);
+		else
+			return (NULL);
+	}
+	n = fst + size * ((lst - fst) / size / 2);
+	cmp = ft_strcmp(str, n);
+	if (!cmp)
+		return (n);
+	if (cmp > 0)
+		return (binary_search(str, n, lst, size));
+	else
+		return (binary_search(str, fst, n, size));
+}
 
 unsigned int		parse_attrs
-	(char **fmt, t_printf_conf *conf)
+	(char **fmt)
 {
 	t_attr_spec		*as;
 	unsigned int	attrs;
 	char			fmt_cpy[2];
+	void			*fst;
+	void			*lst;
 
 	if (!**fmt)
 		return (0);
 	attrs = 0;
 	*fmt_cpy = **fmt;
 	fmt_cpy[1] = '\0';
-	while ((as = bst_search(conf->attrs, fmt_cpy, &cmp)))
+	fst = g_attrs_arr;
+	lst = fst + sizeof(*as) * (LEN(g_attrs_arr) - 1);
+	while ((as = binary_search(fmt_cpy, fst, lst, sizeof(*as))))
 	{
 		attrs |= as->mask;
 		(*fmt)++;
@@ -62,36 +97,42 @@ size_t				parse_num
 }
 
 t_l_modif_spec		*parse_l_modif
-	(char **fmt, t_printf_conf *conf)
+	(char **fmt)
 {
 	t_l_modif_spec	*found;
 	char			fmt_cpy[3];
+	void			*fst;
+	void			*lst;
 
 	if (!**fmt)
 		return (NULL);
 	ft_memcpy(fmt_cpy, *fmt, 2);
 	fmt_cpy[2] = '\0';
-	if (!(found = bst_search(conf->l_modifs, fmt_cpy, &cmp)))
-	{
+	if (!(fmt_cpy[1] == 'l' || fmt_cpy[1] == 'h'))
 		fmt_cpy[1] = '\0';
-		if (!(found = bst_search(conf->l_modifs, fmt_cpy, &cmp)))
-			return (NULL);
-	}
+	fst = g_l_modifs_arr;
+	lst = fst + sizeof(*found) * (LEN(g_l_modifs_arr) - 1);
+	if (!(found = binary_search(fmt_cpy, fst, lst, sizeof(*found))))
+		return (NULL);
 	*fmt += ft_strlen(found->name);
 	return (found);
 }
 
 t_conv_spec			*parse_conv
-	(char **fmt, t_printf_conf *conf)
+	(char **fmt)
 {
 	t_conv_spec		*found;
 	char			fmt_cpy[2];
+	void			*fst;
+	void			*lst;
 
 	if (!**fmt)
 		return (NULL);
 	*fmt_cpy = **fmt;
 	fmt_cpy[1] = '\0';
-	if (!(found = bst_search(conf->convs, fmt_cpy, &cmp)))
+	fst = g_convs_arr;
+	lst = fst + sizeof(*found) * (LEN(g_convs_arr) - 1);
+	if (!(found = binary_search(fmt_cpy, fst, lst, sizeof(*found))))
 		return (NULL);
 	*fmt += ft_strlen(found->name);
 	return (found);
