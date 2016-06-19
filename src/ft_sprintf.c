@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vasprintf.c                                     :+:      :+:    :+:   */
+/*   ft_sprintf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/19 14:47:24 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 15:21:42 by qle-guen         ###   ########.fr       */
+/*   Created: 2016/06/19 15:27:28 by qle-guen          #+#    #+#             */
+/*   Updated: 2016/06/19 15:28:19 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libftprintf_intern.h>
+#include <libftprintf.h>
 
-int				ft_vasprintf
-	(char **ret, const char *format, va_list ap)
+int				ft_sprintf
+	(char *str, const char *format, ...)
 {
-	t_vect		*v;
-	size_t		len;
+	va_list		ap;
 
-	v = get_result(format, ap);
-	if (!v || !(*ret = ft_strnew(v->used)))
-	{
-		*ret = NULL;
-		return (-1);
-	}
-	len = v->used;
-	ft_memcpy(*ret, v->data, len);
-	vect_del(&v);
-	return (len);
+	va_start(ap, format);
+	return (ft_vsprintf(str, format, ap));
 }

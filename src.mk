@@ -1,5 +1,7 @@
 SRC += ws_conv.c
 SRC += ft_vasprintf.c
+SRC += ft_sprintf.c
+SRC += ft_vsnprintf.c
 SRC += p_conv.c
 SRC += digits.c
 SRC += s_conv.c
@@ -10,7 +12,9 @@ SRC += ft_dprintf.c
 SRC += ft_vdprintf.c
 SRC += ft_vprintf.c
 SRC += ft_printf.c
+SRC += ft_vsprintf.c
 SRC += get_result.c
+SRC += ft_snprintf.c
 SRC += eval_post.c
 SRC += eval_fmt.c
 SRC += parsers.c
