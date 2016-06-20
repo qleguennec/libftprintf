@@ -1,40 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vsnprintf.c                                     :+:      :+:    :+:   */
+/*   f_conv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/19 15:15:42 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 17:16:36 by qle-guen         ###   ########.fr       */
+/*   Created: 2016/06/19 18:41:55 by qle-guen          #+#    #+#             */
+/*   Updated: 2016/06/20 19:03:25 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf_intern.h>
-#include <limits.h>
+#include <stdio.h>
 
-int				ft_vsnprintf
-	(char *str, size_t size, const char *format, va_list ap)
+int					f_conv
+	(t_parse_result *p, t_vect **v)
 {
-	t_vect		*v;
-	size_t		len;
+	size_t			width;
+	double			x;
+	t_vect			*w;
+	t_vect			*f;
 
-	if (!size)
+	(void)v;
+	x = p->ctxt.arg.d;
+	width = p->ctxt.prec_given ? p->ctxt.prec : 6;
+	if (!((w = fp_whole(&x)) && (f = fp_frac(x, width))))
 		return (0);
-	if (size == 1)
-	{
-		*str = '\0';
-		return (1);
-	}
-	if (size > (size_t)INT_MAX + 1)
-		return (-1);
-	v = get_result(format, ap);
-	if (!v)
-		return (-1);
-	len = MIN(size - 1, v->used);
-	ft_memcpy(str, v->data, len);
-	str[len] = '\0';
-	len = v->used;
-	vect_del(&v);
-	return (len <= INT_MAX ? len : -1);
+	if (f->used && !(vect_addstr(&w, ".") && vect_add(&w, f->data, f->used)))
+		return (0);
+	vect_del(&f);
+	if (*v)
+		return (vect_add(v, w->data, w->used));
+	*v = w;
+	return (1);
 }

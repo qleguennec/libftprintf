@@ -32,7 +32,7 @@ static int		sharp_attr
 	t_vect		*w;
 
 	w = *v;
-	if (!p->ctxt.arg)
+	if (!p->ctxt.arg.g)
 		return (1);
 	if (p->conv->name[0] == 'x')
 		ft_memcpy(buf, "0x", 2);

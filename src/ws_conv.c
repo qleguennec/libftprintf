@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 12:08:23 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/20 17:54:17 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int		wctovect
 int				wc_conv
 	(t_parse_result *p, t_vect **v)
 {
-	return (wctovect(v, (wchar_t)p->ctxt.arg));
+	return (wctovect(v, (wchar_t)p->ctxt.arg.g));
 }
 
 int				ws_conv
@@ -56,9 +56,9 @@ int				ws_conv
 
 	if (!p->ctxt.prec)
 		return (1);
-	if (!p->ctxt.arg)
+	if (!p->ctxt.arg.g)
 		return (vect_addstr(v, "(null)"));
-	len = ft_wstrlen((wchar_t*)p->ctxt.arg);
+	len = ft_wstrlen((wchar_t*)p->ctxt.arg.g);
 	if (!len || (p->ctxt.prec_given && !p->ctxt.prec))
 		return (1);
 	i = 0;
@@ -66,7 +66,7 @@ int				ws_conv
 	while (i < len)
 	{
 		old_size = (*v) ? (*v)->used : 0;
-		if (!(wctovect(v, ((wchar_t*)p->ctxt.arg)[i++])))
+		if (!(wctovect(v, ((wchar_t*)p->ctxt.arg.g)[i++])))
 			return (0);
 		bytes += (*v)->used - old_size;
 		if (p->ctxt.prec_given && bytes > p->ctxt.prec)

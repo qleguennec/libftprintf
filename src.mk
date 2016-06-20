@@ -6,6 +6,7 @@ SRC += p_conv.c
 SRC += digits.c
 SRC += s_conv.c
 SRC += i_conv.c
+SRC += f_conv.c
 SRC += percent.c
 SRC += ft_asprintf.c
 SRC += ft_dprintf.c

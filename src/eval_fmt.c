@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 16:42:00 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/20 18:37:42 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ static void			parse_fmt
 	}
 	p_res->ctxt.l_modif = parse_l_modif(fmt);
 	p_res->conv = parse_conv(fmt);
+	if (p_res->conv && p_res->conv->size == 1)
+		p_res->ctxt.arg.g = va_arg(ap, size_t);
+	if (p_res->conv && p_res->conv->size > 1)
+		p_res->ctxt.arg.d = va_arg(ap, double);
 }
 
 int					eval_fmt
@@ -65,13 +69,12 @@ int					eval_fmt
 	if (!*(*fmt + 1))
 		return (0);
 	ft_bzero(&p_res, sizeof(p_res));
+	ft_bzero(&p_res.ctxt.arg, sizeof(t_arg));
 	p_res.ctxt.prec = 1;
 	parse_fmt(&p_res, fmt, ap);
 	if (!p_res.conv)
 		return ((**fmt ? vect_add(v, (*fmt)++, 1) : 0)
 			&& eval_post(&p_res, v));
-	if (p_res.conv->size)
-		p_res.ctxt.arg = va_arg(ap, t_arg);
 	if (!(p_res.conv->conv_f(&p_res, v) && eval_post(&p_res, v)))
 		return (0);
 	return (1);
