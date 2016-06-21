@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/20 18:15:45 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/21 17:22:00 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@
 # define MINUS_MASK	(1 << 2)
 # define SPACE_MASK	(1 << 3)
 # define PLUS_MASK	(1 << 4)
-
-# define FRACTION	0xffffffffffffffff
-# define EXPONENT	0x7ff
-# define SIGN_BIT	0x1
 
 # include <libft.h>
 # include <libvect.h>
@@ -128,12 +124,16 @@ static t_conv_spec	g_convs_arr[] =
 	{"%", &percent, 0, 0, 6, 0},
 	{"C", &wc_conv, 2, 0, 6, 0},
 	{"D", &i_conv, sizeof(long), BASE10, 30, 0},
+	{"E", &f_conv, 1, BASE10, 30, 0},
+	{"F", &f_conv, 1, BASE10, 30, 0},
 	{"O", &i_conv, sizeof(long), BASE8, 3, 0},
 	{"S", &ws_conv, 2, 0, 6, 0},
 	{"U", &i_conv, sizeof(long), BASE10, 3, 0},
 	{"X", &i_conv, sizeof(int), BASE16UP, 3, 1},
+	{"b", &i_conv, sizeof(int), BASE2, 30, 1},
 	{"c", &c_conv, 2, 0, 6, 1},
 	{"d", &i_conv, sizeof(int), BASE10, 30, 1},
+	{"e", &f_conv, 1, BASE10, 30, 0},
 	{"f", &f_conv, 1, BASE10, 30, 0},
 	{"i", &i_conv, sizeof(int), BASE10, 30, 1},
 	{"o", &i_conv, sizeof(int), BASE8, 7, 1},
@@ -146,8 +146,9 @@ static t_conv_spec	g_convs_arr[] =
 int						eval_post(t_parse_result *p, t_vect **v);
 int						eval_fmt(char **fmt, va_list ap, t_vect **v);
 size_t					digits_nb(size_t x, int base);
-t_vect					*fp_whole(double *x);
-t_vect					*fp_frac(double x, size_t width);
+int						fp_digits
+	(t_vect **v, double x, size_t prec, size_t max_w);
+int						fp_isfinite(t_vect **v, double x, int upper);
 unsigned int			parse_attrs(char **fmt);
 size_t					parse_num(char **fmt, va_list ap);
 t_conv_spec				*parse_conv(char **fmt);

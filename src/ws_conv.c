@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 11:36:05 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/20 17:54:17 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/21 11:18:53 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,13 @@ static int		wctovect
 	size_t		size;
 	wchar_t		mask;
 
-	if (!(*v || (*v = ft_memalloc(sizeof(**v)))))
-		return (0);
 	if (wc < 0x80)
-		return (vect_memset(v, (unsigned char)wc, 1, (*v)->used));
+		return (vect_memset(v, (unsigned char)wc, 1, *v ? (*v)->used : 0));
 	size = 2;
 	while (size <= 4 && wc >> size * 6)
 		size++;
 	i = size;
-	if (!vect_req(*v, size))
+	if (!vect_req(v, size))
 		return (0);
 	mask = 0;
 	while (i)
