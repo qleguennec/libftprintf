@@ -5,6 +5,7 @@ SRC += fp_digits.c
 SRC += ft_vsnprintf.c
 SRC += p_conv.c
 SRC += digits.c
+SRC += e_conv.c
 SRC += s_conv.c
 SRC += i_conv.c
 SRC += f_conv.c

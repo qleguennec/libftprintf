@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/19 14:45:06 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/23 17:01:43 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/22 18:31:51 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int test()
 	char *pf;
 	char *ftpf;
 
-	x = ((double)rand()/(double)RAND_MAX) + (rand() % 2 ? rand() : 0);
+	x = ((double)rand()/(double)RAND_MAX);
 	prec = rand() % PREC_MAX;
 	pf = NULL;
 	ftpf = NULL;
+	ft_asprintf(&ftpf, "%.*e", prec, x);
+	asprintf(&pf, "%.*e", prec, x);
 	printf("x\t%.30f\n", x);
 	ft_printf("prec\t%d\n", prec);
-	ft_asprintf(&ftpf, "%.*f", prec, x);
-	asprintf(&pf, "%.*f", prec, x);
 	ft_printf("ftpf\t%s\n", ftpf);
 	ft_printf("pf\t%s\n", pf);
 	return (strcmp(pf, ftpf) == 0);
@@ -51,12 +51,12 @@ int main()
 		ret = test();
 		ft_printf(">%d\t%s\n", i++, ret ? "OK" : "NOK");
 		ft_printf("-----\n");
+		pass++;
 		if (!ret)
 		{
 			pass--;
 			break;
 		}
-		pass++;
 	}
 	ft_printf("%d/%d passed\n", pass, t);
 	return (t == pass ? 0 : 1);

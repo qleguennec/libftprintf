@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 11:27:23 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/23 16:44:28 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/23 17:55:15 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 #include <float.h>
 #include <math.h>
 
-static int				fp_whole
-	(t_vect **v, double *x, int *k, size_t p)
+int				fp_whole
+	(t_vect **v, double *x, int *k, size_t prec)
 {
 	while (*x > 1.0 && ++(*k))
 		*x /= 10;
 	while (*x <= 1.0 && --(*k))
 		*x *= 10;
-	if (*k < 0 && p)
+	if (*k < 0 && prec)
 		vect_memset(v, '0', -(*k), 0);
 	return (1);
 }
 
-static int			fp_frac
-	(t_vect **v, double x, size_t prec, int k)
+int				fp_frac
+	(t_vect **v, double x, int k, size_t prec)
 {
 	size_t			n;
 
@@ -51,9 +51,7 @@ static int			fp_frac
 			return (0);
 		x = (x - (int)x) * 10;
 	}
-	return (n >= prec
-		? 1
-		: vect_memset(v, '0', prec - n, (*v)->used));
+	return (n >= prec ? 1 : vect_memset(v, '0', prec - n, (*v)->used));
 }
 
 int					fp_digits
@@ -63,14 +61,13 @@ int					fp_digits
 		return (0);
 	if (!fp_whole(v, &x, k, p->ctxt.prec))
 		return (0);
-	vect_debug(*v);
 	if (*k > 0 && (*k)++)
 		p->ctxt.prec += *k;
 	if (*k < -1)
 		p->ctxt.prec--;
 	if (!p->ctxt.prec)
 		p->ctxt.prec++;
-	if (!fp_frac(v, x, p->ctxt.prec, *k))
+	if (!fp_frac(v, x, *k, p->ctxt.prec))
 		return (0);
 	return (1);
 }
