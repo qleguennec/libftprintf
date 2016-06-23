@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/21 17:22:00 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/22 23:07:58 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define PLUS_MASK	(1 << 4)
 
 # include <libft.h>
+# include <libftprintf.h>
+# include <stdio.h>
 # include <libvect.h>
 # include <stdarg.h>
 # include <stdlib.h>
@@ -147,7 +149,7 @@ int						eval_post(t_parse_result *p, t_vect **v);
 int						eval_fmt(char **fmt, va_list ap, t_vect **v);
 size_t					digits_nb(size_t x, int base);
 int						fp_digits
-	(t_vect **v, double x, size_t prec, size_t max_w);
+	(t_vect **v, t_parse_result *p, double x, int *k);
 int						fp_isfinite(t_vect **v, double x, int upper);
 unsigned int			parse_attrs(char **fmt);
 size_t					parse_num(char **fmt, va_list ap);

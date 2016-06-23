@@ -1,6 +1,7 @@
 SRC += ws_conv.c
 SRC += ft_vasprintf.c
 SRC += ft_sprintf.c
+SRC += fp_digits.c
 SRC += ft_vsnprintf.c
 SRC += p_conv.c
 SRC += digits.c
