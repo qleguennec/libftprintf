@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/19 14:47:24 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 17:07:28 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 18:45:20 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int				ft_vasprintf
 	}
 	len = v->used;
 	ft_memcpy(*ret, v->data, len);
-	vect_del(&v);
+	vect_del(v);
 	return (len <= INT_MAX ? len : -1);
 }

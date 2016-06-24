@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:00 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 16:59:32 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 18:49:08 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,12 @@ t_vect			*get_result
 {
 	char		*fmt;
 	t_vect		*v;
-	t_vect		*builder;
 
 	fmt = (char *)format;
-	builder = NULL;
-	v = NULL;
-	while (eval_fmt(&fmt, ap, &v))
-	{
-		if (!vect_add(&builder, v->data, v->used))
-			return (NULL);
-		v->used = 0;
-	}
-	vect_del(&v);
-	return (builder);
+	v = ft_memalloc(sizeof(*v));
+	if (!v)
+		return (NULL);
+	while (eval_fmt(&fmt, ap, v))
+		;
+	return (v);
 }

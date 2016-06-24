@@ -6,14 +6,14 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/24 13:15:51 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 18:51:45 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf_intern.h>
 
 static int			find_sep
-	(char **fmt, t_vect **v)
+	(char **fmt, t_vect *v)
 {
 	char			*sep;
 
@@ -64,7 +64,7 @@ static void			parse_fmt
 }
 
 int					eval_fmt
-	(char **fmt, va_list ap, t_vect **v)
+	(char **fmt, va_list ap, t_vect *v)
 {
 	t_parse_result	p;
 
@@ -81,6 +81,7 @@ int					eval_fmt
 	if (!p.conv)
 		return ((**fmt ? vect_add(v, (*fmt)++, 1) : 0)
 			&& eval_post(&p, v));
+	p.ctxt.s = v->used;
 	if (!(p.conv->conv_f(&p, v) && eval_post(&p, v)))
 		return (0);
 	return (1);

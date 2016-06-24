@@ -6,18 +6,17 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/24 13:18:09 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 18:46:05 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf_intern.h>
 
 int				p_conv
-	(t_parse_result *p, t_vect **v)
+	(t_parse_result *p, t_vect *v)
 {
 	size_t		len;
 	size_t		arg;
-	t_vect		*w;
 	char		*buf;
 
 	if (!p->ctxt.prec)
@@ -26,11 +25,10 @@ int				p_conv
 	len = ATTR(ZERO)
 		? MAX(p->ctxt.width, MAX(p->ctxt.prec, digits_nb(arg, 16)) + 2)
 		: MAX(p->ctxt.prec, digits_nb(arg, 16)) + 2;
-	if (!(vect_memset(v, '0', len, 0)))
+	if (!(vect_mset(v, '0', len, p->ctxt.s)))
 		return (0);
-	w = *v;
-	((char *)w->data)[1] = 'x';
-	buf = w->data;
+	buf = v->data + p->ctxt.s;
+	buf[1] = 'x';
 	while (len && arg >= 16)
 	{
 		buf[--len] = *(g_alphabets[p->conv->base] + arg % 16);

@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/24 14:31:01 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 18:47:32 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ static size_t			get_digit_prec
 }
 
 static int				group
-	(t_vect **v)
+	(t_parse_result *p, t_vect *v)
 {
 	int					i;
 
-	i = (int)(*v)->used - 3;
+	i = v->used - p->ctxt.s - 3;
 	while (i > 0)
 	{
-		if (!vect_memset(v, ',', 1, i))
+		if (!vect_mset(v, ',', 1, i))
 			return (0);
 		i -= 3;
 	}
@@ -82,27 +82,25 @@ static int				group
 }
 
 int						i_conv
-	(t_parse_result *p, t_vect **v)
+	(t_parse_result *p, t_vect *v)
 {
 	char				*buf;
 	size_t				y;
 	size_t				len;
 	size_t				base;
-	t_vect				*w;
 
 	y = abs_value(p);
 	base = ft_strlen(g_alphabets[p->conv->base]);
 	if (!(len = get_digit_prec(p, y, base)))
-		return (*v ? 1 : (*v = ft_memalloc(sizeof(**v))) != NULL);
-	if (!(vect_memset(v, '0', len, 0)))
+		return (1);
+	if (!(vect_mset(v, '0', len, p->ctxt.s)))
 		return (0);
-	w = *v;
-	buf = w->data;
+	buf = v->data + p->ctxt.s;
 	while (len && y >= base)
 	{
 		buf[--len] = *(g_alphabets[p->conv->base] + y % base);
 		y /= base;
 	}
 	buf[--len] = *(g_alphabets[p->conv->base] + y);
-	return (ATTR(APO) && base == 10 ? group(v) : 1);
+	return (ATTR(APO) && base == 10 ? group(p, v) : 1);
 }

@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/24 14:37:48 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 18:33:56 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@
 
 static char				*g_alphabets[] =
 {
-	"01",
 	"01",
 	"01234567",
 	"0123456789",
@@ -98,12 +97,13 @@ typedef struct			s_ctxt_spec
 	size_t				prec;
 	t_l_modif_spec		*l_modif;
 	t_arg				arg;
+	size_t				s;
 }						t_ctxt_spec;
 
 typedef struct			s_conv_spec
 {
 	char				name[3];
-	int					(* conv_f)(struct s_parse_result *, t_vect **);
+	int					(* conv_f)(struct s_parse_result *, t_vect *);
 	size_t				size;
 	unsigned int		base : 3;
 	unsigned int		valid_attrs : 5;
@@ -116,16 +116,16 @@ typedef struct			s_parse_result
 	t_ctxt_spec			ctxt;
 }						t_parse_result;
 
-int						i_conv(t_parse_result *p, t_vect **v);
-int						f_conv(t_parse_result *p, t_vect **v);
-int						e_conv(t_parse_result *p, t_vect **v);
-int						g_conv(t_parse_result *p, t_vect **v);
-int						p_conv(t_parse_result *p, t_vect **v);
-int						s_conv(t_parse_result *p, t_vect **v);
-int						c_conv(t_parse_result *p, t_vect **v);
-int						wc_conv(t_parse_result *p, t_vect **v);
-int						ws_conv(t_parse_result *p, t_vect **v);
-int						percent(t_parse_result *p, t_vect **v);
+int						i_conv(t_parse_result *p, t_vect *v);
+int						f_conv(t_parse_result *p, t_vect *v);
+int						e_conv(t_parse_result *p, t_vect *v);
+int						g_conv(t_parse_result *p, t_vect *v);
+int						p_conv(t_parse_result *p, t_vect *v);
+int						s_conv(t_parse_result *p, t_vect *v);
+int						c_conv(t_parse_result *p, t_vect *v);
+int						wc_conv(t_parse_result *p, t_vect *v);
+int						ws_conv(t_parse_result *p, t_vect *v);
+int						percent(t_parse_result *p, t_vect *v);
 
 static t_conv_spec	g_convs_arr[] =
 {
@@ -147,8 +147,8 @@ static t_conv_spec	g_convs_arr[] =
 	{"x", &i_conv, sizeof(int), BASE16LOW, 7, 1},
 };
 
-int						eval_post(t_parse_result *p, t_vect **v);
-int						eval_fmt(char **fmt, va_list ap, t_vect **v);
+int						eval_post(t_parse_result *p, t_vect *v);
+int						eval_fmt(char **fmt, va_list ap, t_vect *v);
 size_t					digits_nb(size_t x, int base);
 unsigned int			parse_attrs(char **fmt);
 size_t					parse_num(char **fmt, va_list ap);
