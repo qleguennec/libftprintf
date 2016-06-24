@@ -6,12 +6,11 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/24 13:17:55 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 17:52:07 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf_intern.h>
-#include <stdio.h>
 
 static void			*binary_search
 	(char *str, void *fst, void *lst, size_t size)
