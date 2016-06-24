@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/20 18:01:07 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 14:31:01 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static size_t			abs_value
 	ret = p->ctxt.arg.g;
 	mask = get_mask(size);
 	ret &= mask;
-	if ((PLUS_MASK & p->conv->valid_attrs)
+	if ((PLUS & p->conv->valid_attrs)
 		&& (ret >> (8 * size - 1)))
 	{
 		ret = mask & (~ret) + 1;
@@ -55,15 +55,30 @@ static size_t			get_digit_prec
 		len = 0;
 	else
 		len = MAX(p->ctxt.prec, digits_nb(x, base));
-	if ((SHARP_MASK & p->ctxt.attrs)
+	if ((ATTR(SHARP))
 		&& (!p->ctxt.prec_given || !p->ctxt.prec)
 		&& (x || !p->ctxt.prec)
-		&& (p->conv->name[0] == 'o' || p->conv->name[0] == 'O'))
+		&& (ft_tolower(*p->conv->name) == 'o'))
 	{
 		len++;
-		p->ctxt.attrs &= ~SHARP_MASK;
+		p->ctxt.attrs &= ~SHARP;
 	}
 	return (len);
+}
+
+static int				group
+	(t_vect **v)
+{
+	int					i;
+
+	i = (int)(*v)->used - 3;
+	while (i > 0)
+	{
+		if (!vect_memset(v, ',', 1, i))
+			return (0);
+		i -= 3;
+	}
+	return (1);
 }
 
 int						i_conv
@@ -89,5 +104,5 @@ int						i_conv
 		y /= base;
 	}
 	buf[--len] = *(g_alphabets[p->conv->base] + y);
-	return (1);
+	return (ATTR(APO) && base == 10 ? group(v) : 1);
 }

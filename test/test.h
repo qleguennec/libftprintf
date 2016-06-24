@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_snprintf.c                                      :+:      :+:    :+:   */
+/*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/19 15:22:29 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/24 13:16:00 by qle-guen         ###   ########.fr       */
+/*   Created: 2016/06/24 13:36:03 by qle-guen          #+#    #+#             */
+/*   Updated: 2016/06/24 13:46:12 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef TEST_H
+# define TEST_H
+
 #include <libftprintf.h>
+#include <stdio.h>
+#include <stdarg.h>
 
-int				ft_snprintf
-	(char *str, size_t size, const char *format, ...)
-{
-	va_list		ap;
-	int			ret;
-
-	va_start(ap, format);
-	ret = ft_vsnprintf(str, size, format, ap);
-	va_end(ap);
-	return (ret);
-}
+#endif

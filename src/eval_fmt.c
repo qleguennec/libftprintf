@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/21 11:27:45 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 13:15:51 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void			parse_fmt
 	if (p->ctxt.width & (size_t)0xF << 32)
 	{
 		p->ctxt.width &= (size_t)0xFFFFFFFF;
-		p->ctxt.attrs |= MINUS_MASK;
+		p->ctxt.attrs |= MINUS;
 	}
 	if (**fmt == '.')
 	{

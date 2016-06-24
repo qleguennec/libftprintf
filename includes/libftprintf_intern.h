@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/24 12:48:50 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 14:16:15 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@
 # define BASE16LOW	3
 # define BASE16UP	4
 
-# define SHARP_MASK	(1 << 0)
-# define ZERO_MASK	(1 << 1)
-# define MINUS_MASK	(1 << 2)
-# define SPACE_MASK	(1 << 3)
-# define PLUS_MASK	(1 << 4)
+# define ATTR(x)	(p->ctxt.attrs & x)
+# define SHARP		(1 << 0)
+# define ZERO		(1 << 1)
+# define MINUS		(1 << 2)
+# define SPACE		(1 << 3)
+# define PLUS		(1 << 4)
+# define APO		(1 << 5)
 
 # include <libft.h>
 # include <libftprintf.h>
@@ -64,16 +66,17 @@ static t_l_modif_spec	g_l_modifs_arr[] =
 typedef struct			s_attr_spec
 {
 	char				name[3];
-	unsigned int		mask : 5;
+	unsigned int		mask : 6;
 }						t_attr_spec;
 
 static t_attr_spec		g_attrs_arr[] =
 {
-	{" ", SPACE_MASK},
-	{"#", SHARP_MASK},
-	{"+", PLUS_MASK},
-	{"-", MINUS_MASK},
-	{"0", ZERO_MASK},
+	{" ", SPACE},
+	{"#", SHARP},
+	{"'", APO},
+	{"+", PLUS},
+	{"-", MINUS},
+	{"0", ZERO},
 };
 
 typedef union			u_arg
@@ -87,7 +90,7 @@ struct s_parse_result;
 
 typedef struct			s_ctxt_spec
 {
-	unsigned int		attrs : 5;
+	unsigned int		attrs : 6;
 	unsigned int		neg : 1;
 	size_t				width;
 	unsigned int		prec_given : 1;

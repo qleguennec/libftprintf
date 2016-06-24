@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:13:57 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/18 16:10:09 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 13:26:28 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static char		get_width_letter
 	(t_parse_result *p)
 {
 	if (!p->conv)
-		return (ZERO_MASK & p->ctxt.attrs ? '0' : ' ');
-	if (MINUS_MASK & p->ctxt.attrs)
+		return (ATTR(ZERO) ? '0' : ' ');
+	if (MINUS & p->ctxt.attrs)
 		return (' ');
 	else
 		return (p->conv && (p->conv->size <= 1 || !p->ctxt.prec_given)
-			&& ZERO_MASK & p->ctxt.attrs ? '0' : ' ');
+			&& ATTR(ZERO) ? '0' : ' ');
 }
 
 static int		sharp_attr
@@ -47,7 +47,7 @@ static int		sharp_attr
 	letter = get_width_letter(p);
 	if (letter == ' ')
 		return (vect_memset(v, letter, p->ctxt.width - w->used
-			, MINUS_MASK & p->ctxt.attrs ? w->used : 0));
+			, ATTR(MINUS) ? w->used : 0));
 	return (vect_memset(v, letter, p->ctxt.width - w->used , 2));
 }
 
@@ -62,21 +62,18 @@ int				eval_post
 		return (0);
 	if (p->conv)
 		p->ctxt.attrs &= p->conv->valid_attrs;
-	if (p->conv && SHARP_MASK & p->ctxt.attrs)
+	if (p->conv && ATTR(SHARP))
 		return (sharp_attr(p, v));
 	if (p->ctxt.neg)
 		sign = '-';
-	else if (PLUS_MASK & p->ctxt.attrs)
+	else if (ATTR(PLUS))
 		sign = '+';
-	else if (p->conv && SPACE_MASK & p->ctxt.attrs)
+	else if (p->conv && ATTR(SPACE))
 		sign = ' ';
 	if (sign && !vect_memset(v, sign, 1, 0))
 		return (0);
 	if (p->ctxt.width <= (*v)->used)
 		return (1);
-	if (sign && ZERO_MASK & p->ctxt.attrs)
-		n = MINUS_MASK & p->ctxt.attrs ? (*v)->used : 1;
-	else
-		n = MINUS_MASK & p->ctxt.attrs ? (*v)->used : 0;
+	n = ATTR(MINUS) ? (*v)->used : (sign && ATTR(ZERO));
 	return (vect_memset(v, get_width_letter(p), p->ctxt.width - (*v)->used, n));
 }
