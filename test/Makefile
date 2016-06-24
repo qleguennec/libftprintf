@@ -6,11 +6,11 @@
 #*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
 #*   Created: 2016/06/22 17:35:15 by qle-guen          #+#    #+#             *#
-#*   Updated: 2016/06/22 18:22:32 by qle-guen         ###   ########.fr       *#
+#*   Updated: 2016/06/23 21:17:15 by qle-guen         ###   ########.fr       *#
 #*                                                                            *#
 #* ************************************************************************** *#
 
 %:
 	make -C ../
-	gcc $(@F).c -L../ -lftprintf -I../lib/libft/includes -I../lib/libvect/includes -I../includes -g -o test-$(@F)
+	gcc $(@F).c -lm -L../ -lftprintf -I../lib/libft/includes -I../lib/libvect/includes -I../includes -g -o test-$(@F)
 	./test-$(@F)

@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/23 17:44:46 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 12:48:50 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct			s_parse_result
 int						i_conv(t_parse_result *p, t_vect **v);
 int						f_conv(t_parse_result *p, t_vect **v);
 int						e_conv(t_parse_result *p, t_vect **v);
+int						g_conv(t_parse_result *p, t_vect **v);
 int						p_conv(t_parse_result *p, t_vect **v);
 int						s_conv(t_parse_result *p, t_vect **v);
 int						c_conv(t_parse_result *p, t_vect **v);
@@ -127,8 +128,6 @@ static t_conv_spec	g_convs_arr[] =
 	{"%", &percent, 0, 0, 6, 0},
 	{"C", &wc_conv, 2, 0, 6, 0},
 	{"D", &i_conv, sizeof(long), BASE10, 30, 0},
-	{"E", &e_conv, 1, BASE10, 30, 0},
-	{"F", &f_conv, 1, BASE10, 30, 0},
 	{"O", &i_conv, sizeof(long), BASE8, 3, 0},
 	{"S", &ws_conv, 2, 0, 6, 0},
 	{"U", &i_conv, sizeof(long), BASE10, 3, 0},
@@ -136,8 +135,6 @@ static t_conv_spec	g_convs_arr[] =
 	{"b", &i_conv, sizeof(int), BASE2, 30, 1},
 	{"c", &c_conv, 2, 0, 6, 1},
 	{"d", &i_conv, sizeof(int), BASE10, 30, 1},
-	{"e", &e_conv, 1, BASE10, 30, 0},
-	{"f", &f_conv, 1, BASE10, 30, 0},
 	{"i", &i_conv, sizeof(int), BASE10, 30, 1},
 	{"o", &i_conv, sizeof(int), BASE8, 7, 1},
 	{"p", &p_conv, 2, BASE16LOW, 6, 0},
@@ -149,11 +146,6 @@ static t_conv_spec	g_convs_arr[] =
 int						eval_post(t_parse_result *p, t_vect **v);
 int						eval_fmt(char **fmt, va_list ap, t_vect **v);
 size_t					digits_nb(size_t x, int base);
-int						fp_digits
-	(t_vect **v, t_parse_result *p, double x, int *k);
-int						fp_whole(t_vect **v, double  *x, int *k, size_t prec);
-int						fp_frac(t_vect **v, double  x, int k, size_t prec);
-int						fp_isfinite(t_vect **v, double x, int upper);
 unsigned int			parse_attrs(char **fmt);
 size_t					parse_num(char **fmt, va_list ap);
 t_conv_spec				*parse_conv(char **fmt);
