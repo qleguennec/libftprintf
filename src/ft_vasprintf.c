@@ -6,12 +6,11 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/19 14:47:24 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/24 18:45:20 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 20:58:10 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf_intern.h>
-#include <limits.h>
 
 int				ft_vasprintf
 	(char **ret, const char *format, va_list ap)

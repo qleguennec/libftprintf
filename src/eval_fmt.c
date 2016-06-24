@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:00:20 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/24 19:07:32 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 20:57:10 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ int					eval_fmt
 	p.ctxt.prec = 1;
 	parse_fmt(&p, fmt, ap);
 	if (!p.conv)
-		return ((**fmt ? vect_add(v, (*fmt)++, 1) : 0)
-			&& eval_post(&p, v));
+		return ((**fmt ? vect_add(v, (*fmt)++, 1) : 0) && eval_post(&p, v));
 	p.ctxt.s = v->used;
 	if (!(p.conv->conv_f(&p, v) && eval_post(&p, v)))
 		return (0);

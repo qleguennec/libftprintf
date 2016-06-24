@@ -6,41 +6,11 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/24 17:52:07 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 23:48:30 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf_intern.h>
-
-static void			*binary_search
-	(char *str, void *fst, void *lst, size_t size)
-{
-	void			*n;
-	int				cmp;
-
-	if (ft_strcmp(str, fst) < 0 || ft_strcmp(str, lst) > 0)
-		return (NULL);
-	if (fst == lst)
-		return (!ft_strcmp(str, fst) ? fst : NULL);
-	if (fst == lst - size)
-	{
-		cmp = ft_strcmp(str, (char *)fst);
-		if (!cmp)
-			return (fst);
-		if (cmp > 0)
-			return (!ft_strcmp(str, lst) ? lst : NULL);
-		else
-			return (NULL);
-	}
-	n = fst + size * ((lst - fst) / size / 2);
-	cmp = ft_strcmp(str, n);
-	if (!cmp)
-		return (n);
-	if (cmp > 0)
-		return (binary_search(str, n, lst, size));
-	else
-		return (binary_search(str, fst, n, size));
-}
 
 unsigned int		parse_attrs
 	(char **fmt)
@@ -58,7 +28,7 @@ unsigned int		parse_attrs
 	fmt_cpy[1] = '\0';
 	fst = g_attrs_arr;
 	lst = fst + sizeof(*as) * (LEN(g_attrs_arr) - 1);
-	while ((as = binary_search(fmt_cpy, fst, lst, sizeof(*as))))
+	while ((as = ft_find(fmt_cpy, fst, lst, sizeof(*as))))
 	{
 		attrs |= as->mask;
 		(*fmt)++;
@@ -111,7 +81,7 @@ t_l_modif_spec		*parse_l_modif
 		fmt_cpy[1] = '\0';
 	fst = g_l_modifs_arr;
 	lst = fst + sizeof(*found) * (LEN(g_l_modifs_arr) - 1);
-	if (!(found = binary_search(fmt_cpy, fst, lst, sizeof(*found))))
+	if (!(found = ft_find(fmt_cpy, fst, lst, sizeof(*found))))
 		return (NULL);
 	*fmt += ft_strlen(found->name);
 	return (found);
@@ -131,7 +101,7 @@ t_conv_spec			*parse_conv
 	fmt_cpy[1] = '\0';
 	fst = g_convs_arr;
 	lst = fst + sizeof(*found) * (LEN(g_convs_arr) - 1);
-	if (!(found = binary_search(fmt_cpy, fst, lst, sizeof(*found))))
+	if (!(found = ft_find(fmt_cpy, fst, lst, sizeof(*found))))
 		return (NULL);
 	*fmt += ft_strlen(found->name);
 	return (found);
