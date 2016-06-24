@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/24 18:33:56 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 18:59:54 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int						g_conv(t_parse_result *p, t_vect *v);
 int						p_conv(t_parse_result *p, t_vect *v);
 int						s_conv(t_parse_result *p, t_vect *v);
 int						c_conv(t_parse_result *p, t_vect *v);
+int						n_conv(t_parse_result *p, t_vect *v);
 int						wc_conv(t_parse_result *p, t_vect *v);
 int						ws_conv(t_parse_result *p, t_vect *v);
 int						percent(t_parse_result *p, t_vect *v);
@@ -140,6 +141,7 @@ static t_conv_spec	g_convs_arr[] =
 	{"c", &c_conv, 2, 0, 6, 1},
 	{"d", &i_conv, sizeof(int), BASE10, 30, 1},
 	{"i", &i_conv, sizeof(int), BASE10, 30, 1},
+	{"n", &n_conv, sizeof(int), 0, 0, 1},
 	{"o", &i_conv, sizeof(int), BASE8, 7, 1},
 	{"p", &p_conv, 2, BASE16LOW, 6, 0},
 	{"s", &s_conv, 2, 0, 6, 1},

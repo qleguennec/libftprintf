@@ -9,6 +9,7 @@ SRC += i_conv.c
 SRC += percent.c
 SRC += ft_asprintf.c
 SRC += ft_dprintf.c
+SRC += n_conv.c
 SRC += ft_vdprintf.c
 SRC += ft_vprintf.c
 SRC += ft_printf.c

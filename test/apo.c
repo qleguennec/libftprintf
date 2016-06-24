@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/24 13:33:30 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/24 18:55:16 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/24 19:11:10 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,5 @@ int test(char *fmt, char **pf, char **ftpf, ...)
 int main()
 {
 	char *pf, *ftpf = NULL;
-	int c = 42;;
-
 	return (test("%s%u%d", &pf, &ftpf, "sad", 42, 1000000));
 }
