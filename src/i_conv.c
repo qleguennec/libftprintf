@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/25 16:46:11 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/25 18:13:51 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,6 @@ static size_t			get_digit_prec
 	return (len);
 }
 
-static int				group
-	(t_parse_result *p, t_vect *v)
-{
-	int					i;
-
-	i = v->used - p->ctxt.s - 3;
-	while (i > 0)
-	{
-		if (!vect_mset(v, ',', 1, i))
-			return (0);
-		i -= 3;
-	}
-	return (1);
-}
-
 int						i_conv
 	(t_parse_result *p, t_vect *v)
 {
@@ -102,5 +87,5 @@ int						i_conv
 		y /= base;
 	}
 	buf[--len] = *(g_alphabets[p->conv->base] + y);
-	return (ATTR(APO) && base == 10 ? group(p, v) : 1);
+	return (1);
 }

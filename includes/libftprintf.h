@@ -6,15 +6,15 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/08 18:44:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/19 15:45:01 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/25 18:37:50 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
 
-#include <stdarg.h>
-#include <stdlib.h>
+# include <stdarg.h>
+# include <stdlib.h>
 
 int		ft_printf(const char *format, ...);
 int		ft_asprintf(char **ret, const char *format, ...);

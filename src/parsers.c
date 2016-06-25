@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 21:42:51 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/24 23:48:30 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/25 18:43:15 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ size_t				parse_num
 			return (parse_num(fmt, ap));
 		if (arg < 0)
 		{
-			num = (size_t) - arg;
+			num = (size_t)-arg;
 			num |= (size_t)0xF << 32;
 		}
 		else
