@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 11:19:17 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/24 21:32:14 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/06/25 16:46:11 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int						i_conv
 	y = abs_value(p);
 	base = ft_strlen(g_alphabets[p->conv->base]);
 	if (!(len = get_digit_prec(p, y, base)))
-		return (1);
+		return (vect_mset(v, ' ', p->ctxt.width, v->used));
 	if (!(vect_mset(v, '0', len, p->ctxt.s)))
 		return (0);
 	buf = v->data + p->ctxt.s;
