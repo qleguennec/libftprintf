@@ -1,17 +1,12 @@
 # Directories
 PROJECT		=	libftprintf
 BINDIR		?=	.
-SRCDIR		?=	src
 BUILDDIR	?=	build
-LIBDIR		?=	$(BUILDDIR)
-DEPSDIR		?=	lib
-INCLUDE		+=	includes
-INCLUDE		+=	$(addsuffix /includes, $(addprefix $(DEPSDIR)/, $(LIBSRC)))
-NAME		=	libftprintf.a
+SHELL		=	bash
+NAME		=	$(BINDIR)/libftprintf.a
 
 # Compiler options
 CC			=	clang
-LIBFLAGS	=	$(subst lib,-l,$(LIBSRC))
 CFLAGS		=	$(addprefix -I,$(INCLUDE)) -Wall -Wextra -Werror -g
 
 # Color output
@@ -25,71 +20,60 @@ CYAN		=	"\033[0;36m"
 WHITE		=	"\033[0;37m"
 END			=	"\033[0m"
 
-# Source files
-include src.mk
+SRC += digits.c
+SRC += eval_post.c
+SRC += ft_snprintf.c
+SRC += ft_dprintf.c
+SRC += ft_vsnprintf.c
+SRC += ft_sprintf.c
+SRC += s_conv.c
+SRC += percent.c
+SRC += ft_vdprintf.c
+SRC += eval_fmt.c
+SRC += parsers.c
+SRC += ft_printf.c
+SRC += get_result.c
+SRC += ft_vsprintf.c
+SRC += ws_conv.c
+SRC += ft_asprintf.c
+SRC += ft_vprintf.c
+SRC += i_conv.c
+SRC += p_conv.c
+SRC += ft_vasprintf.c
+SRC += n_conv.c
 
-# Libraries
-LIBSRC		=	libvect libft
+LIB += libvect.a
+LIB += libft.a
+
 OBJECTS		=	$(addprefix $(BUILDDIR)/, $(SRC:%.c=%.o))
-LIBS		=	$(addprefix $(LIBDIR)/, $(addsuffix .a, $(LIBSRC)))
+LIBRARIES	=	$(addprefix $(BUILDDIR)/, $(LIB))
+LIBLINK		=	$(addprefix -l, $(LIB:lib%.a=%))
 
 all: $(NAME)
-$(BUILDDIR)/%.o: $(SRCDIR)/%.c
-	@[ -d $(BUILDDIR) ] || mkdir $(BUILDDIR); true
+
+$(BUILDDIR)/%.a: %
+	@printf $(BLUE)$(PROJECT)$(END)'\t'
+	BINDIR=$(CURDIR)/$(BUILDDIR) BUILDDIR=$(CURDIR)/$(BUILDDIR) \
+		   make -C $<
+
+$(BUILDDIR)/%.o: %.c
+	@[ -d $(BUILDDIR) ] || mkdir $(BUILDDIR)
+	@printf $(YELLOW)$(PROJECT)$(END)'\t'
 	$(CC) $(CFLAGS) -c $< -o $@
-	@echo $(GREEN)+++ obj:'\t'$(END)$(BUILDDIR)/$(YELLOW) $(@F)$(END)
 
-$(LIBDIR)/%.a: $(DEPSDIR)/%
-	@[ -d $(BUILDDIR)/$* ] || mkdir -p $(BUILDDIR)/$*; true
-	@										\
-		DEPSDIR=$(CURDIR)/$(DEPSDIR)		\
-		BINDIR=$(CURDIR)/$(BUILDDIR)		\
-		BUILDDIR=$(CURDIR)/$(BUILDDIR)/$*	\
-		LIBDIR=$(CURDIR)/$(LIBDIR)			\
-		make -s -C $< > /dev/null
-	@echo $(GREEN)+++ static lib:'\t'$(END)$(LIBDIR)/'\t'$(CYAN)$(@F)$(END)
+$(NAME): $(LIBRARIES) $(OBJECTS)
+	@printf $(YELLOW)$(PROJECT)$(END)'\t'
+	@ar rc $(@) $(addprefix $(BUILDDIR)/, $(shell ls $(BUILDDIR)/))
+	@echo OK
 
-$(NAME): $(LIBS) $(OBJECTS)
-	@ar -rc $(NAME) $(OBJECTS)
-	@$(foreach lib, $(LIBS), $(shell ar -x $(lib)))
-	ar -r $(NAME) $(foreach lib, $(LIBS), $(shell ar -t $(lib) | grep ".o" | grep -v SYMDEF))
-	@rm $(foreach lib, $(LIBS), $(shell ar -t $(lib) | grep ".o"))
-	@rm "__.SYMDEF SORTED" > /dev/null 2>&1 || true
-	@echo $(GREEN)+++ target:'\t'$(END)$(@D)/ $(BLUE)$(@F)$(END)
-
-$(DEPSDIR)/%:
-	@git clone http://github.com/qleguennec/$(@F).git $@
-	@make -s -C $@ purge
-
-.PHONY: clean fclean re deps clean-deps re-deps test rendu purge get-%%
+.PHONY: clean fclean re
 
 clean:
-	@rm $(LIBS) 2> /dev/null	\
-	&& echo $(RED)--- static lib:'\t'$(CYAN)$(LIBS:$(LIBDIR)/%.a=%.a); true
-	@rm $(OBJECTS) 2> /dev/null	\
-	&& echo $(RED)--- obj:'\t'$(YELLOW)$(OBJECTS)$(END); true
-	@rm -rf $(BUILDDIR)
+	@printf $(YELLOW)$(PROJECT)$(END)'\t'
+	rm -rf build/
 
 fclean: clean
-	@[ -f $(NAME) ] && rm $(NAME) \
-	&& echo $(RED)--- target:'\t'$(END)$(BINDIR)/ $(BLUE)$(NAME)$(END); true
+	@printf $(YELLOW)$(PROJECT)$(END)'\t'
+	rm -rf $(NAME)
 
 re: fclean all
-deps: $(addprefix $(DEPSDIR)/, $(LIBSRC))
-clean-deps:
-	@rm -rf $(DEPSDIR)
-
-re-deps: clean-deps deps
-
-test: rendu
-	@test/test.sh $(ARGS)
-	@test/test-functions-used.sh
-
-rendu:
-	@util/rendu.sh
-
-purge:
-	@util/purge.sh || true
-
-get-%:
-	@echo '$($*)'
