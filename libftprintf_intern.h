@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/07/05 18:30:12 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/07/05 19:49:14 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <limits.h>
+# include <stddef.h>
 
 static char				*g_alphabets[] =
 {
