@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/06/30 14:03:52 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/07/05 18:30:12 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,9 @@
 # include "libft/libft.h"
 # include "libftprintf.h"
 # include "libvect/libvect.h"
-# include <stdio.h>
 # include <stdarg.h>
 # include <stdlib.h>
 # include <stdint.h>
-# include <stddef.h>
 # include <limits.h>
 
 static char				*g_alphabets[] =
