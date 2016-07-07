@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf_intern.h"
+#include "libprintf_intern.h"
 
 int				ft_vasprintf
 	(char **ret, const char *format, va_list ap)

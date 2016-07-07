@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf_intern.h"
+#include "libprintf_intern.h"
 
 static int		wctovect
 	(t_vect *v, wchar_t wc)

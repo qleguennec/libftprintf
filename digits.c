@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf_intern.h"
+#include "libprintf_intern.h"
 
 size_t					digits_nb
 	(size_t x, int base)

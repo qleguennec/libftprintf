@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf_intern.h"
+#include "libprintf_intern.h"
 
 t_vect			*get_result
 	(const char *format, va_list ap)

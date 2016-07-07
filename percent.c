@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf_intern.h"
+#include "libprintf_intern.h"
 
 int				percent
 	(t_parse_result *p, t_vect *v)

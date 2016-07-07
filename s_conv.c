@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libvect/libvect.h"
-#include "libftprintf_intern.h"
+#include "libprintf_intern.h"
 
 int				c_conv
 	(t_parse_result *p, t_vect *v)

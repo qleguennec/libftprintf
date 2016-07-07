@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "libprintf.h"
 
 int				ft_snprintf
 	(char *str, size_t size, const char *format, ...)

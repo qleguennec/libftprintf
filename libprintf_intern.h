@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libprintf.h                                        :+:      :+:    :+:   */
+/*   libprintf_intern.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/07/07 16:36:01 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/07/07 16:54:14 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 # define PLUS		(1 << 4)
 # define APO		(1 << 5)
 
-# include "libft/libft.h"
-# include "libftprintf.h"
-# include "libvect/libvect.h"
+# include "../libft/libft.h"
+# include "../libvect/libvect.h"
+# include "libprintf.h"
 # include <stdarg.h>
 # include <stdlib.h>
 # include <stdint.h>
