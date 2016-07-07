@@ -1,9 +1,9 @@
 # Directories
-PROJECT		=	libftprintf
+PROJECT		=	libprintf
 BINDIR		?=	.
 BUILDDIR	?=	build
 SHELL		=	bash
-NAME		=	$(BINDIR)/libftprintf.a
+NAME		=	$(BINDIR)/libprintf.a
 
 # Compiler options
 CC			=	clang
@@ -43,12 +43,7 @@ SRC += s_conv.c
 SRC += vect_fmt.c
 SRC += ws_conv.c
 
-LIB += libvect.a
-LIB += libft.a
-
 OBJECTS		=	$(addprefix $(BUILDDIR)/, $(SRC:%.c=%.o))
-LIBRARIES	=	$(addprefix $(BUILDDIR)/, $(LIB))
-LIBLINK		=	$(addprefix -l, $(LIB:lib%.a=%))
 
 all: $(NAME)
 
@@ -62,9 +57,9 @@ $(BUILDDIR)/%.o: %.c
 	@printf $(YELLOW)$(PROJECT)$(END)'\t'
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(LIBRARIES) $(OBJECTS)
+$(NAME): $(OBJECTS)
 	@printf $(YELLOW)$(PROJECT)$(END)'\t'
-	@ar rc $(@) $(addprefix $(BUILDDIR)/, $(shell ls $(BUILDDIR)/))
+	@ar rc $(@) $(OBJECTS)
 	@echo OK
 
 .PHONY: clean fclean re
