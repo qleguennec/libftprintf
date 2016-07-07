@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/07/05 19:49:14 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/07/07 16:36:01 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,13 +148,14 @@ static t_conv_spec	g_convs_arr[] =
 	{"x", &i_conv, sizeof(int), BASE16LOW, 7, 1},
 };
 
-int						eval_post(t_parse_result *p, t_vect *v);
 int						eval_fmt(char **fmt, va_list ap, t_vect *v);
+int						eval_post(t_parse_result *p, t_vect *v);
 size_t					digits_nb(size_t x, int base);
-unsigned int			parse_attrs(char **fmt);
 size_t					parse_num(char **fmt, va_list ap);
 t_conv_spec				*parse_conv(char **fmt);
 t_l_modif_spec			*parse_l_modif(char **fmt);
 t_vect					*get_result(const char *fmt, va_list ap);
+unsigned int			parse_attrs(char **fmt);
+
 
 #endif
