@@ -6,12 +6,12 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:40 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/07/07 16:54:14 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/09/15 14:08:58 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_INTERN_H
-# define LIBFTPRINTF_INTERN_H
+#ifndef LIBPRINTF_INTERN_H
+# define LIBPRINTF_INTERN_H
 
 # define BASE2		0
 # define BASE8		1
@@ -156,6 +156,5 @@ t_conv_spec				*parse_conv(char **fmt);
 t_l_modif_spec			*parse_l_modif(char **fmt);
 t_vect					*get_result(const char *fmt, va_list ap);
 unsigned int			parse_attrs(char **fmt);
-
 
 #endif
