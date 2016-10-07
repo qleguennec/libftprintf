@@ -6,7 +6,7 @@
 /*   By: qle-guen <qle-guen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 18:27:00 by qle-guen          #+#    #+#             */
-/*   Updated: 2016/07/06 13:46:42 by qle-guen         ###   ########.fr       */
+/*   Updated: 2016/10/07 20:47:45 by qle-guen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ t_vect			*get_result
 
 	fmt = (char *)format;
 	v = ft_memalloc(sizeof(*v));
-	if (!v)
-		return (NULL);
 	while (eval_fmt(&fmt, ap, v))
 		;
 	return (!*fmt ? v : NULL);
