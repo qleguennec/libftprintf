@@ -66,7 +66,7 @@ $(NAME): $(OBJECTS)
 
 clean:
 	@printf $(YELLOW)$(PROJECT)$(END)'\t'
-	rm -rf build/
+	rm -rf $(BUILDDIR)
 
 fclean: clean
 	@printf $(YELLOW)$(PROJECT)$(END)'\t'
