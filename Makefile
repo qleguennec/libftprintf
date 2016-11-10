@@ -2,12 +2,11 @@
 PROJECT		=	libprintf
 BINDIR		?=	.
 BUILDDIR	?=	build
-SHELL		=	bash
 NAME		=	$(BINDIR)/libprintf.a
 
 # Compiler options
 CC			=	clang
-CFLAGS		=	$(addprefix -I,$(INCLUDE)) -Wall -Wextra -Werror -g
+CFLAGS		=	-Wall -Wextra -Werror -g
 
 # Color output
 BLACK		=	"\033[0;30m"
@@ -20,37 +19,11 @@ CYAN		=	"\033[0;36m"
 WHITE		=	"\033[0;37m"
 END			=	"\033[0m"
 
-SRC += digits.c
-SRC += eval_fmt.c
-SRC += eval_post.c
-SRC += ft_asprintf.c
-SRC += ft_dprintf.c
-SRC += ft_printf.c
-SRC += ft_snprintf.c
-SRC += ft_sprintf.c
-SRC += ft_vasprintf.c
-SRC += ft_vdprintf.c
-SRC += ft_vprintf.c
-SRC += ft_vsnprintf.c
-SRC += ft_vsprintf.c
-SRC += get_result.c
-SRC += i_conv.c
-SRC += n_conv.c
-SRC += parsers.c
-SRC += p_conv.c
-SRC += percent.c
-SRC += s_conv.c
-SRC += vect_fmt.c
-SRC += ws_conv.c
-
+SRCEX		=
+SRC			=	$(filter-out $(SRCEX), $(filter %.c, $(shell find . -type f)))
 OBJECTS		=	$(addprefix $(BUILDDIR)/, $(SRC:%.c=%.o))
 
 all: $(NAME)
-
-$(BUILDDIR)/%.a: %
-	@printf $(BLUE)$(PROJECT)$(END)'\t'
-	BINDIR=$(CURDIR)/$(BUILDDIR) BUILDDIR=$(CURDIR)/$(BUILDDIR) \
-		   make -C $<
 
 $(BUILDDIR)/%.o: %.c
 	@[ -d $(BUILDDIR) ] || mkdir $(BUILDDIR)
@@ -62,14 +35,20 @@ $(NAME): $(OBJECTS)
 	@ar rc $(@) $(OBJECTS)
 	@echo OK
 
-.PHONY: clean fclean re
+.PHONY: clean sclean fclean re r
 
 clean:
 	@printf $(YELLOW)$(PROJECT)$(END)'\t'
 	rm -rf $(BUILDDIR)
 
+sclean:
+	@printf $(YELLOW)$(PROJECT)$(END)'\t'
+	rm -rf $(OBJECTS)
+
 fclean: clean
 	@printf $(YELLOW)$(PROJECT)$(END)'\t'
 	rm -rf $(NAME)
+
+r: sclean all
 
 re: fclean all
